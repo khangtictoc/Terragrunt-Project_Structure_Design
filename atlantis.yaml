@@ -24,15 +24,15 @@ projects:
       enabled: true
     workflow: uat
 
-  - name: staging
+  - name: stg
     branch: /master/
     dir: .
     autoplan:
       when_modified:
-        - "environment/staging/**/*.hcl"
+        - "environment/stg/**/*.hcl"
         - "modules/**/*.tf"
       enabled: true
-    workflow: staging
+    workflow: stg
 
   - name: dev
     branch: /master/
