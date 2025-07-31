@@ -18,7 +18,11 @@ else
 fi
 
 # Create DynamoDB table if it does not exist
-if ! aws dynamodb describe-table --table-name "$DYNAMODB_TABLE_NAME" > /dev/null 2>&1; then
+if ! aws dynamodb describe-table --table-name "$DYNAMODB_TABLE_NAME" --region "$REGION" 2>&1 | grep -q 'ResourceNotFoundException'; then
+  echo "--------------------------------------------------------"
+  echo "| DynamoDB table $DYNAMODB_TABLE_NAME already exists. |"
+  echo "--------------------------------------------------------"
+else
   aws dynamodb create-table \
     --table-name "$DYNAMODB_TABLE_NAME" \
     --attribute-definitions AttributeName=LockID,AttributeType=S \
@@ -27,9 +31,5 @@ if ! aws dynamodb describe-table --table-name "$DYNAMODB_TABLE_NAME" > /dev/null
     --region "$REGION"
   echo "--------------------------------------------------------"
   echo "| DynamoDB table $DYNAMODB_TABLE_NAME created. |"
-  echo "--------------------------------------------------------"
-else
-  echo "--------------------------------------------------------"
-  echo "| DynamoDB table $DYNAMODB_TABLE_NAME already exists. |"
   echo "--------------------------------------------------------"
 fi

@@ -11,6 +11,7 @@ locals {
   global_project_name    = "testproject"
   env    = local.environment_vars.locals.env
   region = local.region_vars.locals.region
+  tags   = local.environment_vars.locals.tags
 
   # Account & Profile Settings
   profile = (
