@@ -25,6 +25,7 @@ locals {
   vpc_cidr = "10.0.0.0/16"
   azs                 = ["us-east-1a", "us-east-1b", "us-east-1c", "us-east-1d"]
   env    = include.root.locals.env
+  tags   = include.root.locals.tags
 }
 
 inputs = {
@@ -37,5 +38,7 @@ inputs = {
 
   private_subnet_names = ["private-subnet-one", "private-subnet-two"]
   public_subnets_names = ["public-subnet-one", "public-subnet-two"]
+
+  tags = local.tags
 }
 
