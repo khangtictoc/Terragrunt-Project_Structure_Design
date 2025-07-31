@@ -17,6 +17,7 @@ Destroy all resources
 
 ## Project Architecture Design
 
-mc ^2^
+Go to [My Blog]() for more details.
 
+Reference: [https://github.com/gruntwork-io/terragrunt-infrastructure-live-example](https://github.com/gruntwork-io/terragrunt-infrastructure-live-example)
 

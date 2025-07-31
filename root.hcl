@@ -7,15 +7,16 @@ locals {
   region_vars = read_terragrunt_config(find_in_parent_folders("region.hcl"))
 
   ### Project Settings
-  project_name    = "testproject"
+  account_name    = "personal"
+  global_project_name    = "testproject"
   env    = local.environment_vars.locals.env
   region = local.region_vars.locals.region
 
   # Account & Profile Settings
   profile = (
-    local.env == "dev" ? "${local.project_name}-dev" :
-    local.env == "staging" ? "${local.project_name}-staging" :
-    local.env == "prod" ? "${local.project_name}-prod" :
+    local.env == "dev" ? "${local.account_name}-dev" :
+    local.env == "staging" ? "${local.account_name}-staging" :
+    local.env == "prod" ? "${local.account_name}-prod" :
     "default"
   )
 }
@@ -54,6 +55,11 @@ generate "provider-us-east-1-dev" {
 provider "aws" {
   region  = "${local.region}"
   profile = "${local.profile}"
+  default_tags {
+    tags = {
+      ManagedBy   = "terraform"
+    }
+  }
 }
 EOF
 }
