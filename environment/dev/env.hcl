@@ -1,3 +1,3 @@
-inputs = {
-  env      = "dev"
+locals {
+  env= "dev"
 }

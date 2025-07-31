@@ -22,3 +22,6 @@
 # OS generated files
 .DS_Store
 Thumbs.db
+
+trufflehog_output.txt
+ggshield_output.txt

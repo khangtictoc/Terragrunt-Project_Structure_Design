@@ -4,105 +4,42 @@ parallel_plan: true
 parallel_apply: false
 
 projects:
-  - name: production
-    branch: /.*/
-    dir: aws/mcp-eks/
-    workspace: prd
+  - name: prod
+    branch: /master/
+    dir: .
     autoplan:
       when_modified:
-        - "./prd.tfvars"
+        - "environment/prod/**/*.hcl"
+        - "modules/**/*.tf"
       enabled: true
-    workflow: production
-  - name: production-rancher
-    branch: /.*/
-    dir: aws/mcp-eks/
-    workspace: prd-rancher
+    workflow: prod
+
+  - name: uat
+    branch: /master/
+    dir: .
     autoplan:
       when_modified:
-        - "./prd-rancher.tfvars"
+        - "environment/uat/**/*.hcl"
+        - "modules/**/*.tf"
       enabled: true
-    workflow: production-rancher
+    workflow: uat
+
+  - name: staging
+    branch: /master/
+    dir: .
+    autoplan:
+      when_modified:
+        - "environment/staging/**/*.hcl"
+        - "modules/**/*.tf"
+      enabled: true
+    workflow: staging
+
   - name: dev
-    branch: /.*/
-    dir: aws/mcp-eks/
-    workspace: dev
+    branch: /master/
+    dir: .
     autoplan:
       when_modified:
-        - "./dev.tfvars"
+        - "environment/dev/**/*.hcl"
+        - "modules/**/*.tf"
       enabled: true
     workflow: dev
-  - name: dev-rancher
-    branch: /.*/
-    dir: aws/mcp-eks/
-    workspace: dev-rancher
-    autoplan:
-      when_modified:
-        - "./dev-rancher.tfvars"
-      enabled: true
-    workflow: dev-rancher
-  - name: uat
-    branch: /.*/
-    dir: aws/mcp-eks/
-    workspace: uat
-    autoplan:
-      when_modified:
-        - "./uat.tfvars"
-      enabled: true
-    workflow: uat
-  - name: svc
-    branch: /.*/
-    dir: aws/mcp-eks/
-    workspace: svc
-    autoplan:
-      when_modified:
-        - "./svc.tfvars"
-      enabled: true
-    workflow: uat
-  - name: production-new
-    branch: /.*/
-    dir: aws/mcp-eks/
-    autoplan:
-      when_modified:
-        - "./prd.tfvars"
-      enabled: true
-    workflow: production-new
-  - name: production-rancher-new
-    branch: /.*/
-    dir: aws/mcp-eks/
-    autoplan:
-      when_modified:
-        - "./prd-rancher.tfvars"
-      enabled: true
-    workflow: production-rancher-new
-  - name: svc-new
-    branch: /.*/
-    dir: aws/mcp-eks/
-    autoplan:
-      when_modified:
-        - "./svc.tfvars"
-      enabled: true
-    workflow: svc-new
-  - name: dev-new
-    branch: /.*/
-    dir: aws/mcp-eks/
-    autoplan:
-      when_modified:
-        - "./dev.tfvars"
-      enabled: true
-    workflow: dev-new
-  - name: dev-rancher-new
-    branch: /.*/
-    dir: aws/mcp-eks/
-    autoplan:
-      when_modified:
-        - "./dev-rancher.tfvars"
-      enabled: true
-    workflow: dev-rancher-new
-  - name: uat-new
-    branch: /.*/
-    dir: aws/mcp-eks/
-    autoplan:
-      when_modified:
-        - "./uat.tfvars"
-      enabled: true
-    workflow: uat-new

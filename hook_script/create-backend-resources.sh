@@ -6,22 +6,30 @@ DYNAMODB_TABLE_NAME="terragrunt-state-lock"
 REGION="us-east-1"
 
 # Create S3 bucket if it does not exist
-if ! aws s3api head-bucket --bucket "$BUCKET_NAME" 2>/dev/null; then
+if aws s3 ls "s3://$BUCKET_NAME" 2>&1 | grep -q 'NoSuchBucket'; then
   aws s3api create-bucket --bucket "$BUCKET_NAME" --region "$REGION"
-  echo "S3 bucket $BUCKET_NAME created."
+  echo "-----------------------------------"
+  echo "| S3 bucket $BUCKET_NAME created. |"
+  echo "-----------------------------------"
 else
-  echo "S3 bucket $BUCKET_NAME already exists."
+  echo "------------------------------------------"
+  echo "| S3 bucket $BUCKET_NAME already exists. |"
+  echo "------------------------------------------"
 fi
 
 # Create DynamoDB table if it does not exist
-if ! aws dynamodb describe-table --table-name "$DYNAMODB_TABLE_NAME" 2>/dev/null; then
+if ! aws dynamodb describe-table --table-name "$DYNAMODB_TABLE_NAME" > /dev/null 2>&1; then
   aws dynamodb create-table \
     --table-name "$DYNAMODB_TABLE_NAME" \
     --attribute-definitions AttributeName=LockID,AttributeType=S \
     --key-schema AttributeName=LockID,KeyType=HASH \
     --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
     --region "$REGION"
-  echo "DynamoDB table $DYNAMODB_TABLE_NAME created."
+  echo "------------------------------------------------"
+  echo "| DynamoDB table $DYNAMODB_TABLE_NAME created. |"
+  echo "------------------------------------------------"
 else
-  echo "DynamoDB table $DYNAMODB_TABLE_NAME already exists."
+  echo "-------------------------------------------------------"
+  echo "| DynamoDB table $DYNAMODB_TABLE_NAME already exists. |"
+  echo "-------------------------------------------------------"
 fi
