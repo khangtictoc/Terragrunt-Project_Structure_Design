@@ -71,9 +71,9 @@ EOF
 # │                  │
 # └──────────────────┘
 
-terraform {
-  before_hook "create_backend_resources" {
-    commands = ["init", "plan", "apply"]
-    execute  = ["bash", "${substr(local.root_module_path, 0, length(local.root_module_path) - 8)}/hook_script/create-backend-resources.sh"]
-  }
-}
+# terraform {
+#   before_hook "create_backend_resources" {
+#     commands = ["init", "plan", "apply"]
+#     execute  = ["bash", "${substr(local.root_module_path, 0, length(local.root_module_path) - 8)}/hook_script/create-backend-resources.sh"]
+#   }
+# }

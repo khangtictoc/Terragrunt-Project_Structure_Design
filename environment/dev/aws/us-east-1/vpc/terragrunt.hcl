@@ -35,9 +35,11 @@ inputs = {
 
   private_subnets     = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k)]
   public_subnets      = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 4)]
-
   private_subnet_names = ["private-subnet-one", "private-subnet-two"]
   public_subnets_names = ["public-subnet-one", "public-subnet-two"]
+
+  enable_nat_gateway = true
+  create_private_nat_gateway_route = true
 
   tags = local.tags
 }
