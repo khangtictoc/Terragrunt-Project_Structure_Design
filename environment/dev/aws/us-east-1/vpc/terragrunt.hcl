@@ -41,6 +41,7 @@ inputs = {
 
   enable_nat_gateway = true
   create_private_nat_gateway_route = true
+  single_nat_gateway = true
 
   tags = local.tags
 }
