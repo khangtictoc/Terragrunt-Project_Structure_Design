@@ -17,31 +17,44 @@ include "root" {
 # └──────────────────────────────────────┘
 
 terraform {
-  source  = "tfr:///terraform-aws-modules/vpc/aws?version=6.0.1"
+  source  = "tfr:///terraform-aws-modules/security-group/aws?version=5.3.0"
 }
 
 locals {
-  name   = "testproject"
+  name = "testproject-${local.env}"
   vpc_cidr = "10.0.0.0/16"
-  azs                 = ["us-east-1a", "us-east-1b", "us-east-1c", "us-east-1d"]
   env    = include.root.locals.env
   tags   = include.root.locals.tags
 }
 
+dependency "vpc" {
+  config_path = "../vpc"
+}
 
 inputs = {
-  name = "testproject-${local.env}-vpc"
-  cidr = local.vpc_cidr
-  azs  = local.azs
+  name        = "test--allow-all-${local.env}"
+  description = "[Testing] Allow all traffic"
+  vpc_id      = dependency.vpc.outputs.vpc_id
 
-  private_subnets     = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k)]
-  public_subnets      = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 4)]
-  private_subnet_names = ["private-subnet-one", "private-subnet-two"]
-  public_subnets_names = ["public-subnet-one", "public-subnet-two"]
+  ingress_with_cidr_blocks = [
+    {
+      from_port   = 0
+      to_port     = 0
+      protocol    = -1
+      description = "All traffic"
+      cidr_blocks = "0.0.0.0/0"
+    },
+  ]
 
-  enable_nat_gateway = true
-  create_private_nat_gateway_route = true
-
+  egress_with_cidr_blocks = [
+    {
+      from_port   = 0
+      to_port     = 0
+      protocol    = -1
+      description = "All traffic"
+      cidr_blocks = "0.0.0.0/0"
+    },
+  ]
   tags = local.tags
 }
 
