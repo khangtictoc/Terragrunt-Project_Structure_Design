@@ -1,5 +1,5 @@
 include "root" {
-  path = find_in_parent_folders("root.hcl")
+  path   = find_in_parent_folders("root.hcl")
   expose = true
 }
 
@@ -17,14 +17,14 @@ include "root" {
 # └──────────────────────────────────────┘
 
 terraform {
-  source  = "tfr:///terraform-aws-modules/security-group/aws?version=5.3.0"
+  source = "tfr:///terraform-aws-modules/security-group/aws?version=5.3.0"
 }
 
 locals {
-  name = "testproject-${local.env}"
+  name     = "testproject-${local.env}"
   vpc_cidr = "10.0.0.0/16"
-  env    = include.root.locals.env
-  tags   = include.root.locals.tags
+  env      = include.root.locals.env
+  tags     = include.root.locals.tags
 }
 
 dependency "vpc" {

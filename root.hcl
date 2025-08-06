@@ -4,14 +4,14 @@ locals {
   ### Terragrunt Settings
   root_module_path = find_in_parent_folders("root.hcl")
   environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
-  region_vars = read_terragrunt_config(find_in_parent_folders("region.hcl"))
+  region_vars      = read_terragrunt_config(find_in_parent_folders("region.hcl"))
 
   ### Project Settings
-  account_name    = "personal"
-  global_project_name    = "testproject"
-  env    = local.environment_vars.locals.env
-  region = local.region_vars.locals.region
-  tags   = local.environment_vars.locals.tags
+  account_name        = "personal"
+  global_project_name = "testproject"
+  env                 = local.environment_vars.locals.env
+  region              = local.region_vars.locals.region
+  tags                = local.environment_vars.locals.tags
 
   # Account & Profile Settings
   profile = (
@@ -30,7 +30,7 @@ locals {
 generate "backend" {
   path      = "backend.tf"
   if_exists = "overwrite_terragrunt"
-  contents = <<EOF
+  contents  = <<EOF
 terraform {
   backend "s3" {
     bucket         = "terragrunt-state-backend"
@@ -50,9 +50,9 @@ EOF
 # │                                      │
 # └──────────────────────────────────────┘
 generate "provider-us-east-1-dev" {
-  path = "provider.tf"
+  path      = "provider.tf"
   if_exists = "overwrite_terragrunt"
-  contents = <<EOF
+  contents  = <<EOF
 provider "aws" {
   region  = "${local.region}"
   profile = "${local.profile}"

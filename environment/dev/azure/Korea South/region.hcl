@@ -1,3 +1,3 @@
 locals {
-  region      = "Korea South"
+  region = "Korea South"
 }

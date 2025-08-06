@@ -1,5 +1,5 @@
 locals {
-  env= "dev"
+  env = "dev"
   tags = {
     Environment = "dev"
   }

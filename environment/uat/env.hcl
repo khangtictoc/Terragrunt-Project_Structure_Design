@@ -1,5 +1,5 @@
 locals {
-  env= "uat"
+  env = "uat"
   tags = {
     Environment = "uat"
   }

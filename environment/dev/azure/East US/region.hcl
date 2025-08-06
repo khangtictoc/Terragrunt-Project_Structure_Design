@@ -1,3 +1,3 @@
 locals {
-  region      = "East US"
+  region = "East US"
 }
