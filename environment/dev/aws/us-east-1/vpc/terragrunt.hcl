@@ -21,18 +21,17 @@ terraform {
 }
 
 locals {
-  name     = "testproject"
+  name     = "testproject-${local.env}-vpc"
   vpc_cidr = "10.0.0.0/16"
-  azs      = ["us-east-1a", "us-east-1b", "us-east-1c", "us-east-1d"]
   env      = include.root.locals.env
   tags     = include.root.locals.tags
 }
 
 
 inputs = {
-  name = "testproject-${local.env}-vpc"
+  name = local.name
   cidr = local.vpc_cidr
-  azs  = local.azs
+  azs  = ["us-east-1a", "us-east-1b", "us-east-1c", "us-east-1d"]
 
   private_subnets      = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k)]
   public_subnets       = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 4)]

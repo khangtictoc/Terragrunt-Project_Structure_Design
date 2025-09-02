@@ -23,6 +23,8 @@
 .DS_Store
 Thumbs.db
 
-trufflehog_output.txt
-ggshield_output.txt
+# Security Scanners
 .cache_ggshield
+
+# Output files 
+output/**

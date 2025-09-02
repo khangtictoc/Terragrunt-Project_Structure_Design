@@ -21,8 +21,7 @@ terraform {
 }
 
 locals {
-  name     = "testproject-${local.env}"
-  vpc_cidr = "10.0.0.0/16"
+  name     = "test--allow-all-${local.env}"
   env      = include.root.locals.env
   tags     = include.root.locals.tags
 }
@@ -32,7 +31,7 @@ dependency "vpc" {
 }
 
 inputs = {
-  name        = "test--allow-all-${local.env}"
+  name        = local.name
   description = "[Testing] Allow all traffic"
   vpc_id      = dependency.vpc.outputs.vpc_id
 
