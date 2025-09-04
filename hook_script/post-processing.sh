@@ -16,8 +16,6 @@ function copy-output-to-s3() {
     # Assign arguments to variables
     FOLDER_PATH="$1"
     BUCKET_NAME="$2"
-    echo $FOLDER_PATH
-    echo $BUCKET_NAME
 
     # Check if folder exists
     if [ ! -d "$FOLDER_PATH" ]; then
