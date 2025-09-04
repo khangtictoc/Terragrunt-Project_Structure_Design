@@ -15,6 +15,7 @@ locals {
   tags                = local.environment_vars.locals.tags
   
   cloud_provider = regex(".*/(aws|azure)/.*", path_relative_to_include())[0]
+  terragrunt_output_s3_bucket = "terragrunt-output"
 
   # Account & Profile Settings
   profile = (
@@ -23,31 +24,6 @@ locals {
     local.env == "prod" ? "${local.account_name}-prod" :
     "default"
   )
-
-  provider_config = {
-    aws = <<-EOF
-provider "aws" {
-  region  = "${local.region}"
-  profile = "${local.profile}"
-  default_tags {
-    tags = {
-      ManagedBy = "terraform"
-    }
-  }
-}
-EOF
-    azure = <<-EOF
-provider "azurerm" {
-  resource_provider_registrations = "none"
-
-  subscription_id = "ac90b42a-8ba9-48f5-9479-94dfd054e40d"
-  tenant_id       = "4226c1de-24e6-4d6f-b050-b14a85140192"
-
-  features {}
-}
-EOF
-  }
-
 }
 
 # ┌──────────────────────────────────────┐
@@ -78,10 +54,27 @@ EOF
 # │                                      │
 # └──────────────────────────────────────┘
 
-generate "provider-config" {
+generate "provider_config" {
   path      = "provider.tf"
   if_exists = "overwrite_terragrunt"
-  contents  = local.cloud_provider == "aws" ? local.provider_config.aws : local.provider_config.azure
+  contents  = <<-EOF
+provider "aws" {
+  region  = "${local.region}"
+  profile = "${local.profile}"
+  default_tags {
+    tags = {
+      ManagedBy = "terraform"
+    }
+  }
+}
+
+provider "azurerm" {
+  resource_provider_registrations = "none"
+  subscription_id = "ac90b42a-8ba9-48f5-9479-94dfd054e40d"
+  tenant_id       = "4226c1de-24e6-4d6f-b050-b14a85140192"
+  features {}
+}
+EOF
 }
 
 # ┌──────────────────────────────────┐
@@ -90,7 +83,7 @@ generate "provider-config" {
 # │                                  │
 # └──────────────────────────────────┘
 
-generate "provider-version" {
+generate "terraform_version_constraint" {
   path      = "terraform.tf"
   if_exists = "overwrite_terragrunt"
   contents  = <<-EOF
@@ -123,8 +116,15 @@ EOF
 # }
 
 # terraform {
-#   before_hook "clean_up_cache_folder" {
+#   after_hook "clean_up_cache_folder" {
 #     commands = ["init", "plan", "apply"]
 #     execute  = ["bash", "${local.root_folder_path}/hook_script/clean-cache.sh"]
 #   }
 # }
+
+terraform {
+  after_hook "output_to_s3" {
+    commands = ["init", "plan", "apply"]
+    execute  = ["bash", "${local.root_folder_path}/hook_script/post-processing.sh", "${path_relative_to_include()}/output", local.terragrunt_output_s3_bucket]
+  }
+}
