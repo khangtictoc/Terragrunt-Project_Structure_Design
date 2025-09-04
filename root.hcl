@@ -125,6 +125,6 @@ EOF
 terraform {
   after_hook "output_to_s3" {
     commands = ["init", "plan", "apply"]
-    execute  = ["bash", "${local.root_folder_path}hook_script/post-processing.sh", "${path_relative_to_include()}/output", local.terragrunt_output_s3_bucket]
+    execute  = ["bash", "${local.root_folder_path}/hook_script/post-processing.sh", "${path_relative_to_include()}/output", local.terragrunt_output_s3_bucket]
   }
 }
