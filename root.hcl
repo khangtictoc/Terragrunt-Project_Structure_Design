@@ -3,7 +3,7 @@
 locals {
   ### Terragrunt Settings
   root_module_path = find_in_parent_folders("root.hcl")
-  root_folder_path = "${substr(local.root_module_path, 0, length(local.root_module_path) - 8)}"
+  root_folder_path = "${substr(local.root_module_path, 0, length(local.root_module_path) - 9)}"
   environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
   region_vars      = read_terragrunt_config(find_in_parent_folders("region.hcl"))
 
@@ -125,6 +125,6 @@ EOF
 terraform {
   after_hook "output_to_s3" {
     commands = ["init", "plan", "apply"]
-    execute  = ["bash", "${local.root_folder_path}/hook_script/post-processing.sh", "${path_relative_to_include()}/output", local.terragrunt_output_s3_bucket]
+    execute  = ["bash", "${local.root_folder_path}hook_script/post-processing.sh", "${path_relative_to_include()}/output", local.terragrunt_output_s3_bucket]
   }
 }
