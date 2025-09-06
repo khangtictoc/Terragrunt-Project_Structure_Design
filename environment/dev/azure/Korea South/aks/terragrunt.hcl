@@ -39,6 +39,7 @@ inputs = {
     location            =  local.region
     resource_group_name = "sample-labs"
     dns_prefix          = "exampleaks1"
+    kubernetes_version  = "1.32.6"
 
     default_node_pool = {
       name       = "default"
@@ -53,7 +54,7 @@ inputs = {
       },
       {
       name       = "backend"
-      node_count = 2
+      node_count = 1
       vm_size    = "Standard_D2_v2"
       }
     ] 
