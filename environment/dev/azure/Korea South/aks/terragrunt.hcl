@@ -45,18 +45,18 @@ inputs = {
       name       = "default"
       temporary_name_for_rotation  = "temp"
       node_count = 1
-      vm_size    = "Standard_D2ls_v5"
+      vm_size    = "Standard_A2_v2"
     }
     cluster_node_pool = [
       {
         name       = "frontend"
         node_count = 1
-        vm_size    = "Standard_D2ls_v5"
+        vm_size    = "Standard_A2_v2"
       },
       {
         name       = "backend"
         node_count = 1
-        vm_size    = "Standard_D2ls_v5"
+        vm_size    = "Standard_A2_v2"
       }
     ] 
     tags = local.tags
