@@ -36,6 +36,7 @@ inputs = {
     created = true
     kubeconfig_output_path = local.kubeconfig_output_path
     name                = local.name
+    nodepool_temporary_name_for_rotation = "temp"
     location            =  local.region
     resource_group_name = "sample-labs"
     dns_prefix          = "exampleaks1"
@@ -43,7 +44,6 @@ inputs = {
 
     default_node_pool = {
       name       = "default"
-      temporary_name_for_rotation  = "temp"
       node_count = 1
       vm_size    = "Standard_A2_v2"
     }
