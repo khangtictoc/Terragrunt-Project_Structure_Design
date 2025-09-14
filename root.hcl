@@ -70,8 +70,8 @@ provider "aws" {
 
 provider "azurerm" {
   resource_provider_registrations = "none"
-  subscription_id = "ac90b42a-8ba9-48f5-9479-94dfd054e40d"
-  tenant_id       = "4226c1de-24e6-4d6f-b050-b14a85140192"
+  # subscription_id = "ac90b42a-8ba9-48f5-9479-94dfd054e40d"
+  # tenant_id       = "4226c1de-24e6-4d6f-b050-b14a85140192"
   features {}
 }
 EOF
