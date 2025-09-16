@@ -7,7 +7,7 @@ include "root" {
 
 # Use self-developed modules
 # terraform {
-#     source = "../../../../../modules/azure/vnet"
+#     source = "../../../../../modules/azure/aks"
 # }
 
 # ┌──────────────────────────────────────────────────────────────────┐ 
@@ -18,41 +18,32 @@ include "root" {
 
 # Use self-developed modules
 terraform {
-  source = "git::https://gitlab.com/terraform-modules7893436/azure/vnet.git"
-}
-
-dependency "naming" {
-  config_path = "../naming"
-}
-
-locals {
-  env      = include.root.locals.env
-  region   = include.root.locals.region
-  tags     = include.root.locals.tags
+  source = "git::https://gitlab.com/terraform-modules7893436/azure/naming.git"
 }
 
 inputs = {
-  vnet = {
-    enabled             = true
-    create_resource_group = true
-    name                = dependency.naming.outputs.vnet_name
-    location            = local.region
-    resource_group_name = "sample-labs"
-    address_space       = ["10.0.0.0/16"]
-    
-    subnets = [
-      {
-        name             = "subnet1"
-        address_prefixes = ["10.0.1.0/24"]
-      },
-      {
-        name             = "subnet2"
-        address_prefixes = ["10.0.2.0/24"]
-      }
-    ]
-
-    tags = local.tags
+  project = {
+    name = "testproject"
+    aks_cluster = {
+      target_name = "labs"
+      index = 0
+    }
+    resource_group = {
+      target_name = "general"
+      index = 0
+    }
+    key_vault = {
+      target_name = "general"
+      index = 0
+    }
+    storage_account = {
+      target_name = "general"
+      index = 0
+    }
+    vnet = {
+      target_name = "general"
+      index = 0
+    }
   }
-  
 }
 

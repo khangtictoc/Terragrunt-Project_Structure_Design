@@ -21,8 +21,12 @@ terraform {
   source = "git::https://gitlab.com/terraform-modules7893436/azure/aks.git"
 }
 
+dependency "naming" {
+  config_path = "../naming"
+}
+
 locals {
-  name     = "testproject-${local.env}"
+  name     = dependency.naming.outputs.aks_cluster_name
   kubeconfig_output_path = "${local.root_folder_path}/output/${local.env}/${local.platform}/${local.region}/kubeconfig"
 
   env      = include.root.locals.env
