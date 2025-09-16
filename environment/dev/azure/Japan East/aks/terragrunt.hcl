@@ -26,7 +26,6 @@ dependency "naming" {
 }
 
 locals {
-  name     = dependency.naming.outputs.aks_cluster_name
   kubeconfig_output_path = "${local.root_folder_path}/output/${local.env}/${local.platform}/${local.region}/kubeconfig"
 
   env      = include.root.locals.env
@@ -40,7 +39,7 @@ inputs = {
   aks = {
     created = true
     kubeconfig_output_path = local.kubeconfig_output_path
-    name                = local.name
+    name                = dependency.naming.outputs.aks_cluster_name
     nodepool_temporary_name_for_rotation = "temp"
     location            =  local.region
     resource_group_name = "sample-labs"
