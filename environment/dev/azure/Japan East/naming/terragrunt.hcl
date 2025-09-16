@@ -7,7 +7,7 @@ include "root" {
 
 # Use self-developed modules
 # terraform {
-#     source = "../../../../../modules/azure/aks"
+#     source = "../../../../../modules/azure/naming"
 # }
 
 # ┌──────────────────────────────────────────────────────────────────┐ 
