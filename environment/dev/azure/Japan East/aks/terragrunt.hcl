@@ -23,6 +23,7 @@ terraform {
 
 dependency "naming" {
   config_path = "../naming"
+  skip_outputs = true
 }
 
 locals {
