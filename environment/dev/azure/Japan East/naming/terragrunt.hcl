@@ -28,22 +28,6 @@ inputs = {
       target_name = "labs"
       index = 0
     }
-    resource_group = {
-      target_name = "general"
-      index = 0
-    }
-    key_vault = {
-      target_name = "general"
-      index = 0
-    }
-    storage_account = {
-      target_name = "general"
-      index = 0
-    }
-    vnet = {
-      target_name = "general"
-      index = 0
-    }
   }
 }
 
