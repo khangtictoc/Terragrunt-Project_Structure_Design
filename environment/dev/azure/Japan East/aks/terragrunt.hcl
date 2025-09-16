@@ -23,10 +23,11 @@ terraform {
 
 locals {
   name     = "testproject-${local.env}"
-  kubeconfig_output_path = "${local.root_folder_path}/output/dev/azure/Korea South/kubeconfig"
+  kubeconfig_output_path = "${local.root_folder_path}/output/${local.env}/${local.platform}/${local.region}/kubeconfig"
 
   env      = include.root.locals.env
   region   = include.root.locals.region
+  platform = include.root.locals.platform
   tags     = include.root.locals.tags
   root_folder_path = include.root.locals.root_folder_path
 }
