@@ -23,7 +23,15 @@ terraform {
 
 dependency "naming" {
   config_path = "../naming"
-  skip_outputs = true
+  mock_outputs = {
+    aks_cluster_name = "TESTPROJECT-GENERAL-00"
+    key_vault_name = "KV-TESTPROJECT-GENERAL-00"
+    load_balancer_name = "LB-TESTPROJECT-GENERAL-00"
+    resource_group_name = "RG-TESTPROJECT-GENERAL-00"
+    storage_account_name = "st-testprojectgeneral-00"
+    vnet_name = "VNET-TESTPROJECT-GENERAL-00"
+  }
+  mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
 
 locals {
