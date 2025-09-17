@@ -9,6 +9,7 @@ function welcome-message() {
     echo "│  - Copy output to S3 bucket          │"
     echo "│                                      │"
     echo "└──────────────────────────────────────┘"
+    echo
 }
 
 function clean-cache() {
@@ -35,7 +36,7 @@ function copy-output-to-s3() {
 
     # Check if folder exists
     if [ ! -d "$FOLDER_PATH" ]; then
-        echo "Error: Folder '$FOLDER_PATH' does not exist"
+        echo -e "${YELLOW}[WARNING]${NC} Folder '$FOLDER_PATH' does not exist. Skipping S3 sync."
     else
         echo "Starting sync from '$FOLDER_PATH' to s3://$BUCKET_NAME/"
         aws s3 sync "$FOLDER_PATH" "s3://$BUCKET_NAME/" --delete
@@ -50,6 +51,8 @@ function copy-output-to-s3() {
 }
 
 function main() {
+    source <(curl -sS https://raw.githubusercontent.com/khangtictoc/Productive-Workspace-Set-Up/refs/heads/main/linux/utility/library/bash/ansi_color.sh)
+    init-ansicolor
     welcome-message
     #clean-cache
     copy-output-to-s3 "$1" "$2"
