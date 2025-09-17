@@ -58,7 +58,7 @@ EOF
 
 generate "provider_config" {
   path      = "provider.tf"
-  if_exists = "overwrite_terragrunt"
+  if_exists = "skip"
   contents  = <<-EOF
 provider "aws" {
   region  = "${local.region}"
@@ -71,7 +71,6 @@ provider "aws" {
 }
 
 provider "azurerm" {
-  resource_provider_registrations = "none"
   # subscription_id = "ac90b42a-8ba9-48f5-9479-94dfd054e40d"
   # tenant_id       = "4226c1de-24e6-4d6f-b050-b14a85140192"
   features {}
@@ -87,7 +86,7 @@ EOF
 
 generate "terraform_version_constraint" {
   path      = "terraform.tf"
-  if_exists = "overwrite_terragrunt"
+  if_exists = "skip"
   contents  = <<-EOF
 terraform {
   required_providers {
