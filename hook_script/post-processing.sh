@@ -1,5 +1,16 @@
 #! /bin/bash
 
+function welcome-message() {
+    echo "Post-Processing Script Initiated"
+    echo "┌──────────────────────────────────────┐"
+    echo "│                                      │"
+    echo "│           POST-PROCESSING            │"
+    echo "│  - Clean up Terragrunt cache         │"
+    echo "│  - Copy output to S3 bucket          │"
+    echo "│                                      │"
+    echo "└──────────────────────────────────────┘"
+}
+
 function clean-cache() {
     echo "Cleaning up .terragrunt-cache directories..."
     find . -type d -name ".terragrunt-cache" -prune -exec rm -rf {} \;
@@ -13,15 +24,8 @@ function copy-output-to-s3() {
         exit 1
     fi
 
-    # Assign arguments to variables
     FOLDER_PATH="$1"
     BUCKET_NAME="$2"
-
-    # Check if folder exists
-    if [ ! -d "$FOLDER_PATH" ]; then
-        echo "Error: Folder '$FOLDER_PATH' does not exist"
-        exit 1
-    fi
 
     # Check if AWS CLI is installed
     if ! command -v aws &> /dev/null; then
@@ -29,19 +33,27 @@ function copy-output-to-s3() {
         exit 1
     fi
 
-    echo "Starting sync from '$FOLDER_PATH' to s3://$BUCKET_NAME/"
-
-    # Sync folder to S3 bucket
-    aws s3 sync "$FOLDER_PATH" "s3://$BUCKET_NAME/" --delete
-
-    # Check if sync was successful
-    if [ $? -eq 0 ]; then
-        echo "Successfully synced contents to S3 bucket"
+    # Check if folder exists
+    if [ ! -d "$FOLDER_PATH" ]; then
+        echo "Error: Folder '$FOLDER_PATH' does not exist"
     else
-        echo "Error: Failed to sync contents to S3 bucket"
-        exit 1
+        echo "Starting sync from '$FOLDER_PATH' to s3://$BUCKET_NAME/"
+        aws s3 sync "$FOLDER_PATH" "s3://$BUCKET_NAME/" --delete
+        # Check if sync was successful
+        if [ $? -eq 0 ]; then
+            echo "Successfully synced contents to S3 bucket"
+        else
+            echo "Error: Failed to sync contents to S3 bucket"
+            exit 1
+        fi
     fi
 }
 
-copy-output-to-s3 "$@"
-# clean-cache
+function main() {
+    welcome-message
+    #clean-cache
+    copy-output-to-s3 "$1" "$2"
+    echo "Post-Processing Script Completed"
+}
+
+main "$@"
