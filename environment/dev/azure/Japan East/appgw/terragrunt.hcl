@@ -7,7 +7,7 @@ include "root" {
 
 # Use self-developed modules
 # terraform {
-#     source = "../../../../../modules/azure/vnet"
+#     source = "../../../../../modules/azure/aks"
 # }
 
 # ┌──────────────────────────────────────────────────────────────────┐ 
@@ -18,46 +18,72 @@ include "root" {
 
 # Use self-developed modules
 terraform {
-  source = "git::https://gitlab.com/terraform-modules7893436/azure/vnet.git"
+  source = "git::https://gitlab.com/terraform-modules7893436/azure/appgw.git"
 }
 
 dependency "naming" {
   config_path = "../naming"
   mock_outputs = {
-    vnet_name = "DEV-TESTPROJECT-GENERAL-00"
+    appgw_name = "DEV-TESTPROJECT-GENERAL-00"
     resource_group_name = "DEV-TESTPROJECT-GENERAL-00"
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
 
+dependency "vnet" {
+  config_path = "../vnet"
+  mock_outputs = {
+    subnet_ids = ["SUBNET-ID1", "SUBNET-ID2"]
+  }
+  mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
+}
+
 locals {
-  env      = include.root.locals.env
   region   = include.root.locals.region
   tags     = include.root.locals.tags
 }
 
 inputs = {
-  vnet = {
-    enabled             = true
-    create_resource_group = true
-    name                = dependency.naming.outputs.vnet_name
-    location            = local.region
+  appgw = {
+    created = true
+    name = dependency.naming.outputs.appgw_name
     resource_group_name = dependency.naming.outputs.resource_group_name
-    address_space       = ["10.0.0.0/16"]
-    
-    subnets = [
-      {
-        name             = "subnet1"
-        address_prefixes = ["10.0.1.0/24"]
-      },
-      {
-        name             = "subnet2"
-        address_prefixes = ["10.0.2.0/24"]
-      }
-    ]
+    location = local.region
+
+    backend_address_pool = {}
+    backend_http_settings = {
+      cookie_based_affinity = "Disabled"
+      path                  = "/path1/"
+      port                  = 80
+      protocol              = "Http"
+      request_timeout       = 60
+    }
+
+    frontend_ip_configuration = {}
+    frontend_port = {
+      port = 80
+    }
+
+    gateway_ip_configuration = {
+      subnet_id = dependency.vnet.subnet_ids[0]
+    }
+
+    http_listener = {
+      protocol              = "Http"
+    }
+
+    request_routing_rule = {
+      rule_type = "Basic"
+      priority = 1
+    }
+
+    sku = {
+      name = "Basic"
+      tier = "Basic"
+      capacity = 1
+    }
 
     tags = local.tags
   }
-  
 }
 

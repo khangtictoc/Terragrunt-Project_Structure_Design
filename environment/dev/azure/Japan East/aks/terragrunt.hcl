@@ -24,12 +24,16 @@ terraform {
 dependency "naming" {
   config_path = "../naming"
   mock_outputs = {
-    aks_cluster_name = "TESTPROJECT-GENERAL-00"
-    key_vault_name = "KV-TESTPROJECT-GENERAL-00"
-    load_balancer_name = "LB-TESTPROJECT-GENERAL-00"
-    resource_group_name = "RG-TESTPROJECT-GENERAL-00"
-    storage_account_name = "st-testprojectgeneral-00"
-    vnet_name = "VNET-TESTPROJECT-GENERAL-00"
+    aks_cluster_name = "DEV-TESTPROJECT-GENERAL-00"
+    resource_group_name = "DEV-TESTPROJECT-GENERAL-00"
+  }
+  mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
+}
+
+dependency "vnet" {
+  config_path = "../vnet"
+  mock_outputs = {
+    subnet_ids = ["SUBNET-ID1", "SUBNET-ID2"]
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
@@ -51,8 +55,11 @@ inputs = {
     name                = dependency.naming.outputs.aks_cluster_name
     nodepool_temporary_name_for_rotation = "temp"
     location            =  local.region
-    resource_group_name = "sample-labs"
+    resource_group_name = dependency.naming.outputs.resource_group_name
+
+    vnet_subnet_id = dependency.vnet.subnet_ids[1]
     dns_prefix          = "exampleaks1"
+    
     kubernetes_version  = "1.32.6"
 
     default_node_pool = {

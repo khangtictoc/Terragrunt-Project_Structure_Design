@@ -21,11 +21,24 @@ terraform {
   source = "git::https://gitlab.com/terraform-modules7893436/azure/naming.git"
 }
 
+locals {
+  env      = include.root.locals.env
+}
+
 inputs = {
   project = {
     name = "testproject"
+    env = local.env
     aks_cluster = {
-      target_name = "labs"
+      target_name = "general"
+      index = 0
+    }
+    appgw_name = {
+      target_name = "general"
+      index = 0
+    }
+    resource_group = {
+      target_name = "general"
       index = 0
     }
   }
