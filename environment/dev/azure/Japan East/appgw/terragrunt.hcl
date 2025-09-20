@@ -65,7 +65,7 @@ inputs = {
     }
 
     gateway_ip_configuration = {
-      subnet_id = dependency.vnet.subnet_ids[0]
+      subnet_id = dependency.vnet.outputs.subnet_ids[0]
     }
 
     http_listener = {

@@ -57,9 +57,9 @@ inputs = {
     location            =  local.region
     resource_group_name = dependency.naming.outputs.resource_group_name
 
-    vnet_subnet_id = dependency.vnet.subnet_ids[1]
+    vnet_subnet_id = dependency.vnet.outputs.subnet_ids[1]
     dns_prefix          = "exampleaks1"
-    
+
     kubernetes_version  = "1.32.6"
 
     default_node_pool = {
