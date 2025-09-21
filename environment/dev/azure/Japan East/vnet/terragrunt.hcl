@@ -52,7 +52,7 @@ inputs = {
       },
       {
         name             = "subnet2"
-        address_prefixes = ["10.64.0.0/18"]
+        address_prefixes = ["10.0.64.0/18"]
       }
     ]
 
