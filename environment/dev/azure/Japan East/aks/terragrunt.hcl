@@ -63,6 +63,11 @@ inputs = {
 
     vnet_subnet_id = dependency.vnet.outputs.subnet_ids.subnet2
     dns_prefix          = "exampleaks1"
+    network_profile = {
+      network_plugin = "azure"
+      network_plugin_mode = "overlay"
+      pod_cidr = "10.0.2.0/25"
+    }
 
     kubernetes_version  = "1.32.6"
 
