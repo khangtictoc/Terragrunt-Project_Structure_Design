@@ -82,8 +82,8 @@ inputs = {
     }
 
     sku = {
-      name = "Basic"
-      tier = "Basic"
+      name = "Standard_v2"
+      tier = "Standard_v2"
       capacity = 1
     }
 
