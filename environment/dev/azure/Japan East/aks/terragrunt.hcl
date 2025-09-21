@@ -66,9 +66,9 @@ inputs = {
     network_profile = {
       network_plugin = "azure"
       network_plugin_mode = "overlay"
-      pod_cidr = "10.0.3.0/24"
-      service_cidr = "10.0.4.0/24"
-      dns_service_ip = "10.0.4.10"
+      pod_cidr = "10.128.0.0/18"
+      service_cidr = "10.192.0.0/18"
+      dns_service_ip = "10.192.0.10"
     }
 
     kubernetes_version  = "1.32.6"
