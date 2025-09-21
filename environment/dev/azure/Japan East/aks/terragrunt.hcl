@@ -68,7 +68,7 @@ inputs = {
       network_plugin_mode = "overlay"
       pod_cidr = "10.0.2.0/25"
       service_cidr = "10.0.2.128/25"
-      dns_service_ip = "10.0.2.128/26"
+      dns_service_ip = "10.0.2.138"
     }
 
     kubernetes_version  = "1.32.6"
