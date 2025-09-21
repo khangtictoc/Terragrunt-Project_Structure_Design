@@ -34,8 +34,8 @@ dependency "vnet" {
   config_path = "../vnet"
   mock_outputs = {
     subnet_ids = [
-      "/subscriptions/12345678-1234-9876-4563-123456789012/resourceGroups/example-resource-group/providers/Microsoft.Network/virtualNetworks/virtualNetworksValue/subnets/subnetValue", "SUBNET-ID2",
-      
+      "/subscriptions/12345678-1234-9876-4563-123456789012/resourceGroups/example-resource-group/providers/Microsoft.Network/virtualNetworks/virtualNetworksValue/subnets/subnetValue",
+
       "/subscriptions/12345678-1234-9876-4563-123456789012/resourceGroups/example-resource-group/providers/Microsoft.Network/virtualNetworks/virtualNetworksValue/subnets/subnetValue"]
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
