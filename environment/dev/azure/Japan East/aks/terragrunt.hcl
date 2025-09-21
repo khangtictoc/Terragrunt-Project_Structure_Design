@@ -67,6 +67,7 @@ inputs = {
       network_plugin = "azure"
       network_plugin_mode = "overlay"
       pod_cidr = "10.0.2.0/25"
+      service_cidr = "10.0.2.128/25"
     }
 
     kubernetes_version  = "1.32.6"
