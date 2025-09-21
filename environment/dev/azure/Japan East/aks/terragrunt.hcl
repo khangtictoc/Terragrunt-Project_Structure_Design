@@ -42,6 +42,14 @@ dependency "vnet" {
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
 
+dependency "aks_appgw" {
+  config_path = "../appgw"
+  mock_outputs = {
+    id = "/subscriptions/12345678-1234-9876-4563-123456789012/resourceGroups/example-resource-group/providers/Microsoft.Network/virtualNetworks/virtualNetworksValue/subnets/subnetValue"
+  }
+  mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
+}
+
 locals {
   kubeconfig_output_path = "${local.root_folder_path}/output/${local.env}/${local.platform}/${local.region}/kubeconfig"
 
@@ -69,6 +77,9 @@ inputs = {
       pod_cidr = "10.0.128.0/18"
       service_cidr = "10.0.192.0/18"
       dns_service_ip = "10.0.192.10"
+    }
+    ingress_application_gateway = {
+      gateway_id = dependency.aks_appgw.outputs.id
     }
 
     kubernetes_version  = "1.32.6"
