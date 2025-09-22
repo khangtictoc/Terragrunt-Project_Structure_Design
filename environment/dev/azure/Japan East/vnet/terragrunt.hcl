@@ -47,11 +47,11 @@ inputs = {
     
     subnets = [
       {
-        name             = "subnet1"
-        address_prefixes = ["10.0.0.0/18"]
+        name             = "network_appliances"
+        address_prefixes = ["10.0.0.0/24"]
       },
       {
-        name             = "subnet2"
+        name             = "workloads"
         address_prefixes = ["10.0.64.0/18"]
       }
     ]

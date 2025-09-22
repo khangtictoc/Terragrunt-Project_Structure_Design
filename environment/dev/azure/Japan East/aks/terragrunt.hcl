@@ -69,7 +69,7 @@ inputs = {
     location            =  local.region
     resource_group_name = dependency.naming.outputs.resource_group_name
 
-    vnet_subnet_id = dependency.vnet.outputs.subnet_ids.subnet2
+    vnet_subnet_id = dependency.vnet.outputs.subnet_ids.workloads
     dns_prefix          = "exampleaks1"
     network_profile = {
       network_plugin = "azure"
