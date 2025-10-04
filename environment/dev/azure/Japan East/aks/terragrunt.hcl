@@ -33,9 +33,9 @@ dependency "naming" {
 dependency "vnet" {
   config_path = "../vnet"
   mock_outputs = {
+    vnet_id = "/subscriptions/ca86aa0e-30d0-4a23-b1ac-3435fd053c42/resourceGroups/DEV-TESTPROJECT-GENERAL-00/providers/Microsoft.Network/virtualNetworks/DEV-TESTPROJECT-GENERAL-00"
     subnet_ids = {
       "network_appliances" = "/subscriptions/12345678-1234-9876-4563-123456789012/resourceGroups/example-resource-group/providers/Microsoft.Network/virtualNetworks/virtualNetworksValue/subnets/subnetValue",
-
       "workloads" = "/subscriptions/12345678-1234-9876-4563-123456789012/resourceGroups/example-resource-group/providers/Microsoft.Network/virtualNetworks/virtualNetworksValue/subnets/subnetValue"
     }
   }
@@ -46,6 +46,10 @@ dependency "aks_appgw" {
   config_path = "../appgw"
   mock_outputs = {
     id = "/subscriptions/subid/resourceGroups/rg1/providers/Microsoft.Network/applicationGateways/appgw"
+    public_ips = [
+      "/subscriptions/ca86aa0e-30d0-4a23-b1ac-3435fd053c42/resourceGroups/DEV-TESTPROJECT-GENERAL-00/providers/Microsoft.Network/publicIPAddresses/DEV-TESTPROJECT-GENERAL-00",
+      "/subscriptions/ca86aa0e-30d0-4a23-b1ac-3435fd053c42/resourceGroups/DEV-TESTPROJECT-GENERAL-00/providers/Microsoft.Network/publicIPAddresses/DEV-TESTPROJECT-GENERAL-00"
+    ]
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
@@ -80,6 +84,8 @@ inputs = {
     }
     ingress_application_gateway = {
       gateway_id = dependency.aks_appgw.outputs.id
+      vnet_id = dependency.vnet.outputs.vnet_id
+      public_ip_ids = dependency.aks_appgw.outputs.public_ips
     }
 
     kubernetes_version  = "1.32.6"
