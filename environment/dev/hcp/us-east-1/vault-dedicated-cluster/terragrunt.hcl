@@ -3,8 +3,6 @@ include "root" {
   expose = true
 }
 
-
-
 # Use self-developed modules
 # terraform {
 #     source = "../../../../../modules/aws/vpc"
@@ -25,11 +23,6 @@ locals {
   env      = include.root.locals.env
   region   = include.root.locals.region
 }
-
-dependency "vpc" {
-  config_path = "../vpc"
-}
-
 
 inputs = {
   vault_dedicated_cluster = {
