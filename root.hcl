@@ -16,7 +16,7 @@ locals {
   platform            = local.platform_vars.locals.platform
   tags                = local.environment_vars.locals.tags
   
-  cloud_provider = regex(".*/(aws|azure)/.*", path_relative_to_include())[0]
+  cloud_provider = regex(".*/(aws|azure|hcp)/.*", path_relative_to_include())[0]
   terragrunt_output_s3_bucket = "terragrunt-output"
 
   # Account & Profile Settings
