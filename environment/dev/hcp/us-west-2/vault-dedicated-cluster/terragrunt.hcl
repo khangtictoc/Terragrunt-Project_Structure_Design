@@ -39,6 +39,10 @@ inputs = {
       id         = "${local.name}"
       peering_id = "${local.name}"
       tier       = "dev"
+      public_endpoint = true
+      auth_method_list = [
+        "kubernetes"
+      ]
     }
   }
 }
