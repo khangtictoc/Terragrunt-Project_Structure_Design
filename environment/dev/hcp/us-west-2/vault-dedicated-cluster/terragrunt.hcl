@@ -31,8 +31,6 @@ locals {
   name     = "testproject-${local.env}"
   env      = include.root.locals.env
   region   = include.root.locals.region
-  
-  cluster_name         = "DEV-TESTPROJECT-GENERAL-00"
 }
 
 inputs = {
@@ -55,7 +53,7 @@ inputs = {
         "kubernetes"
       ]
       kubernetes_cluster_list = {
-        ${local.cluster_name} = {
+        "DEV-TESTPROJECT-GENERAL-00" = {
           resource_group     = dependency.aks.outputs.resource_group_name
         }
       }
