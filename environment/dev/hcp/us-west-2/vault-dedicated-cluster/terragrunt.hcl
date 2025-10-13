@@ -31,9 +31,12 @@ locals {
   name     = "testproject-${local.env}"
   env      = include.root.locals.env
   region   = include.root.locals.region
+  
+  cluster_name         = dependency.aks.outputs.cluster_name
+  resource_group_name  = dependency.aks.outputs.resource_group_name
   kubernetes_cluster_list = {
-    dependency.aks.outputs.cluster_name = {
-      resource_group_name = dependency.aks.outputs.resource_group_name
+    "${local.cluster_name}" = {
+      resource_group_name = local.resource_group_name
     }
   }
 }
