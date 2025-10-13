@@ -18,10 +18,24 @@ terraform {
   source = "git::https://gitlab.com/terraform-modules7893436/hcp/vault-dedicated-cluster.git"
 }
 
+dependency "aks" {
+  config_path = "../../../../../environment/dev/azure/japan east/aks"
+  mock_outputs = {
+    cluster_name        = "DEV-TESTPROJECT-GENERAL-00"
+    resource_group_name = "DEV-TESTPROJECT-GENERAL-00"
+  }
+  mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
+}
+
 locals {
   name     = "testproject-${local.env}"
   env      = include.root.locals.env
   region   = include.root.locals.region
+  kubernetes_cluster_list = {
+    dependency.aks.outputs.cluster_name = {
+      resource_group_name = dependency.aks.outputs.resource_group_name
+    }
+  }
 }
 
 inputs = {
@@ -43,6 +57,7 @@ inputs = {
       auth_method_list = [
         "kubernetes"
       ]
+      kubernetes_cluster_list = local.kubernetes_cluster_list
     }
   }
 }
