@@ -28,12 +28,11 @@ locals {
 inputs = {
   project = {
     name = "testproject"
-    env = local.env
     aks_cluster = {
       target_name = "general"
       index = 0
     }
-    appgw_name = {
+    appgw = {
       target_name = "general"
       index = 0
     }
@@ -41,6 +40,11 @@ inputs = {
       target_name = "general"
       index = 0
     }
+    vnet = {
+      target_name = "general"
+      index = 0
+    }
   }
+  env = local.env
 }
 
