@@ -19,7 +19,7 @@ terraform {
 }
 
 dependency "aks" {
-  config_path = "../../../azure/Japan East/aks"
+  config_path = "../../../azure/Japan West/aks"
   mock_outputs = {
     cluster_name        = "DEV-TESTPROJECT-GENERAL-00"
     resource_group_name = "DEV-TESTPROJECT-GENERAL-00"
