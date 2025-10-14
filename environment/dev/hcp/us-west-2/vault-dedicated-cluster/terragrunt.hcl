@@ -52,11 +52,12 @@ inputs = {
       auth_method_list = [
         "kubernetes"
       ]
-      kubernetes_cluster_list = {
-        "DEV-TESTPROJECT-GENERAL-00" = {
-          resource_group     = dependency.aks.outputs.resource_group_name
+      kubernetes_cluster_list = [
+        {
+          name = dependency.aks.outputs.cluster_name
+          resource_group = dependency.aks.outputs.resource_group_name
         }
-      }
+      ]
     }
   }
 }
