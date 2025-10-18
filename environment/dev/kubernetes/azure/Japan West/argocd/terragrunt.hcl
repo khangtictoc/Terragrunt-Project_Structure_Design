@@ -27,6 +27,14 @@ dependency "k8s_cluster" {
   config_path = "../../../../${local.platform}/${local.region}/${local.cluster_type}"
 }
 
+dependency "hcp_vault_cluster" {
+  config_path = "../../../../hcp/us-west-2/vault-dedicated-cluster"
+  mock_outputs = {
+    public_endpoint = "https://testproject-dev-public-vault-6ca71e7f.86ddef82.z1.hashicorp.cloud:8200"
+  }
+  mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
+}
+
 locals {
   env      = include.root.locals.env
   region   = include.root.locals.region
@@ -34,5 +42,37 @@ locals {
   cluster_type = lookup(include.mapping_conventions.locals.cluster_type, local.platform, "")
 }
 
-inputs = {}
+inputs = {
+  argocd_deploy = {
+    install_kubectl = true
+    install_argocd_cli = true
+    install_argocd = true
+
+    git_repo = {
+        name = "argocd-apps"
+        author = "khangtictoc"
+        branch = "main"        
+    }
+
+    manifest_path_list = [
+        "argocd-apps/nginx/applications.yaml",
+        "argocd-apps/cert-manager/applications.yaml",
+        "argocd-apps/hcp-vault/applications.yaml",
+        "argocd-apps/jenkins/applications.yaml",
+    ]
+
+    value_file_path = [
+        {
+            override = true
+            path ="argocd-values/nginx/values.yaml"
+            parameter_sets = [
+                {
+                    key = ".defaultVaultConnection.address"
+                    value = dependency.hcp_vault_cluster.outputs.public_endpoint
+                }
+            ]
+        }
+    ]
+  }
+}
 
