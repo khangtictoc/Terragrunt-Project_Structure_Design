@@ -25,6 +25,12 @@ terraform {
 
 dependency "k8s_cluster" {
   config_path = "../../../../${local.platform}/${local.region}/${local.cluster_type}"
+  mock_outputs = {
+    host = "test"
+    cluster_ca_certificate = "test"
+    token = "test"
+  }
+  mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
 
 dependency "hcp_vault_cluster" {
@@ -44,6 +50,13 @@ locals {
 
 inputs = {
   argocd_deploy = {
+
+    kube_config = {
+      host = "test"
+      cluster_ca_certificate = "test"
+      token = "test"
+    }
+
     install_kubectl = true
     install_argocd_cli = true
     install_argocd = true
