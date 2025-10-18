@@ -55,10 +55,10 @@ inputs = {
     }
 
     manifest_path_list = [
-        "argocd-apps/nginx/applications.yaml",
-        "argocd-apps/cert-manager/applications.yaml",
-        "argocd-apps/hcp-vault/applications.yaml",
-        "argocd-apps/jenkins/applications.yaml",
+        "argocd_apps/nginx/applications.yaml",
+        "argocd_apps/cert-manager/applications.yaml",
+        "argocd_apps/hcp-vault/applications.yaml",
+        "argocd_apps/jenkins/applications.yaml",
     ]
 
     value_file_path = [
