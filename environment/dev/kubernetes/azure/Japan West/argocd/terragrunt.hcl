@@ -52,9 +52,9 @@ inputs = {
   argocd_deploy = {
 
     kube_config = {
-      host = "test"
-      cluster_ca_certificate = "test"
-      token = "test"
+      host = dependency.k8s_cluster.outputs.host
+      cluster_ca_certificate = dependency.k8s_cluster.outputs.cluster_ca_certificate
+      token = dependency.k8s_cluster.outputs.token
     }
 
     install_kubectl = true
