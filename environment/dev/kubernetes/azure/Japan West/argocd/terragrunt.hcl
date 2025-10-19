@@ -62,29 +62,29 @@ inputs = {
     install_argocd = true
 
     git_repo = {
-        name = "argocd-apps"
-        author = "khangtictoc"
-        branch = "main"        
+      name = "argocd-apps"
+      author = "khangtictoc"
+      branch = "main"        
     }
 
     manifest_path_list = [
-        "argocd_apps/nginx/applications.yaml",
-        "argocd_apps/cert-manager/applications.yaml",
-        "argocd_apps/hcp-vault/applications.yaml",
-        "argocd_apps/jenkins/applications.yaml",
+      "argocd_apps/nginx/applications.yaml",
+      "argocd_apps/cert-manager/applications.yaml",
+      "argocd_apps/hcp-vault/applications.yaml",
+      "argocd_apps/jenkins/applications.yaml",
     ]
 
     value_file_path = [
-        {
-            override = true
-            path ="argocd_values/nginx/values.yaml"
-            parameter_sets = [
-                {
-                    key = ".defaultVaultConnection.address"
-                    value = dependency.hcp_vault_cluster.outputs.public_endpoint
-                }
-            ]
-        }
+      {
+        override = true
+        path ="argocd_values/vault-secrets-operator/values.yaml"
+        parameter_sets = [
+          {
+            key = ".defaultVaultConnection.address"
+            value = dependency.hcp_vault_cluster.outputs.public_endpoint
+          }
+        ]
+      }
     ]
   }
 }
