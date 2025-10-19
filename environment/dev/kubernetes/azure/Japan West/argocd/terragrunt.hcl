@@ -77,7 +77,7 @@ inputs = {
     value_file_path = [
         {
             override = true
-            path ="argocd-values/nginx/values.yaml"
+            path ="argocd_values/nginx/values.yaml"
             parameter_sets = [
                 {
                     key = ".defaultVaultConnection.address"
