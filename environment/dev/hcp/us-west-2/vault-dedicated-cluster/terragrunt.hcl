@@ -38,6 +38,7 @@ inputs = merge(
   local.cluster_defaults.vault_dedicated_cluster,
   {
     vault_dedicated_cluster = {
+      created = true
       hvn = {
         id       = local.name
         route_id = local.name
