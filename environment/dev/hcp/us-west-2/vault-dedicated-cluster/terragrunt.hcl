@@ -31,34 +31,31 @@ locals {
   name     = "testproject-${local.env}"
   env      = include.root.locals.env
   region   = include.root.locals.region
+  cluster_defaults = yamldecode(file("../${local.region}.yaml"))
 }
 
 inputs = {
-  vault_dedicated_cluster = {
-    is_created = true
-    hvn = {
-      enable_peering  = false
-      id             = "${local.name}"
-      cidr_block     = ""
-      route_id       = "${local.name}"
-      region         = "${local.region}"
-      cloud_provider = "aws"
-    }
-    cluster = {
-      id         = "${local.name}"
-      peering_id = "${local.name}"
-      tier       = "dev"
-      public_endpoint = true
-      auth_method_list = [
-        "kubernetes"
-      ]
-      kubernetes_cluster_list = [
-        {
-          name = dependency.aks.outputs.cluster_name
-          resource_group = dependency.aks.outputs.resource_group_name
+  merge(
+    local.cluster_defaults.vault_dedicated_cluster,
+    {
+      vault_dedicated_cluster = {
+        hvn = {
+          id             = "${local.name}"
+          route_id       = "${local.name}"
+          region         = "${local.region}"
         }
-      ]
+        cluster = {
+          id         = "${local.name}"
+          peering_id = "${local.name}"
+          kubernetes_cluster_list = [
+            {
+              name = dependency.aks.outputs.cluster_name
+              resource_group = dependency.aks.outputs.resource_group_name
+            }
+          ]
+        }
+      }
     }
-  }
+  )
 }
 
