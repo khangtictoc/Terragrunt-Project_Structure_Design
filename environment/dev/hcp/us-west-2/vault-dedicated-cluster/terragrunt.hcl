@@ -34,28 +34,26 @@ locals {
   cluster_defaults = yamldecode(file("../${local.region}.yaml"))
 }
 
-inputs = {
-  merge(
-    local.cluster_defaults.vault_dedicated_cluster,
-    {
-      vault_dedicated_cluster = {
-        hvn = {
-          id             = "${local.name}"
-          route_id       = "${local.name}"
-          region         = "${local.region}"
-        }
-        cluster = {
-          id         = "${local.name}"
-          peering_id = "${local.name}"
-          kubernetes_cluster_list = [
-            {
-              name = dependency.aks.outputs.cluster_name
-              resource_group = dependency.aks.outputs.resource_group_name
-            }
-          ]
-        }
+inputs = merge(
+  local.cluster_defaults.vault_dedicated_cluster,
+  {
+    vault_dedicated_cluster = {
+      hvn = {
+        id       = local.name
+        route_id = local.name
+        region   = local.region
+      }
+      cluster = {
+        id         = local.name
+        peering_id = local.name
+        kubernetes_cluster_list = [
+          {
+            name            = dependency.aks.outputs.cluster_name
+            resource_group  = dependency.aks.outputs.resource_group_name
+          }
+        ]
       }
     }
-  )
-}
+  }
+)
 
