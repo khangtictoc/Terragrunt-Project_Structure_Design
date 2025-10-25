@@ -72,6 +72,7 @@ inputs = {
       "argocd_apps/cert-manager/applications.yaml",
       "argocd_apps/hcp-vault/applications.yaml",
       "argocd_apps/jenkins/applications.yaml",
+      "argocd_apps/vault-secrets-operator/applications.yaml",
     ]
 
     value_file_path = [
