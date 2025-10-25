@@ -41,7 +41,7 @@ locals {
 inputs = merge(
   yamldecode(
     templatefile("../config.yaml.tpl", merge(
-      local.arg_masks
+      local.arg_masks,
       {
         region = local.region
         vnet_name   = dependency.naming.outputs.vnet_name

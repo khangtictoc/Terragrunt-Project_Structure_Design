@@ -42,7 +42,7 @@ locals {
 inputs = merge(
   yamldecode(
     templatefile("../config.yaml.tpl", merge(
-      local.arg_masks
+      local.arg_masks,
       {
         region = local.region
         appgw_name   = dependency.naming.outputs.appgw_name
