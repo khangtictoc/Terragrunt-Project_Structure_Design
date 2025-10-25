@@ -23,6 +23,7 @@ vault_dedicated_cluster_list:
           resource_group: TESTPROJECT-DEV-GENERAL-00
 
     component:
+      secret_yaml_path: https://terragrunt-input.s3.us-east-1.amazonaws.com/secrets.yaml
       roles:
         - name: postgresql
           policies:
