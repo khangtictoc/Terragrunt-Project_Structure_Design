@@ -4,7 +4,7 @@ locals {
   ### Terragrunt Settings
   root_module_path = find_in_parent_folders("root.hcl")
   root_folder_path = "${substr(local.root_module_path, 0, length(local.root_module_path) - 9)}"
-  environment_vars = 
+  environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
   region_vars      = read_terragrunt_config(find_in_parent_folders("region.hcl"))
   platform_vars    = read_terragrunt_config(find_in_parent_folders("platform.hcl"))
   
