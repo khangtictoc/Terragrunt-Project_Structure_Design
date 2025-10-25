@@ -62,52 +62,28 @@ locals {
   platform = include.root.locals.platform
   tags     = include.root.locals.tags
   root_folder_path = include.root.locals.root_folder_path
+
+  arg_masks     = include.root.locals.arg_masks
 }
 
-inputs = {
-  aks = {
-    created = true
-    kubeconfig_output_path = local.kubeconfig_output_path
-    name                = dependency.naming.outputs.aks_cluster_name
-    nodepool_temporary_name_for_rotation = "temp"
-    location            =  local.region
-    resource_group_name = dependency.naming.outputs.resource_group_name
-
-    vnet_subnet_id = dependency.vnet.outputs.subnet_ids.workloads
-    dns_prefix          = "exampleaks1"
-    network_profile = {
-      network_plugin = "azure"
-      network_plugin_mode = "overlay"
-      pod_cidr = "10.0.128.0/18"
-      service_cidr = "10.0.192.0/18"
-      dns_service_ip = "10.0.192.10"
-    }
-    ingress_application_gateway = {
-      gateway_id = dependency.aks_appgw.outputs.id
-      vnet_id = dependency.vnet.outputs.vnet_id
-      public_ip_ids = dependency.aks_appgw.outputs.public_ips
-    }
-
-    kubernetes_version  = "1.32.6"
-
-    default_node_pool = {
-      name       = "default"
-      node_count = 1
-      vm_size    = "Standard_B2as_v2"
-    }
-    cluster_node_pool = [
+inputs = merge(
+  yamldecode(
+    templatefile("../config.yaml", merge(
+      local.arg_masks,
       {
-        name       = "frontend"
-        node_count = 1
-        vm_size    = "Standard_B2as_v2"
-      },
-      {
-        name       = "backend"
-        node_count = 1
-        vm_size    = "Standard_B2as_v2"
+        region = local.region
+        aks__name = dependency.naming.outputs.aks_cluster_name
+        aks__rg_name = dependency.naming.outputs.resource_group_name
+        aks__kubeconfig_output_path   = local.kubeconfig_output_path
+        aks__vnet_subnet_id = dependency.vnet.outputs.subnet_ids.workloads
+        aks__ingress_appgw_id = dependency.aks_appgw.outputs.id
+        aks__vnet_id = dependency.vnet.outputs.vnet_id
+        aks__public_ip_ids = dependency.aks_appgw.outputs.public_ips
       }
-    ] 
+    ))
+  ).aks_cluster_list.main,
+  {
     tags = local.tags
   }
-}
+)
 
