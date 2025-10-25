@@ -41,6 +41,7 @@ inputs = merge(
     templatefile("../${local.region}.yaml.tpl", {
       region = local.region
       vnet_name   = dependency.naming.outputs.vnet_name
+      vnet__rg_name = dependency.naming.outputs.resource_group_name
     })
   ).vnet_list.main,
   {
