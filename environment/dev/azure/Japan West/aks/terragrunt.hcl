@@ -78,7 +78,7 @@ inputs = merge(
         aks__vnet_subnet_id = dependency.vnet.outputs.subnet_ids.workloads
         aks__ingress_appgw_id = dependency.aks_appgw.outputs.id
         aks__vnet_id = dependency.vnet.outputs.vnet_id
-        aks__public_ip_ids = dependency.aks_appgw.outputs.public_ips
+        aks__public_ip_ids = yamlencode(dependency.aks_appgw.outputs.public_ips)
       }
     ))
   ).aks_cluster_list.main,
