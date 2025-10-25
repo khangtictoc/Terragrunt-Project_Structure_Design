@@ -37,6 +37,8 @@ dependency "vnet" {
 locals {
   region   = include.root.locals.region
   tags     = include.root.locals.tags
+
+  arg_masks     = include.root.locals.arg_masks
 }
 
 inputs = merge(
