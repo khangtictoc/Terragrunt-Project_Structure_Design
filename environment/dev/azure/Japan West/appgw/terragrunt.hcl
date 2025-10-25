@@ -41,12 +41,15 @@ locals {
 
 inputs = merge(
   yamldecode(
-    templatefile("../${local.region}.yaml.tpl", {
-      region = local.region
-      appgw_name   = dependency.naming.outputs.appgw_name
-      appgw__rg_name = dependency.naming.outputs.resource_group_name
-      appgw__gateway_ip_configuration = dependency.vnet.outputs.subnet_ids.network_appliances
-    })
+    templatefile("../config.yaml.tpl", merge(
+      local.arg_masks
+      {
+        region = local.region
+        appgw_name   = dependency.naming.outputs.appgw_name
+        appgw__rg_name = dependency.naming.outputs.resource_group_name
+        appgw__gateway_ip_configuration = dependency.vnet.outputs.subnet_ids.network_appliances
+      }
+    ))
   ).application_gateway_list.main,
   {
     tags = local.tags

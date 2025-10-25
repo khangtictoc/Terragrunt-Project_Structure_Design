@@ -4,16 +4,18 @@ locals {
   ### Terragrunt Settings
   root_module_path = find_in_parent_folders("root.hcl")
   root_folder_path = "${substr(local.root_module_path, 0, length(local.root_module_path) - 9)}"
-  environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
+  environment_vars = 
   region_vars      = read_terragrunt_config(find_in_parent_folders("region.hcl"))
   platform_vars    = read_terragrunt_config(find_in_parent_folders("platform.hcl"))
-
+  
   ### Project Settings
   account_name        = "personal"
   global_project_name = "testproject"
   env                 = local.environment_vars.locals.env
   region              = local.region_vars.locals.region
   platform            = local.platform_vars.locals.platform
+  arg_masks =  read_terragrunt_config(find_in_parent_folders("config-args.hcl")).parameters
+
 
   tags                = {
     "Platform" = local.platform

@@ -34,15 +34,20 @@ locals {
   env      = include.root.locals.env
   region   = include.root.locals.region
   tags     = include.root.locals.tags
+
+  arg_masks     = include.root.locals.arg_masks
 }
 
 inputs = merge(
   yamldecode(
-    templatefile("../${local.region}.yaml.tpl", {
-      region = local.region
-      vnet_name   = dependency.naming.outputs.vnet_name
-      vnet__rg_name = dependency.naming.outputs.resource_group_name
-    })
+    templatefile("../config.yaml.tpl", merge(
+      local.arg_masks
+      {
+        region = local.region
+        vnet_name   = dependency.naming.outputs.vnet_name
+        vnet__rg_name = dependency.naming.outputs.resource_group_name
+      }
+    ))
   ).vnet_list.main,
   {
     tags = local.tags
