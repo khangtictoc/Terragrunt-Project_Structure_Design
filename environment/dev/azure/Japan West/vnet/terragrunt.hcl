@@ -45,7 +45,7 @@ locals {
 inputs = merge(
   yamldecode(local.rendered_yaml).vault_dedicated_cluster_list.main,
   {
-    local.tags
+    tags = local.tags
   }
 )
 
