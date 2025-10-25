@@ -73,6 +73,8 @@ inputs = {
       "argocd_apps/hcp-vault/applications.yaml",
       "argocd_apps/jenkins/applications.yaml",
       "argocd_apps/vault-secrets-operator/applications.yaml",
+      "argocd_apps/postgresql/applications.yaml"
+      "argocd_apps/postgresql/vault-secrets.yaml"
     ]
 
     value_file_path = [
