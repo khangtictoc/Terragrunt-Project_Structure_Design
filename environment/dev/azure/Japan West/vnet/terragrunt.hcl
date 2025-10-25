@@ -40,7 +40,7 @@ inputs = merge(
   yamldecode(
     templatefile("../${local.region}.yaml.tpl", {
       region = local.region
-      name   = dependency.naming.outputs.vnet_name
+      vnet_name   = dependency.naming.outputs.vnet_name
     })
   ).vault_dedicated_cluster_list.main,
   {
