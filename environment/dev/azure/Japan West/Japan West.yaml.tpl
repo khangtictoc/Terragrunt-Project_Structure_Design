@@ -1,4 +1,4 @@
-vnet_lists:
+vnet_list:
   main:
     created: true
     name: ${vnet_name}

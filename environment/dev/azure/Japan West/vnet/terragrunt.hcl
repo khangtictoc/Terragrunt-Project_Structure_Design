@@ -42,7 +42,7 @@ inputs = merge(
       region = local.region
       vnet_name   = dependency.naming.outputs.vnet_name
     })
-  ).vault_dedicated_cluster_list.main,
+  ).vnet_list.main,
   {
     tags = local.tags
   }
