@@ -30,22 +30,14 @@ locals {
   arg_masks     = include.root.locals.arg_masks
 }
 
-inputs = merge(
-  yamldecode(
-    templatefile("../config.yaml", merge(
-      local.arg_masks,
-      {
-        region = local.region
-        aks__name = dependency.naming.outputs.aks_cluster_name
-        aks__rg_name = dependency.naming.outputs.resource_group_name
-        aks__kubeconfig_output_path   = local.kubeconfig_output_path
-        aks__vnet_subnet_id = dependency.vnet.outputs.subnet_ids.workloads
-        aks__ingress_appgw_id = dependency.aks_appgw.outputs.id
-        aks__vnet_id = dependency.vnet.outputs.vnet_id
-      }
-    ))
-  ).vault_dedicated_cluster_list.main,
-  {
-    tags = local.tags
-  }
-)
+inputs = yamldecode(
+  templatefile("../config.yaml", merge(
+    local.arg_masks,
+    {
+      region = local.region
+      hvn_id = "hvn-${local.name}"
+      cluster_id = "vault-${local.name}"
+      route_id = "route-${local.name}"
+    }
+  ))
+).vault_dedicated_cluster_list.main
