@@ -35,4 +35,4 @@ locals {
   })
 }
 
-inputs = yamldecode(local.rendered_yaml).main
+inputs = yamldecode(local.rendered_yaml).vault_dedicated_cluster_list.main
