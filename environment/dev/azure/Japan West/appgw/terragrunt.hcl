@@ -41,7 +41,7 @@ locals {
 
 inputs = merge(
   yamldecode(
-    templatefile("../config.yaml.tpl", merge(
+    templatefile("../config.yaml", merge(
       local.arg_masks,
       {
         region = local.region
