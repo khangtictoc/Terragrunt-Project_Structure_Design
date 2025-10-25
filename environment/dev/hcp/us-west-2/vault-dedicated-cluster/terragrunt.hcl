@@ -20,40 +20,19 @@ terraform {
 
 dependency "aks" {
   config_path = "../../../azure/Japan West/aks"
-  mock_outputs = {
-    cluster_name        = "DEV-TESTPROJECT-GENERAL-00"
-    resource_group_name = "DEV-TESTPROJECT-GENERAL-00"
-  }
-  mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
 
 locals {
   name     = "testproject-${local.env}"
   env      = include.root.locals.env
   region   = include.root.locals.region
-  cluster_defaults = yamldecode(file("../${local.region}.yaml"))
+
+  rendered_yaml = templatefile("../${local.region}.yaml.tpl", {
+    region = local.region
+    hvn_id = "hvn-${local.name}"
+    cluster_id = "vault-${local.name}"
+    route_id = "route-${local.name}"
+  })
 }
 
-inputs = merge(
-  local.cluster_defaults,
-  {
-    vault_dedicated_cluster = {
-      hvn = {
-        id       = local.name
-        route_id = local.name
-        region   = local.region
-      }
-      cluster = {
-        id         = local.name
-        peering_id = local.name
-        kubernetes_cluster_list = [
-          {
-            name            = dependency.aks.outputs.cluster_name
-            resource_group  = dependency.aks.outputs.resource_group_name
-          }
-        ]
-      }
-    }
-  }
-)
-
+inputs = yamldecode(local.rendered_yaml).main

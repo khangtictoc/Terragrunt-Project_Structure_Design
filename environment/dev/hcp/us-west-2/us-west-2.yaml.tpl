@@ -1,0 +1,35 @@
+# -- HashiCorp Vault Cluster ---
+vault_dedicated_cluster_list:
+  main:
+    created: true
+
+    hvn:
+      enable_peering: false
+      id: ${hvn_id}
+      cidr_block: ""
+      route_id: ${route_id}
+      region: ${region}
+      cloud_provider: aws
+
+    cluster:
+      id: ${cluster_id}
+      peering_id: testproject-dev
+      tier: dev
+      public_endpoint: true
+      auth_method_list:
+        - kubernetes
+      kubernetes_cluster_list:
+        - name: TESTPROJECT-DEV-GENERAL-00
+          resource_group: TESTPROJECT-DEV-GENERAL-00
+
+    component:
+      roles:
+        - name: postgresql
+          policies:
+            - name: postgresql
+              content: |
+                path "*" {
+                  capabilities = ["read"]
+                }
+          service_account: postgresql
+          namespace: postgresql
