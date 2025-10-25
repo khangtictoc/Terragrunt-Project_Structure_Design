@@ -7,6 +7,7 @@ locals {
   environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
   region_vars      = read_terragrunt_config(find_in_parent_folders("region.hcl"))
   platform_vars    = read_terragrunt_config(find_in_parent_folders("platform.hcl"))
+  arg_masks        =  read_terragrunt_config(find_in_parent_folders("config-args.hcl")).locals.parameters
   
   ### Project Settings
   account_name        = "personal"
@@ -14,7 +15,7 @@ locals {
   env                 = local.environment_vars.locals.env
   region              = local.region_vars.locals.region
   platform            = local.platform_vars.locals.platform
-  arg_masks =  read_terragrunt_config(find_in_parent_folders("config-args.hcl")).parameters
+  
 
 
   tags                = {
