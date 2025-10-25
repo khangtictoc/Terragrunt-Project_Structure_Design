@@ -67,8 +67,8 @@ aks_cluster_list:
     ingress_application_gateway:
       gateway_id: ${aks__ingress_appgw_id}
       vnet_id: ${aks__vnet_id}
-      public_ip_ids: |
-        - ${replace(aks__public_ip_ids, ",", "\n  - ")}
+      public_ip_ids:
+        - /subscriptions/7c103106-7bc8-4282-906d-b6df27eb2c14/resourceGroups/TESTPROJECT-DEV-GENERAL-00/providers/Microsoft.Network/publicIPAddresses/TESTPROJECT-DEV-GENERAL-00
 
     kubernetes_version: "1.32.6"
 

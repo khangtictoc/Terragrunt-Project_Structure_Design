@@ -14,6 +14,5 @@ locals {
         aks__vnet_subnet_id = ""
         aks__ingress_appgw_id = ""
         aks__vnet_id = ""
-        aks__public_ip_ids = ""
     }
 }
