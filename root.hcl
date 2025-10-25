@@ -14,7 +14,14 @@ locals {
   env                 = local.environment_vars.locals.env
   region              = local.region_vars.locals.region
   platform            = local.platform_vars.locals.platform
-  tags                = local.environment_vars.locals.tags
+
+  tags                = {
+    "Platform" = local.platform
+    "Environment" = local.env
+    "Region" = local.region
+    "ManagedBy" = "terraform"
+    "ManagedBy2" = "terragrunt"
+  }
   
   cloud_provider = regex(".*/(aws|azure|hcp)/.*", path_relative_to_include())[0]
   terragrunt_output_s3_bucket = "terragrunt-output"
@@ -63,11 +70,6 @@ generate "provider_config" {
 provider "aws" {
   region  = "${local.region}"
   profile = "${local.profile}"
-  default_tags {
-    tags = {
-      ManagedBy = "terraform"
-    }
-  }
 }
 
 provider "azurerm" {
