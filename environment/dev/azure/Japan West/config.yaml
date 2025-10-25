@@ -68,7 +68,7 @@ aks_cluster_list:
       gateway_id: ${aks__ingress_appgw_id}
       vnet_id: ${aks__vnet_id}
       public_ip_ids: |
-        ${indent(4, aks__public_ip_ids)}
+        - ${replace(aks__public_ip_ids, ",", "\n  - ")}
 
     kubernetes_version: "1.32.6"
 
