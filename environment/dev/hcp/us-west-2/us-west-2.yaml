@@ -4,10 +4,7 @@ vault_dedicated_cluster:
 
   hvn:
     enable_peering: false
-    id: testproject-dev
     cidr_block: ""
-    route_id: testproject-dev
-    region: us-west-2
     cloud_provider: aws
 
   cluster:
