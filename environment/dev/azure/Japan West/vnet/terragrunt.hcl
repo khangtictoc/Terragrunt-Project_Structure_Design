@@ -43,7 +43,12 @@ locals {
 }
 
 inputs = merge(
-  yamldecode(local.rendered_yaml).vault_dedicated_cluster_list.main,
+  yamldecode(
+    templatefile("../${local.region}.yaml.tpl", {
+      region = local.region
+      name   = dependency.naming.outputs.vnet_name
+    })
+  ).vault_dedicated_cluster_list.main,
   {
     tags = local.tags
   }

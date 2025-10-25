@@ -35,4 +35,10 @@ locals {
   })
 }
 
-inputs = yamldecode(local.rendered_yaml).vault_dedicated_cluster_list.main
+inputs = yamldecode(templatefile("../${local.region}.yaml.tpl", {
+    region = local.region
+    hvn_id = "hvn-${local.name}"
+    cluster_id = "vault-${local.name}"
+    route_id = "route-${local.name}"
+  })
+).vault_dedicated_cluster_list.main
