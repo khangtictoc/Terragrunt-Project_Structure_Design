@@ -34,12 +34,6 @@ locals {
   env      = include.root.locals.env
   region   = include.root.locals.region
   tags     = include.root.locals.tags
-
-  rendered_yaml = templatefile("../${local.region}.yaml.tpl", {
-    region = local.region
-    name = dependency.naming.outputs.vnet_name
-
-  })
 }
 
 inputs = merge(
