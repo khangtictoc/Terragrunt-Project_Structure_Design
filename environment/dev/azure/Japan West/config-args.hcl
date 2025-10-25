@@ -1,4 +1,4 @@
-locals = {
+locals {
     parameters = {
         region = ""
         vnet_name = ""
