@@ -1,7 +1,7 @@
 vnet_list:
   main:
     created: true
-    name: ${vnet_name}
+    name: "${vnet_name != null ? vnet_name : ''}"
     location: ${region}
     resource_group_name: ${vnet__rg_name}
     address_space:
@@ -21,7 +21,7 @@ application_gateway_list:
       name: "Standard_v2"
       tier: "Standard_v2"
       capacity: 1
-    name: ${appgw_name}
+    name: "${appgw_name != null ? appgw_name : ''}"
     resource_group_name: ${appgw__rg_name}
     location: ${region}
 
