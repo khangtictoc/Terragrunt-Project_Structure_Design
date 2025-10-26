@@ -75,6 +75,8 @@ inputs = {
       "argocd_apps/vault-secrets-operator/applications.yaml",
       "argocd_apps/postgresql/applications.yaml",
       "argocd_apps/postgresql/vault-secrets.yaml",
+      "argocd_apps/mongodb-sharded/vault-secrets.yaml",
+      "argocd_apps/mongodb-sharded/vault-secrets.yaml",
     ]
 
     value_file_path = [
