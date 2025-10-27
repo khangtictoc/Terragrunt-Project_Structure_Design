@@ -34,3 +34,12 @@ vault_dedicated_cluster_list:
                 }
           service_account: postgresql
           namespace: postgresql
+        - name: mongodb-sharded
+          policies:
+            - name: mongodb-sharded
+              content: |
+                path "*" {
+                  capabilities = ["read"]
+                }
+          service_account: mongodb-sharded
+          namespace: mongodb-sharded
