@@ -22,24 +22,29 @@ vault_dedicated_cluster_list:
         - name: TESTPROJECT-DEV-GENERAL-00
           resource_group: TESTPROJECT-DEV-GENERAL-00
 
+vault_component_list:
+  main:
+    address: ${vault_cluster__address}
     component:
       secret_yaml_path: https://terragrunt-input.s3.us-east-1.amazonaws.com/secrets.yaml
       roles:
-        - name: postgresql
-          policies:
-            - name: postgresql
-              content: |
-                path "*" {
-                  capabilities = ["read"]
-                }
-          service_account: postgresql
-          namespace: postgresql
-        - name: mongodb-sharded
-          policies:
-            - name: mongodb-sharded
-              content: |
-                path "*" {
-                  capabilities = ["read"]
-                }
-          service_account: mongodb-sharded
-          namespace: mongodb-sharded
+        path: ${vault_cluster__k8s_path}
+        items:
+          - name: postgresql
+            policies:
+              - name: postgresql
+                content: |
+                  path "*" {
+                    capabilities = ["read"]
+                  }
+            service_account: postgresql
+            namespace: postgresql
+          - name: mongodb-sharded
+            policies:
+              - name: mongodb-sharded
+                content: |
+                  path "*" {
+                    capabilities = ["read"]
+                  }
+            service_account: mongodb-sharded
+            namespace: mongodb-sharded
