@@ -41,6 +41,10 @@ dependency "hcp_vault_cluster" {
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
 
+dependency "hcp_vault_components" {
+  config_path = "../../../../hcp/us-west-2/vault-components"
+}
+
 locals {
   env      = include.root.locals.env
   region   = include.root.locals.region
