@@ -6,6 +6,6 @@ locals {
         route_id = ""
         cluster_id = ""
         vault_cluster__address = ""
-        vault_cluster__k8s_path = ""
+        vault_cluster__admin_token = ""
     }
 }
