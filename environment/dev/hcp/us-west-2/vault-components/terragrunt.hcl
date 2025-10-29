@@ -22,7 +22,7 @@ dependency "vault_dedicated_cluster" {
   config_path = "../vault-dedicated-cluster"
 
   mock_outputs = {
-    k8s_path          = "kubernetes"
+    admin_token      = "fake-token"
     public_endpoint  = "https://my-vault-public:8200"
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
@@ -37,7 +37,7 @@ inputs = yamldecode(
     local.arg_masks,
     {
       vault_cluster__address = dependency.vault_dedicated_cluster.outputs.public_endpoint
-      vault_cluster__k8s_path = dependency.vault_dedicated_cluster.outputs.k8s_path
+      vault_cluster__admin_token = dependency.vault_dedicated_cluster.outputs.admin_token
     }
   ))
 ).vault_component_list.main

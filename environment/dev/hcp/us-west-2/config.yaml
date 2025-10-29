@@ -24,27 +24,27 @@ vault_dedicated_cluster_list:
 
 vault_component_list:
   main:
-    address: ${vault_cluster__address}
+    vault_cluster:
+      endpoint: ${vault_cluster__address}
+      admin_token: ${vault_cluster__admin_token}
     component:
       secret_yaml_path: https://terragrunt-input.s3.us-east-1.amazonaws.com/secrets.yaml
       roles:
-        path: ${vault_cluster__k8s_path}
-        items:
-          - name: postgresql
-            policies:
-              - name: postgresql
-                content: |
-                  path "*" {
-                    capabilities = ["read"]
-                  }
-            service_account: postgresql
-            namespace: postgresql
-          - name: mongodb-sharded
-            policies:
-              - name: mongodb-sharded
-                content: |
-                  path "*" {
-                    capabilities = ["read"]
-                  }
-            service_account: mongodb-sharded
-            namespace: mongodb-sharded
+        - name: postgresql
+          policies:
+            - name: postgresql
+              content: |
+                path "*" {
+                  capabilities = ["read"]
+                }
+          service_account: postgresql
+          namespace: postgresql
+        - name: mongodb-sharded
+          policies:
+            - name: mongodb-sharded
+              content: |
+                path "*" {
+                  capabilities = ["read"]
+                }
+          service_account: mongodb-sharded
+          namespace: mongodb-sharded
