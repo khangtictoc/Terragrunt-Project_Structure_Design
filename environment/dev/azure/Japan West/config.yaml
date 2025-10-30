@@ -75,14 +75,14 @@ aks_cluster_list:
     default_node_pool:
       name: default
       node_count: 1
-      vm_size: Standard_B2as_v2
+      vm_size: Standard_DC2as_v5
     cluster_node_pool:
       - name: frontend
         node_count: 1
-        vm_size: Standard_B2as_v2
+        vm_size: Standard_DC2as_v5
       - name: backend
         node_count: 1
-        vm_size: Standard_B2as_v2
+        vm_size: Standard_DC2as_v5
 
     # workload_identity:
     #   enabled: true
