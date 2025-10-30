@@ -20,6 +20,7 @@ terraform {
 
 dependency "aks" {
   config_path = "../../../azure/Japan West/aks"
+  skip_outputs = true
 }
 
 locals {

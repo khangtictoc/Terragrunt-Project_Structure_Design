@@ -43,6 +43,7 @@ dependency "hcp_vault_cluster" {
 
 dependency "hcp_vault_components" {
   config_path = "../../../../hcp/us-west-2/vault-components"
+  skip_outputs = true
 }
 
 locals {
