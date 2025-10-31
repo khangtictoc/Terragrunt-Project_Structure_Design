@@ -56,8 +56,8 @@ inputs = merge(
       {
         region = local.region
         appgw_name   = dependency.naming.outputs.appgw_name
-        appgw__rg_name = dependency.naming.outputs.resource_group_name
-        appgw__gateway_ip_configuration = dependency.vnet.outputs.subnet_ids.network_appliances
+        appgw_rg_name = dependency.naming.outputs.resource_group_name
+        appgw_gateway_ip_configuration = dependency.vnet.outputs.subnet_ids.network_appliances
       }
     ))
   ).application_gateways.main,

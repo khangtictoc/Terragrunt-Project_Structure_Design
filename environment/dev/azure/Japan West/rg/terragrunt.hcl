@@ -45,7 +45,7 @@ inputs = merge(
       local.arg_masks,
       {
         region = local.region
-        rg__name   = dependency.naming.outputs.resource_group_name
+        rg_name   = dependency.naming.outputs.resource_group_name
       }
     ))
   ).resource_groups.main,

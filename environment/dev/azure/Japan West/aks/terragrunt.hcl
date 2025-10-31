@@ -72,12 +72,12 @@ inputs = merge(
       local.arg_masks,
       {
         region = local.region
-        aks__name = dependency.naming.outputs.aks_cluster_name
-        aks__rg_name = dependency.naming.outputs.resource_group_name
-        aks__kubeconfig_output_path   = local.kubeconfig_output_path
-        aks__vnet_subnet_id = dependency.vnet.outputs.subnet_ids.workloads
-        aks__ingress_appgw_id = dependency.aks_appgw.outputs.id
-        aks__vnet_id = dependency.vnet.outputs.vnet_id
+        aks_name = dependency.naming.outputs.aks_cluster_name
+        aks_rg_name = dependency.naming.outputs.resource_group_name
+        aks_kubeconfig_output_path   = local.kubeconfig_output_path
+        aks_vnet_subnet_id = dependency.vnet.outputs.subnet_ids.workloads
+        aks_ingress_appgw_id = dependency.aks_appgw.outputs.id
+        aks_vnet_id = dependency.vnet.outputs.vnet_id
       }
     ))
   ).aks_clusters.main,
