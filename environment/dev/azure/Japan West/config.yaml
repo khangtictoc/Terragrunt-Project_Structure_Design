@@ -70,7 +70,7 @@ aks_clusters:
       gateway_id: ${aks_ingress_appgw_id}
       vnet_id: ${aks_vnet_id}
       public_ip_ids:
-        - /subscriptions/7c103106-7bc8-4282-906d-b6df27eb2c14/resourceGroups/TESTPROJECT-DEV-GENERAL-00/providers/Microsoft.Network/publicIPAddresses/TESTPROJECT-DEV-GENERAL-00
+        - /subscriptions/5be86d15-6897-49f7-8486-4700e1c9126e/resourceGroups/TESTPROJECT-DEV-GENERAL-00/providers/Microsoft.Network/publicIPAddresses/TESTPROJECT-DEV-GENERAL-00
 
     k8s_version: 1.32.6
 
