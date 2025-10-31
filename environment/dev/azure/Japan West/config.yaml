@@ -55,6 +55,7 @@ aks_clusters:
     name: ${aks_name}
     location: ${region}
     rg_name: ${aks_rg_name}
+    kubeconfig_output_path: ${aks_kubeconfig_output_path}
 
     vnet_subnet_id: ${aks_vnet_subnet_id}
     dns_prefix: exampleaks1
