@@ -32,6 +32,7 @@ dependency "naming" {
   config_path = "../naming"
   mock_outputs = {
     vnet_name = "test"
+    resource_group_name = "test"
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
