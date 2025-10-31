@@ -1,6 +1,8 @@
 locals {
     parameters = {
+        rg__name = ""
         region = ""
+        
         vnet_name = ""
         vnet__rg_name = ""
 

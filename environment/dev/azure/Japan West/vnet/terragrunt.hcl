@@ -21,11 +21,17 @@ terraform {
   source = "git::https://gitlab.com/terraform-modules7893436/azure/vnet.git"
 }
 
+# ---- DEPENDENCIES ----
+
+dependency "resource_group" {
+  config_path = "../rg"
+  skip_outputs = true
+}
+
 dependency "naming" {
   config_path = "../naming"
   mock_outputs = {
-    vnet_name = "DEV-TESTPROJECT-GENERAL-00"
-    resource_group_name = "DEV-TESTPROJECT-GENERAL-00"
+    vnet_name = "test"
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
@@ -48,7 +54,7 @@ inputs = merge(
         vnet__rg_name = dependency.naming.outputs.resource_group_name
       }
     ))
-  ).vnet_list.main,
+  ).vnets.main,
   {
     tags = local.tags
   }

@@ -7,7 +7,7 @@ include "root" {
 
 # Use self-developed modules
 # terraform {
-#     source = "../../../../../modules/azure/aks"
+#     source = "../../../../../modules/azure/vnet"
 # }
 
 # ┌──────────────────────────────────────────────────────────────────┐ 
@@ -18,31 +18,21 @@ include "root" {
 
 # Use self-developed modules
 terraform {
-  source = "git::https://gitlab.com/terraform-modules7893436/azure/appgw.git"
+  source = "git::https://gitlab.com/terraform-modules7893436/azure/rg.git"
 }
+
+# ---- DEPENDENCIES ----
 
 dependency "naming" {
   config_path = "../naming"
   mock_outputs = {
-    appgw_name = "DEV-TESTPROJECT-GENERAL-00"
     resource_group_name = "DEV-TESTPROJECT-GENERAL-00"
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
 
-dependency "vnet" {
-  config_path = "../vnet"
-  mock_outputs = {
-    vnet_id = "/subscriptions/ca86aa0e-30d0-4a23-b1ac-3435fd053c42/resourceGroups/DEV-TESTPROJECT-GENERAL-00/providers/Microsoft.Network/virtualNetworks/DEV-TESTPROJECT-GENERAL-00"
-    subnet_ids = {
-      "network_appliances" = "/subscriptions/12345678-1234-9876-4563-123456789012/resourceGroups/example-resource-group/providers/Microsoft.Network/virtualNetworks/virtualNetworksValue/subnets/subnetValue",
-      "workloads" = "/subscriptions/12345678-1234-9876-4563-123456789012/resourceGroups/example-resource-group/providers/Microsoft.Network/virtualNetworks/virtualNetworksValue/subnets/subnetValue"
-    }
-  }
-  mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
-}
-
 locals {
+  env      = include.root.locals.env
   region   = include.root.locals.region
   tags     = include.root.locals.tags
 
@@ -55,13 +45,12 @@ inputs = merge(
       local.arg_masks,
       {
         region = local.region
-        appgw_name   = dependency.naming.outputs.appgw_name
-        appgw__rg_name = dependency.naming.outputs.resource_group_name
-        appgw__gateway_ip_configuration = dependency.vnet.outputs.subnet_ids.network_appliances
+        rg__name   = dependency.naming.outputs.resource_group_name
       }
     ))
-  ).application_gateways.main,
+  ).resource_groups.main,
   {
     tags = local.tags
   }
 )
+

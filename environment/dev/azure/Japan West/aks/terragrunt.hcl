@@ -80,7 +80,7 @@ inputs = merge(
         aks__vnet_id = dependency.vnet.outputs.vnet_id
       }
     ))
-  ).aks_cluster_list.main,
+  ).aks_clusters.main,
   {
     tags = local.tags
   }

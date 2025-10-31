@@ -1,58 +1,60 @@
-vnet_list:
+resource_groups:
+  main:
+    name: ${rg_name}
+    location: ${region}
+
+vnets:
   main:
     created: true
     name: ${vnet_name}
     location: ${region}
-    resource_group_name: ${vnet__rg_name}
-    address_space:
+    rg_name: ${vnet__rg_name}
+    ip_ranges:
       - 10.0.0.0/16
     subnets:
       - name: network_appliances
-        address_prefixes:
+        ip_ranges:
           - 10.0.0.0/24
       - name: workloads
-        address_prefixes:
+        ip_ranges:
           - 10.0.64.0/18
 
-application_gateway_list:
+application_gateways:
   main:
     created: true
+    name: ${appgw_name}
+    rg_name: ${appgw__rg_name}
+    location: ${region}
+
     sku:
       name: Standard_v2
       tier: Standard_v2
       capacity: 1
-    name: ${appgw_name}
-    resource_group_name: ${appgw__rg_name}
-    location: ${region}
 
-    frontend_ip_configuration: {}
-    http_listener:
-      protocol: Http
-    frontend_port:
-      port: 80
     gateway_ip_configuration:
       vnet_name: TESTPROJECT-DEV-GENERAL-00
       subnet_name: network_appliances
 
-    backend_address_pool: {}
-    backend_http_settings:
+    fe_ip_config:
+      protocol: Http
+      port: 80
+    be_config:
       cookie_based_affinity: Disabled
       path: /path1/
       port: 80
       protocol: Http
       request_timeout: 60
+
     request_routing_rule:
       rule_type: Basic
       priority: 1
 
-aks_cluster_list:
+aks_clusters:
   main:
     created: true
-    kubeconfig_output_path: ${aks__kubeconfig_output_path}
     name: ${aks__name}
-    nodepool_temporary_name_for_rotation: temp
     location: ${region}
-    resource_group_name: ${aks__rg_name}
+    rg_name: ${aks__rg_name}
 
     vnet_subnet_id: ${aks__vnet_subnet_id}
     dns_prefix: exampleaks1
@@ -70,19 +72,19 @@ aks_cluster_list:
       public_ip_ids:
         - /subscriptions/7c103106-7bc8-4282-906d-b6df27eb2c14/resourceGroups/TESTPROJECT-DEV-GENERAL-00/providers/Microsoft.Network/publicIPAddresses/TESTPROJECT-DEV-GENERAL-00
 
-    kubernetes_version: 1.32.6
+    k8s_version: 1.32.6
 
     default_node_pool:
       name: default
       node_count: 1
-      vm_size: Standard_DC2as_v5
+      vm_size: Standard_B2as_v2
     cluster_node_pool:
       - name: frontend
         node_count: 1
-        vm_size: Standard_DC2as_v5
+        vm_size: Standard_B2as_v2
       - name: backend
         node_count: 1
-        vm_size: Standard_DC2as_v5
+        vm_size: Standard_B2as_v2
 
     # workload_identity:
     #   enabled: true
