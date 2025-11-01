@@ -14,15 +14,15 @@ vault_dedicated_cluster_list:
       peering_id: testproject-dev
       tier: dev
       public_endpoint: true
-      kubernetes_cluster_list:
-        - name: TESTPROJECT-DEV-GENERAL-00
-          resource_group: TESTPROJECT-DEV-GENERAL-00
 
 vault_component_list:
   main:
     vault_cluster:
       endpoint: ${vault_cluster__address}
       admin_token: ${vault_cluster__admin_token}
+    kubernetes_cluster_list:
+      - name: TESTPROJECT-DEV-GENERAL-00
+        resource_group: TESTPROJECT-DEV-GENERAL-00
     auth_method_list:
       - kubernetes
     component:
