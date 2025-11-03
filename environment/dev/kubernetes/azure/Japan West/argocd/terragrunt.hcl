@@ -73,11 +73,11 @@ inputs = {
     }
 
     manifest_path_list = [
+      "argocd_apps/vault-secrets-operator/applications.yaml", # [IMPORTANT] Must be the first item
       "argocd_apps/nginx/applications.yaml",
       "argocd_apps/cert-manager/applications.yaml",
       "argocd_apps/hcp-vault/applications.yaml",
       "argocd_apps/jenkins/applications.yaml",
-      "argocd_apps/vault-secrets-operator/applications.yaml",
       "argocd_apps/postgresql/applications.yaml",
       "argocd_apps/postgresql/vault-secrets.yaml",
       "argocd_apps/mongodb-sharded/applications.yaml",

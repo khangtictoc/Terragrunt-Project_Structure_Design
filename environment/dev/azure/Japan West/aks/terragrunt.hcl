@@ -82,6 +82,9 @@ inputs = merge(
     ))
   ).aks_clusters.main,
   {
+    ingress_application_gateway = {
+      public_ip_ids = dependency.aks_appgw.outputs.public_ips
+  }
     tags = local.tags
   }
 )
