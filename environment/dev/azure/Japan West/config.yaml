@@ -70,6 +70,7 @@ aks_clusters:
     ingress_application_gateway:
       gateway_id: ${aks_ingress_appgw_id}
       vnet_id: ${aks_vnet_id}
+      public_ip_ids: [] # Auto get all Public IPs from Deployed Application Gateway
 
     k8s_version: 1.32.6
 
