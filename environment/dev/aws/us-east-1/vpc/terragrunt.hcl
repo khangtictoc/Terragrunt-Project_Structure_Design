@@ -7,41 +7,53 @@ include "root" {
 
 # Use self-developed modules
 # terraform {
-#     source = "../../../../../modules/aws/vpc"
+#     source = "../../../../../modules/azure/vnet"
 # }
 
-# ┌──────────────────────────────────────┐
-# │                                      │
-# │    Use Official  Community Module    │
-# │                                      │
-# └──────────────────────────────────────┘
+# ┌──────────────────────────────────────────────────────────────────┐ 
+# │                                                                  │
+# │    Self-developed  Module - Terraform HashiCorp Registry         │ 
+# │                                                                  │
+# └──────────────────────────────────────────────────────────────────┘
 
+# Use self-developed modules
 terraform {
-  source = "tfr:///terraform-aws-modules/vpc/aws?version=6.0.1"
+  source = "git::https://gitlab.com/terraform-modules7893436/aws/vpc.git"
+}
+
+# ---- DEPENDENCIES ----
+
+dependency "naming" {
+  config_path = "../naming"
+  mock_outputs = {
+    aws = {
+      vpc_name = "test"
+      eks_cluster_name = "test"
+    }
+  }
+  mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
 
 locals {
-  name     = "testproject-${local.env}-vpc"
-  vpc_cidr = "10.0.0.0/16"
   env      = include.root.locals.env
+  region   = include.root.locals.region
   tags     = include.root.locals.tags
+
+  arg_masks     = include.root.locals.arg_masks
 }
 
-
-inputs = {
-  name = local.name
-  cidr = local.vpc_cidr
-  azs  = ["us-east-1a", "us-east-1b", "us-east-1c", "us-east-1d"]
-
-  private_subnets      = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k)]
-  public_subnets       = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 4)]
-  private_subnet_names = ["private-subnet-one", "private-subnet-two"]
-  public_subnets_names = ["public-subnet-one", "public-subnet-two"]
-
-  enable_nat_gateway               = true
-  create_private_nat_gateway_route = true
-  single_nat_gateway               = true
-
-  tags = local.tags
-}
+inputs = merge(
+  yamldecode(
+    templatefile("../config.yaml", merge(
+      local.arg_masks,
+      {
+        region = local.region
+        vpc_name   = dependency.naming.outputs.aws.vpc_name
+      }
+    ))
+  ).vpcs.main,
+  {
+    tags = local.tags
+  }
+)
 
