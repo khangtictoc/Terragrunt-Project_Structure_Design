@@ -27,6 +27,7 @@ locals {
 
 inputs = {
   project = {
+    name = "testproject"
     aws = {
       eks_cluster = {
         target_name = "general"
