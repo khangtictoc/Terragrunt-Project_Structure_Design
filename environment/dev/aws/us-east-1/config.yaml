@@ -18,3 +18,29 @@ vpcs:
 
     nat_gateway_enabled: false
     application_gateway_enabled: false
+
+eks:
+  main:
+    name: "${eks_name}"
+    region: ${region}
+    alb_ingress_controller_enabled: true
+    cluster_version: "1.31"
+
+    vpc_config:
+      endpoint_public_access: true
+
+    nodegroups:
+      frontend:
+        desired_capacity: 1
+        max_capacity: 1
+        min_capacity: 1
+        disk_size: 20
+        instance_types:
+          - "t3.medium"
+      backend:
+        desired_capacity: 1
+        max_capacity: 1
+        min_capacity: 1
+        disk_size: 20
+        instance_types:
+          - "t3.medium"

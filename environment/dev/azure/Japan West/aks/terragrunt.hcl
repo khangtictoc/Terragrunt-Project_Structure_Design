@@ -84,7 +84,7 @@ inputs = merge(
   {
     ingress_application_gateway = {
       public_ip_ids = dependency.aks_appgw.outputs.public_ips
-  }
+    }
     tags = local.tags
   }
 )

@@ -18,7 +18,7 @@ include "root" {
 
 # Use self-developed modules
 terraform {
-  source = "git::https://gitlab.com/terraform-modules7893436/aws/vpc.git"
+  source = "git::https://gitlab.com/terraform-modules7893436/aws/eks.git"
 }
 
 # ---- DEPENDENCIES ----
@@ -27,8 +27,16 @@ dependency "naming" {
   config_path = "../naming"
   mock_outputs = {
     aws = {
-      vpc_name = "test"
+      eks_cluster_name = "test"
     }
+  }
+  mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
+}
+
+dependency "vpc" {
+  config_path = "../vpc"
+  mock_outputs = {
+    public_subnets_ids = ["subnet-12345678", "subnet-87654321"]
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
@@ -45,11 +53,15 @@ inputs = merge(
       local.arg_masks,
       {
         region = local.region
-        vpc_name   = dependency.naming.outputs.aws.vpc_name
+        eks_name   = dependency.naming.outputs.aws.eks_cluster_name
       }
     ))
-  ).vpcs.main,
+  ).eks.main,
   {
+    vpc_config = {
+      endpoint_public_access = true
+      subnet_ids = dependency.vpc.outputs.public_subnets_ids
+    }
     tags = local.tags
   }
 )
