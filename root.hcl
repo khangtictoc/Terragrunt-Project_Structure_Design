@@ -16,8 +16,7 @@ locals {
   region              = local.region_vars.locals.region
   platform            = local.platform_vars.locals.platform
   
-  backend_s3_bucket_azure = "terragrunt-state-backend-azure"
-  backend_s3_bucket_aws   = "terragrunt-state-backend-aws"
+  backend_s3_bucket = "terragrunt-state-backend-708617"
 
   tags                = {
     "Platform" = local.platform
@@ -50,7 +49,7 @@ generate "backend" {
   contents  = <<EOF
 terraform {
   backend "s3" {
-    bucket         = "terragrunt-state-backend"
+    bucket         = "${local.backend_s3_bucket}"
     key            = "${path_relative_to_include()}/terragrunt.tfstate"
     region         = "us-east-1"
     encrypt        = true
@@ -123,7 +122,7 @@ EOF
 terraform {
   before_hook "create_backend_resources" {
     commands = ["init", "plan", "apply"]
-    execute  = ["bash", "${local.root_folder_path}/hook_script/create-backend-resources.sh", "${local.backend_s3_bucket_aws}"]
+    execute  = ["bash", "${local.root_folder_path}/hook_script/create-backend-resources.sh", "${local.backend_s3_bucket}"]
   }
 
   after_hook "post_processing" {
