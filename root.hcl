@@ -72,7 +72,7 @@ generate "provider_config" {
   contents  = <<-EOF
 provider "aws" {
   region  = "${local.region}"
-  profile = "default"
+  # profile = "default"
 }
 
 provider "azurerm" {
