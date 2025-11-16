@@ -16,7 +16,8 @@ locals {
   region              = local.region_vars.locals.region
   platform            = local.platform_vars.locals.platform
   
-
+  backend_s3_bucket_azure = "terragrunt-state-backend-azure"
+  backend_s3_bucket_aws   = "terragrunt-state-backend-aws"
 
   tags                = {
     "Platform" = local.platform
@@ -112,12 +113,12 @@ EOF
 # │                  │
 # └──────────────────┘
 
-# terraform {
-#   before_hook "create_backend_resources" {
-#     commands = ["init", "plan", "apply"]
-#     execute  = ["bash", "${local.root_folder_path}/hook_script/create-backend-resources.sh"]
-#   }
-# }
+terraform {
+  before_hook "create_backend_resources" {
+    commands = ["init", "plan", "apply"]
+    execute  = ["bash", "${local.root_folder_path}/hook_script/create-backend-resources.sh ${local.backend_s3_bucket_aws}"]
+  }
+}
 
 # terraform {
 #   after_hook "clean_up_cache_folder" {

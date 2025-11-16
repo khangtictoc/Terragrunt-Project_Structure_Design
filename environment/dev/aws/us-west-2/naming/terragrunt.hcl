@@ -27,21 +27,12 @@ locals {
 
 inputs = {
   project = {
-    name = "testproject"
-    azure = {
-      aks_cluster = {
+    aws = {
+      eks_cluster = {
         target_name = "general"
         index = 0
       }
-      appgw = {
-        target_name = "general"
-        index = 0
-      }
-      resource_group = {
-        target_name = "general"
-        index = 0
-      }
-      vnet = {
+      vpc = {
         target_name = "general"
         index = 0
       }

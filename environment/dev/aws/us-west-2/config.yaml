@@ -1,0 +1,20 @@
+vpcs:
+  main:
+    name: ${vpc_name}
+    cidr: "10.0.0.0/16"
+    region: ${region}
+
+    subnets:
+      application:
+        cidr_blocks:
+          - "10.0.1.0/24"
+        public: false
+        azs: ""
+      network_appliance:
+        cidr_blocks:
+          - "10.0.2.0/24"
+        public: true
+        azs: ""
+
+    nat_gateway_enabled: false
+    application_gateway_enabled: false

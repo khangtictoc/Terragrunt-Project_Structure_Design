@@ -7,7 +7,7 @@ include "root" {
 
 # Use self-developed modules
 # terraform {
-#     source = "../../../../../modules/azure/naming"
+#     source = "../../../../../modules/azure/vnet"
 # }
 
 # ┌──────────────────────────────────────────────────────────────────┐ 
@@ -18,35 +18,42 @@ include "root" {
 
 # Use self-developed modules
 terraform {
-  source = "git::https://gitlab.com/terraform-modules7893436/azure/naming.git"
+  source = "git::https://gitlab.com/terraform-modules7893436/aws/vpc.git"
+}
+
+# ---- DEPENDENCIES ----
+
+dependency "naming" {
+  config_path = "../naming"
+  mock_outputs = {
+    aws = {
+      vpc_name = "test"
+      eks_cluster_name = "test"
+    }
+  }
+  mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
 
 locals {
   env      = include.root.locals.env
+  region   = include.root.locals.region
+  tags     = include.root.locals.tags
+
+  arg_masks     = include.root.locals.arg_masks
 }
 
-inputs = {
-  project = {
-    name = "testproject"
-    azure = {
-      aks_cluster = {
-        target_name = "general"
-        index = 0
+inputs = merge(
+  yamldecode(
+    templatefile("../config.yaml", merge(
+      local.arg_masks,
+      {
+        region = local.region
+        vpc_name   = dependency.naming.outputs.aws.vpc_name
       }
-      appgw = {
-        target_name = "general"
-        index = 0
-      }
-      resource_group = {
-        target_name = "general"
-        index = 0
-      }
-      vnet = {
-        target_name = "general"
-        index = 0
-      }
-    }
+    ))
+  ).vpcs.main,
+  {
+    tags = local.tags
   }
-  env = local.env
-}
+)
 

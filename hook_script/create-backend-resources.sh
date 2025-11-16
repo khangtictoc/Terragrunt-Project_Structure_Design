@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Variables
-BUCKET_NAME="terragrunt-state-backend"
+BUCKET_NAME=$1
 DYNAMODB_TABLE_NAME="terragrunt-state-lock"
 REGION="us-east-1"
 
