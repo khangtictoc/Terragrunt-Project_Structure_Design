@@ -123,7 +123,7 @@ EOF
 terraform {
   before_hook "create_backend_resources" {
     commands = ["init", "plan", "apply"]
-    execute  = ["bash", "${local.root_folder_path}/hook_script/create-backend-resources.sh ${local.backend_s3_bucket_aws}"]
+    execute  = ["bash", "${local.root_folder_path}/hook_script/create-backend-resources.sh", "${local.backend_s3_bucket_aws}"]
   }
 
   after_hook "post_processing" {
