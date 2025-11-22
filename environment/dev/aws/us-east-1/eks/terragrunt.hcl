@@ -63,6 +63,8 @@ inputs = merge(
     vpc_config = {
       endpoint_public_access = true
       subnet_ids = dependency.vpc.outputs.public_subnets_ids
+      vpc_name                = dependency.naming.outputs.aws.vpc_name
+      subnet_names = ["application-a", "application-b"]
     }
     tags = local.tags
   }

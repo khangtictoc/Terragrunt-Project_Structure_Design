@@ -31,13 +31,6 @@ eks:
     alb_ingress_controller_enabled: true
     cluster_version: "1.31"
 
-    vpc_config:
-      endpoint_public_access: true
-      vpc_name: ${vpc_name}
-      subnet_names:
-        - "application-a"
-        - "application-b"
-
     nodegroups:
       frontend:
         desired_capacity: 1
