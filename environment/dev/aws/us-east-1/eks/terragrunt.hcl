@@ -28,6 +28,7 @@ dependency "naming" {
   mock_outputs = {
     aws = {
       eks_cluster_name = "test"
+      vpc_name = "test"
     }
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
@@ -54,6 +55,7 @@ inputs = merge(
       {
         region = local.region
         eks_name   = dependency.naming.outputs.aws.eks_cluster_name
+        vpc_name   = dependency.naming.outputs.aws.vpc_name
       }
     ))
   ).eks.main,

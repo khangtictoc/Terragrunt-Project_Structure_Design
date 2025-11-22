@@ -15,7 +15,7 @@ vpcs:
           - "10.0.2.0/24"
         public: false
         azs: "b"
-      network_appliance:
+      network-appliance:
         cidr_blocks:
           - "10.0.3.0/24"
         public: true
@@ -33,6 +33,10 @@ eks:
 
     vpc_config:
       endpoint_public_access: true
+      vpc_name: ${vpc_name}
+      subnet_names:
+        - "application-a"
+        - "application-b"
 
     nodegroups:
       frontend:
