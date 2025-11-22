@@ -5,14 +5,19 @@ vpcs:
     region: ${region}
 
     subnets:
-      application:
+      application-a:
         cidr_blocks:
           - "10.0.1.0/24"
         public: false
-        azs: ""
-      network_appliance:
+        azs: "a"
+      application-b:
         cidr_blocks:
           - "10.0.2.0/24"
+        public: false
+        azs: "b"
+      network_appliance:
+        cidr_blocks:
+          - "10.0.3.0/24"
         public: true
         azs: ""
 
