@@ -18,6 +18,11 @@ terraform {
   source = "git::https://gitlab.com/terraform-modules7893436/hcp/vault-components.git"
 }
 
+dependency "eks" {
+  config_path = "../../../aws/${local.region}/eks"
+  skip_outputs = true
+}
+
 dependency "vault_dedicated_cluster" {
   config_path = "../vault-dedicated-cluster"
 
@@ -30,6 +35,7 @@ dependency "vault_dedicated_cluster" {
 
 locals {
   arg_masks     = include.root.locals.arg_masks
+  region   = include.root.locals.region
 }
 
 inputs = yamldecode(
