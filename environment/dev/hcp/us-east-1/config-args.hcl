@@ -7,5 +7,6 @@ locals {
         cluster_id = ""
         vault_cluster__address = ""
         vault_cluster__admin_token = ""
+        k8s_cluster__name = ""
     }
 }

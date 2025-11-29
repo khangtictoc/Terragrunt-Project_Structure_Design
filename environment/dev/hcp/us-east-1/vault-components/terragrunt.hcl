@@ -18,9 +18,12 @@ terraform {
   source = "git::https://gitlab.com/terraform-modules7893436/hcp/vault-components.git"
 }
 
-dependency "eks" {
-  config_path = "../../../aws/${local.region}/eks"
-  skip_outputs = true
+dependency "k8s_cluster" {
+  config_path = "../../../../${local.platform}/${local.region}/${local.cluster_type}"
+  mock_outputs = {
+    name = "test"
+  }
+  mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
 
 dependency "vault_dedicated_cluster" {
@@ -42,8 +45,10 @@ inputs = yamldecode(
   templatefile("../config.yaml", merge(
     local.arg_masks,
     {
+      region = local.region
       vault_cluster__address = dependency.vault_dedicated_cluster.outputs.public_endpoint
       vault_cluster__admin_token = dependency.vault_dedicated_cluster.outputs.admin_token
+      k8s_cluster__name = dependency.k8s_cluster.outputs.name
     }
   ))
 ).vault_component_list.main

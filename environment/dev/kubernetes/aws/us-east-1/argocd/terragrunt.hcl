@@ -26,9 +26,7 @@ terraform {
 dependency "k8s_cluster" {
   config_path = "../../../../${local.platform}/${local.region}/${local.cluster_type}"
   mock_outputs = {
-    host = "test"
-    cluster_ca_certificate = "test"
-    token = "test"
+    name = "test"
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
@@ -57,7 +55,7 @@ inputs = {
   argocd_deploy = {
 
     k8s_cluster_info = {
-        name = "test"
+        name = dependency.k8s_cluster.outputs.name
         region = "us-east-1"
         platform = "aws"
         resource_group = ""

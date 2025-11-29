@@ -24,8 +24,8 @@ vault_component_list:
     kubernetes_cluster_list:
       aws:
         test:
-          name: "test"
-          region: "us-east-1"
+          name: ${k8s_cluster__name}
+          region: ${region}
 
     component:
       secret_yaml_path: https://terragrunt-input.s3.us-east-1.amazonaws.com/secrets.yaml
