@@ -18,11 +18,6 @@ terraform {
   source = "git::https://gitlab.com/terraform-modules7893436/hcp/vault-dedicated-cluster.git"
 }
 
-dependency "aks" {
-  config_path = "../../../azure/Japan West/aks"
-  skip_outputs = true
-}
-
 locals {
   name     = "testproject-${local.env}"
   env      = include.root.locals.env

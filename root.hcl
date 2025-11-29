@@ -1,23 +1,21 @@
 # https://www.infyways.com/tools/text-box-generator/
 
 locals {
-  ### Terragrunt Settings
+  # Terragrunt Settings
   root_module_path = find_in_parent_folders("root.hcl")
   root_folder_path = "${substr(local.root_module_path, 0, length(local.root_module_path) - 9)}"
   environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
   region_vars      = read_terragrunt_config(find_in_parent_folders("region.hcl"))
   platform_vars    = read_terragrunt_config(find_in_parent_folders("platform.hcl"))
-  arg_masks        =  read_terragrunt_config(find_in_parent_folders("config-args.hcl")).locals.parameters
+  arg_masks        = read_terragrunt_config(find_in_parent_folders("config-args.hcl")).locals.parameters
   
-  ### Project Settings
+  # Project Settings
   account_name        = "personal"
   global_project_name = "testproject"
   env                 = local.environment_vars.locals.env
   region              = local.region_vars.locals.region
   platform            = local.platform_vars.locals.platform
   
-  backend_s3_bucket = "terragrunt-state-backend-708617"
-
   tags                = {
     "Platform" = local.platform
     "Environment" = local.env
@@ -27,15 +25,17 @@ locals {
   }
   
   cloud_provider = regex(".*/(aws|azure|hcp)/.*", path_relative_to_include())[0]
-  terragrunt_output_s3_bucket = "terragrunt-output"
-
-  # Account & Profile Settings
+  
+  # Profile Settings
   profile = (
     local.env == "dev" ? "${local.account_name}-dev" :
     local.env == "staging" ? "${local.account_name}-staging" :  
     local.env == "prod" ? "${local.account_name}-prod" :
     "default"
   )
+
+  backend_s3_bucket = "terragrunt-state-backend-708617"
+  terragrunt_output_s3_bucket = "terragrunt-output-708617"
 }
 
 # ┌──────────────────────────────────────┐

@@ -15,11 +15,16 @@ vpcs:
           - "10.0.2.0/24"
         public: false
         azs: "b"
-      network-appliance:
+      network-appliance-a:
         cidr_blocks:
           - "10.0.3.0/24"
         public: true
-        azs: ""
+        azs: "a"
+      network-appliance-b:
+        cidr_blocks:
+          - "10.0.4.0/24"
+        public: true
+        azs: "b"
 
     nat_gateway_enabled: false
     application_gateway_enabled: false
@@ -30,6 +35,16 @@ eks:
     region: ${region}
     alb_ingress_controller_enabled: true
     cluster_version: "1.31"
+    vpc_config:
+      enable_nat_gateway: true
+      endpoint_public_access: true
+      vpc_name: "${vpc_name}"
+      control_plane_subnet_names:
+        - "network-appliance-a"
+        - "network-appliance-b"
+      node_groups_subnet_names:
+        - "application-a"
+        - "application-b"
 
     nodegroups:
       frontend:

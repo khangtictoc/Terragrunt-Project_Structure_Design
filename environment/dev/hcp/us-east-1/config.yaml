@@ -20,11 +20,13 @@ vault_component_list:
     vault_cluster:
       endpoint: ${vault_cluster__address}
       admin_token: ${vault_cluster__admin_token}
+
     kubernetes_cluster_list:
-      - name: TESTPROJECT-DEV-GENERAL-00
-        resource_group: TESTPROJECT-DEV-GENERAL-00
-    auth_method_list:
-      - kubernetes
+      aws:
+        test:
+          name: "test"
+          region: "us-east-1"
+
     component:
       secret_yaml_path: https://terragrunt-input.s3.us-east-1.amazonaws.com/secrets.yaml
       roles:
