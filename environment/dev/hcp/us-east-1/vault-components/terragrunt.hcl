@@ -3,6 +3,11 @@ include "root" {
   expose = true
 }
 
+include "mapping_conventions" {
+  path   = find_in_parent_folders("mapping_conventions.hcl")
+  expose = true
+}
+
 # Use self-developed modules
 # terraform {
 #     source = "../../../../../modules/aws/vpc"
@@ -19,7 +24,7 @@ terraform {
 }
 
 dependency "k8s_cluster" {
-  config_path = "../../../../${local.platform}/${local.region}/${local.cluster_type}"
+  config_path = "../../../aws/${local.region}/eks"
   mock_outputs = {
     name = "test"
   }
