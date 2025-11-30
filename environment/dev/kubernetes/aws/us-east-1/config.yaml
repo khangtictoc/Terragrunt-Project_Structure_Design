@@ -33,4 +33,4 @@ deployment_list:
           path: argocd_values/vault-secrets-operator/values.yaml
           parameter_sets:
             - key: .defaultVaultConnection.address
-              value: dependency.hcp_vault_cluster.outputs.public_endpoint
+              value: ${hcp_vault_public_endpoint}
