@@ -49,52 +49,21 @@ locals {
   region   = include.root.locals.region
   platform = include.root.locals.platform
   cluster_type = lookup(include.mapping_conventions.locals.cluster_type, local.platform, "")
+  arg_masks     = include.root.locals.arg_masks
 }
 
-inputs = {
-  argocd_deploy = {
-
-    k8s_cluster_info = {
-        name = dependency.k8s_cluster.outputs.name
-        region = "us-east-1"
-        platform = "aws"
-        resource_group = ""
-    }
-
-    install_kubectl = true
-    install_argocd_cli = true
-    install_argocd = true
-
-    git_repo = {
-      name = "argocd-apps"
-      author = "khangtictoc"
-      branch = "main"        
-    }
-
-    manifest_path_list = [
-      "argocd_apps/vault-secrets-operator/applications.yaml", # [IMPORTANT] Must be the first item
-      "argocd_apps/nginx/applications.yaml",
-      "argocd_apps/cert-manager/applications.yaml",
-      "argocd_apps/hcp-vault/applications.yaml",
-      "argocd_apps/jenkins/applications.yaml",
-      "argocd_apps/postgresql/applications.yaml",
-      "argocd_apps/postgresql/vault-secrets.yaml",
-      "argocd_apps/mongodb-sharded/applications.yaml",
-      "argocd_apps/mongodb-sharded/vault-secrets.yaml",
-    ]
-
-    value_file_path = [
+inputs = merge(
+  yamldecode(
+    templatefile("../config.yaml", merge(
+      local.arg_masks,
       {
-        override = true
-        path ="argocd_values/vault-secrets-operator/values.yaml"
-        parameter_sets = [
-          {
-            key = ".defaultVaultConnection.address"
-            value = dependency.hcp_vault_cluster.outputs.public_endpoint
-          }
-        ]
+        region = local.region
+        k8s_cluster_name   = dependency.k8s_cluster.outputs.name
       }
-    ]
+    ))
+  ).deployment_list.main,
+  {
+    tags = local.tags
   }
-}
+)
 
