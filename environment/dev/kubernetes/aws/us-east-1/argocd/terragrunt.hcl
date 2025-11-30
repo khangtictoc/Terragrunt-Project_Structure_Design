@@ -52,8 +52,7 @@ locals {
   arg_masks     = include.root.locals.arg_masks
 }
 
-inputs = merge(
-  yamldecode(
+inputs = yamldecode(
     templatefile("../config.yaml", merge(
       local.arg_masks,
       {
@@ -61,9 +60,6 @@ inputs = merge(
         k8s_cluster_name   = dependency.k8s_cluster.outputs.name
       }
     ))
-  ).deployment_list.main,
-  {
-    tags = local.tags
-  }
+  ).deployment_list.main
 )
 
