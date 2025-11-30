@@ -23,7 +23,7 @@ vault_component_list:
 
     kubernetes_cluster_list:
       aws:
-        test:
+        "${k8s_cluster__name}":
           name: ${k8s_cluster__name}
           region: ${region}
 
