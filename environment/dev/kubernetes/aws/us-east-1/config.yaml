@@ -24,9 +24,9 @@ deployment_list:
         - argocd_apps/hcp-vault/applications.yaml
         - argocd_apps/jenkins/applications.yaml
         - argocd_apps/postgresql/applications.yaml
-        - argocd_apps/postgresql/vault-secrets.yaml
+        - argocd_apps/postgresql/vault-secrets-${platform}.yaml
         - argocd_apps/mongodb-sharded/applications.yaml
-        - argocd_apps/mongodb-sharded/vault-secrets.yaml
+        - argocd_apps/mongodb-sharded/vault-secrets-${platform}.yaml
 
       value_file_path:
         - override: true

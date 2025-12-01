@@ -57,6 +57,7 @@ inputs = yamldecode(
       local.arg_masks,
       {
         region = local.region
+        platform = local.platform
         k8s_cluster_name   = dependency.k8s_cluster.outputs.name
         hcp_vault_public_endpoint = dependency.hcp_vault_cluster.outputs.public_endpoint
       }
