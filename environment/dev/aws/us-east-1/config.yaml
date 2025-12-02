@@ -51,13 +51,13 @@ eks:
         desired_capacity: 1
         max_capacity: 1
         min_capacity: 1
-        disk_size: 20
+        disk_size: 50
         instance_types:
           - "t3.medium"
       backend:
         desired_capacity: 1
         max_capacity: 1
         min_capacity: 1
-        disk_size: 20
+        disk_size: 50
         instance_types:
           - "t3.medium"
