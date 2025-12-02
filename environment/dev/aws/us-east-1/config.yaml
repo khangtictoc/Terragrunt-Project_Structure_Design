@@ -10,16 +10,19 @@ vpcs:
           - "10.0.1.0/24"
         public: false
         azs: "a"
+
       application-b:
         cidr_blocks:
           - "10.0.2.0/24"
         public: false
         azs: "b"
+
       network-appliance-a:
         cidr_blocks:
           - "10.0.3.0/24"
         public: true
         azs: "a"
+
       network-appliance-b:
         cidr_blocks:
           - "10.0.4.0/24"
@@ -33,15 +36,20 @@ eks:
   main:
     name: "${eks_name}"
     region: ${region}
+
     alb_ingress_controller_enabled: true
     cluster_version: "1.33"
+    auto_mode: true
+
     vpc_config:
       enable_nat_gateway: true
       endpoint_public_access: true
       vpc_name: "${vpc_name}"
+
       control_plane_subnet_names:
         - "network-appliance-a"
         - "network-appliance-b"
+
       node_groups_subnet_names:
         - "application-a"
         - "application-b"
@@ -54,6 +62,7 @@ eks:
         disk_size: 50
         instance_types:
           - "t3.medium"
+
       backend:
         desired_capacity: 1
         max_capacity: 1
