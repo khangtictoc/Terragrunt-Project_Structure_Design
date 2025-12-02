@@ -34,7 +34,7 @@ eks:
     name: "${eks_name}"
     region: ${region}
     alb_ingress_controller_enabled: true
-    cluster_version: "1.31"
+    cluster_version: "1.33"
     vpc_config:
       enable_nat_gateway: true
       endpoint_public_access: true
