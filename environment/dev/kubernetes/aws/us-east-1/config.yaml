@@ -4,33 +4,48 @@ deployment_list:
       k8s_cluster_info:
         name: ${k8s_cluster_name}
         region: ${region}
-        platform: aws
+        platform: "aws"
         resource_group: ""
 
       install_kubectl: true
       install_argocd_cli: true
       install_argocd: true
+      install_vso: true
 
       git_repo:
-        name: argocd-apps
-        author: khangtictoc
-        branch: main
+        name: "argocd-apps"
+        author: "khangtictoc"
+        branch: "main"
 
-      manifest_path_list:
-        # [IMPORTANT] Vault Secret Operator Must be the first item to be deployed
-        - argocd_apps/vault-secrets-operator/applications.yaml
-        - argocd_apps/nginx/applications.yaml
-        - argocd_apps/cert-manager/applications.yaml
-        - argocd_apps/hcp-vault/applications.yaml
-        - argocd_apps/jenkins/applications.yaml
-        - argocd_apps/postgresql/applications.yaml
-        - argocd_apps/postgresql/vault-secrets-${platform}.yaml
-        - argocd_apps/mongodb-sharded/applications.yaml
-        - argocd_apps/mongodb-sharded/vault-secrets-${platform}.yaml
+      installed_apps:
+        nginx:
+          enabled: true
+          use_vault: false
+          manifest_path: "argocd_apps/nginx"
+        cert-manager:
+          enabled: true
+          use_vault: false
+          manifest_path: "argocd_apps/cert-manager"
+        hcp-vault:
+          enabled: true
+          use_vault: false
+          manifest_path: "argocd_apps/hcp-vault"
+        jenkins:
+          enabled: true
+          use_vault: false
+          manifest_path: "argocd_apps/jenkins"
+        postgresql:
+          enabled: true
+          use_vault: true
+          manifest_path: "argocd_apps/postgresql"
+        mongodb-sharded:
+          enabled: true
+          use_vault: true
+          manifest_path: "argocd_apps/mongodb-sharded"
 
       value_file_path:
         - override: true
-          path: argocd_values/vault-secrets-operator/values.yaml
+          path: "argocd-values/nginx/values.yaml"
           parameter_sets:
-            - key: .defaultVaultConnection.address
+            - key: ".defaultVaultConnection.address"
               value: ${hcp_vault_public_endpoint}
