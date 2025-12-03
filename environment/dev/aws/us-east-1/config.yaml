@@ -39,7 +39,7 @@ eks:
 
     alb_ingress_controller_enabled: true
     cluster_version: "1.33"
-    auto_mode: true
+    auto_mode: false
 
     vpc_config:
       enable_nat_gateway: true
