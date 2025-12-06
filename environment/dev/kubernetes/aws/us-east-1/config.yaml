@@ -48,11 +48,11 @@ deployment_list:
         default_storageclass: "https://raw.githubusercontent.com/khangtictoc/ArgoCD-Apps/refs/heads/main/manifest/aws/default-storageclass.yaml"
 
       post_install_manifests:
-        alb_to_nginx: "https://raw.githubusercontent.com/khangtictoc/ArgoCD-Apps/refs/heads/main/argocd_apps/nginx/ingress-appgw-to-nginx.yaml"
+        alb_to_nginx: "https://raw.githubusercontent.com/khangtictoc/ArgoCD-Apps/refs/heads/main/argocd_apps/nginx/ingress-alb-to-nginx.yaml"
 
       value_file_path:
         - override: true
-          path: "argocd-values/nginx/values.yaml"
+          path: "argocd_values/nginx/values.yaml"
           parameter_sets:
             - key: ".defaultVaultConnection.address"
               value: ${hcp_vault_public_endpoint}
