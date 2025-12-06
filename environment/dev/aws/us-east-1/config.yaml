@@ -41,6 +41,16 @@ eks:
     cluster_version: "1.33"
     auto_mode: false
 
+    add_ons:
+      prerequisites:
+        - kube-proxy
+        - coredns
+        - eks-pod-identity-agent
+      no_iam:
+        - metrics-server
+      need_iam:
+        - aws-ebs-csi-driver
+
     vpc_config:
       enable_nat_gateway: true
       endpoint_public_access: true

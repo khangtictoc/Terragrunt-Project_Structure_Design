@@ -45,10 +45,10 @@ deployment_list:
 
       prerequisites_manifests:
         cluster_ns: "https://raw.githubusercontent.com/khangtictoc/ArgoCD-Apps/refs/heads/main/manifest/namespace/cluster-aio.yaml"
+        default_storageclass: "https://raw.githubusercontent.com/khangtictoc/ArgoCD-Apps/refs/heads/main/manifest/aws/default-storageclass.yaml"
 
       post_install_manifests:
-        appgw_to_nginx: "https://raw.githubusercontent.com/khangtictoc/ArgoCD-Apps/refs/heads/main/argocd_apps/nginx/ingress-appgw-to-nginx.yaml"
-        default_storageclass: "https://raw.githubusercontent.com/khangtictoc/ArgoCD-Apps/refs/heads/main/manifest/aws/default-storageclass.yaml"
+        alb_to_nginx: "https://raw.githubusercontent.com/khangtictoc/ArgoCD-Apps/refs/heads/main/argocd_apps/nginx/ingress-appgw-to-nginx.yaml"
 
       value_file_path:
         - override: true
