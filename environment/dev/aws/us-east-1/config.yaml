@@ -71,7 +71,7 @@ eks:
         min_capacity: 1
         disk_size: 50
         instance_types:
-          - "t3.medium"
+          - "m5.large"
 
       backend:
         desired_capacity: 1
@@ -79,4 +79,4 @@ eks:
         min_capacity: 1
         disk_size: 50
         instance_types:
-          - "t3.medium"
+          - "m5.large"
