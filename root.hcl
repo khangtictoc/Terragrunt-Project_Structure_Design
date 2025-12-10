@@ -8,33 +8,33 @@ locals {
   region_vars      = read_terragrunt_config(find_in_parent_folders("region.hcl"))
   platform_vars    = read_terragrunt_config(find_in_parent_folders("platform.hcl"))
   arg_masks        = read_terragrunt_config(find_in_parent_folders("config-args.hcl")).locals.parameters
-  
+
   # Project Settings
   account_name        = "personal"
   global_project_name = "testproject"
   env                 = local.environment_vars.locals.env
   region              = local.region_vars.locals.region
   platform            = local.platform_vars.locals.platform
-  
-  tags                = {
-    "Platform" = local.platform
+
+  tags = {
+    "Platform"    = local.platform
     "Environment" = local.env
-    "Region" = local.region
-    "ManagedBy" = "terraform"
-    "ManagedBy2" = "terragrunt"
+    "Region"      = local.region
+    "ManagedBy"   = "terraform"
+    "ManagedBy2"  = "terragrunt"
   }
-  
+
   cloud_provider = regex(".*/(aws|azure|hcp)/.*", path_relative_to_include())[0]
-  
+
   # Profile Settings
   profile = (
     local.env == "dev" ? "${local.account_name}-dev" :
-    local.env == "staging" ? "${local.account_name}-staging" :  
+    local.env == "staging" ? "${local.account_name}-staging" :
     local.env == "prod" ? "${local.account_name}-prod" :
     "default"
   )
 
-  backend_s3_bucket = "terragrunt-state-backend-708617"
+  backend_s3_bucket           = "terragrunt-state-backend-708617"
   terragrunt_output_s3_bucket = "terragrunt-output-708617"
 }
 

@@ -21,9 +21,9 @@ terraform {
 }
 
 locals {
-  name     = "test--allow-all-${local.env}"
-  env      = include.root.locals.env
-  tags     = include.root.locals.tags
+  name = "test--allow-all-${local.env}"
+  env  = include.root.locals.env
+  tags = include.root.locals.tags
 }
 
 dependency "vpc" {

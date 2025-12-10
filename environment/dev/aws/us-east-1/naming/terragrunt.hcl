@@ -22,7 +22,7 @@ terraform {
 }
 
 locals {
-  env      = include.root.locals.env
+  env = include.root.locals.env
 }
 
 inputs = {
@@ -31,11 +31,11 @@ inputs = {
     aws = {
       eks_cluster = {
         target_name = "general"
-        index = 0
+        index       = 0
       }
       vpc = {
         target_name = "general"
-        index = 0
+        index       = 0
       }
     }
   }

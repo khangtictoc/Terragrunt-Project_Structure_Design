@@ -32,11 +32,11 @@ dependency "naming" {
 }
 
 locals {
-  env      = include.root.locals.env
-  region   = include.root.locals.region
-  tags     = include.root.locals.tags
+  env    = include.root.locals.env
+  region = include.root.locals.region
+  tags   = include.root.locals.tags
 
-  arg_masks     = include.root.locals.arg_masks
+  arg_masks = include.root.locals.arg_masks
 }
 
 inputs = merge(
@@ -44,8 +44,8 @@ inputs = merge(
     templatefile("../config.yaml", merge(
       local.arg_masks,
       {
-        region = local.region
-        rg_name   = dependency.naming.outputs.resource_group_name
+        region  = local.region
+        rg_name = dependency.naming.outputs.resource_group_name
       }
     ))
   ).resource_groups.main,

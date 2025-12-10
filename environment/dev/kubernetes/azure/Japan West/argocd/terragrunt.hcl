@@ -26,9 +26,9 @@ terraform {
 dependency "k8s_cluster" {
   config_path = "../../../../${local.platform}/${local.region}/${local.cluster_type}"
   mock_outputs = {
-    host = "test"
+    host                   = "test"
     cluster_ca_certificate = "test"
-    token = "test"
+    token                  = "test"
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
@@ -42,14 +42,14 @@ dependency "hcp_vault_cluster" {
 }
 
 dependency "hcp_vault_components" {
-  config_path = "../../../../hcp/us-west-2/vault-components"
+  config_path  = "../../../../hcp/us-west-2/vault-components"
   skip_outputs = true
 }
 
 locals {
-  env      = include.root.locals.env
-  region   = include.root.locals.region
-  platform = include.root.locals.platform
+  env          = include.root.locals.env
+  region       = include.root.locals.region
+  platform     = include.root.locals.platform
   cluster_type = lookup(include.mapping_conventions.locals.cluster_type, local.platform, "")
 }
 
@@ -57,19 +57,19 @@ inputs = {
   argocd_deploy = {
 
     kube_config = {
-      host = dependency.k8s_cluster.outputs.host
+      host                   = dependency.k8s_cluster.outputs.host
       cluster_ca_certificate = dependency.k8s_cluster.outputs.cluster_ca_certificate
-      token = dependency.k8s_cluster.outputs.token
+      token                  = dependency.k8s_cluster.outputs.token
     }
 
-    install_kubectl = true
+    install_kubectl    = true
     install_argocd_cli = true
-    install_argocd = true
+    install_argocd     = true
 
     git_repo = {
-      name = "argocd-apps"
+      name   = "argocd-apps"
       author = "khangtictoc"
-      branch = "main"        
+      branch = "main"
     }
 
     manifest_path_list = [
@@ -87,10 +87,10 @@ inputs = {
     value_file_path = [
       {
         override = true
-        path ="argocd_values/vault-secrets-operator/values.yaml"
+        path     = "argocd_values/vault-secrets-operator/values.yaml"
         parameter_sets = [
           {
-            key = ".defaultVaultConnection.address"
+            key   = ".defaultVaultConnection.address"
             value = dependency.hcp_vault_cluster.outputs.public_endpoint
           }
         ]

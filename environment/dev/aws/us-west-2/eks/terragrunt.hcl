@@ -21,9 +21,9 @@ terraform {
 }
 
 locals {
-  name     = "testproject-${local.env}"
-  env      = include.root.locals.env
-  tags     = include.root.locals.tags
+  name = "testproject-${local.env}"
+  env  = include.root.locals.env
+  tags = include.root.locals.tags
 }
 
 dependency "vpc" {

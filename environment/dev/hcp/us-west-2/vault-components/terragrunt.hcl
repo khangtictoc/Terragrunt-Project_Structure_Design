@@ -22,21 +22,21 @@ dependency "vault_dedicated_cluster" {
   config_path = "../vault-dedicated-cluster"
 
   mock_outputs = {
-    admin_token      = "fake-token"
-    public_endpoint  = "https://my-vault-public:8200"
+    admin_token     = "fake-token"
+    public_endpoint = "https://my-vault-public:8200"
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
 
 locals {
-  arg_masks     = include.root.locals.arg_masks
+  arg_masks = include.root.locals.arg_masks
 }
 
 inputs = yamldecode(
   templatefile("../config.yaml", merge(
     local.arg_masks,
     {
-      vault_cluster__address = dependency.vault_dedicated_cluster.outputs.public_endpoint
+      vault_cluster__address     = dependency.vault_dedicated_cluster.outputs.public_endpoint
       vault_cluster__admin_token = dependency.vault_dedicated_cluster.outputs.admin_token
     }
   ))

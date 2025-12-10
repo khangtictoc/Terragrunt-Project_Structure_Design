@@ -28,7 +28,7 @@ dependency "naming" {
   mock_outputs = {
     aws = {
       eks_cluster_name = "test"
-      vpc_name = "test"
+      vpc_name         = "test"
     }
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
@@ -43,9 +43,9 @@ dependency "vpc" {
 }
 
 locals {
-  region   = include.root.locals.region
-  tags     = include.root.locals.tags
-  arg_masks     = include.root.locals.arg_masks
+  region    = include.root.locals.region
+  tags      = include.root.locals.tags
+  arg_masks = include.root.locals.arg_masks
 }
 
 inputs = merge(
@@ -53,9 +53,9 @@ inputs = merge(
     templatefile("../config.yaml", merge(
       local.arg_masks,
       {
-        region = local.region
-        eks_name   = dependency.naming.outputs.aws.eks_cluster_name
-        vpc_name   = dependency.naming.outputs.aws.vpc_name
+        region   = local.region
+        eks_name = dependency.naming.outputs.aws.eks_cluster_name
+        vpc_name = dependency.naming.outputs.aws.vpc_name
       }
     ))
   ).eks.main,

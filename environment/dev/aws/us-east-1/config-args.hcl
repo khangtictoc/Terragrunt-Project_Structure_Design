@@ -1,7 +1,7 @@
 locals {
-    parameters = {
-        region = ""
-        vpc_name = ""
-        eks_name = ""
-    }
+  parameters = {
+    region   = ""
+    vpc_name = ""
+    eks_name = ""
+  }
 }

@@ -34,9 +34,9 @@ dependency "naming" {
 }
 
 locals {
-  region   = include.root.locals.region
-  tags     = include.root.locals.tags
-  arg_masks     = include.root.locals.arg_masks
+  region    = include.root.locals.region
+  tags      = include.root.locals.tags
+  arg_masks = include.root.locals.arg_masks
 }
 
 inputs = merge(
@@ -44,8 +44,8 @@ inputs = merge(
     templatefile("../config.yaml", merge(
       local.arg_masks,
       {
-        region = local.region
-        vpc_name   = dependency.naming.outputs.aws.vpc_name
+        region   = local.region
+        vpc_name = dependency.naming.outputs.aws.vpc_name
       }
     ))
   ).vpcs.main,

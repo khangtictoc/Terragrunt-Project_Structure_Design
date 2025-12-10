@@ -40,28 +40,28 @@ dependency "hcp_vault_cluster" {
 }
 
 dependency "hcp_vault_components" {
-  config_path = "../../../../hcp/${local.region}/vault-components"
+  config_path  = "../../../../hcp/${local.region}/vault-components"
   skip_outputs = true
 }
 
 locals {
-  env      = include.root.locals.env
-  region   = include.root.locals.region
-  platform = include.root.locals.platform
+  env          = include.root.locals.env
+  region       = include.root.locals.region
+  platform     = include.root.locals.platform
   cluster_type = lookup(include.mapping_conventions.locals.cluster_type, local.platform, "")
-  arg_masks     = include.root.locals.arg_masks
+  arg_masks    = include.root.locals.arg_masks
 }
 
 inputs = yamldecode(
-    templatefile("../config.yaml", merge(
-      local.arg_masks,
-      {
-        region = local.region
-        platform = local.platform
-        k8s_cluster_name   = dependency.k8s_cluster.outputs.name
-        hcp_vault_public_endpoint = dependency.hcp_vault_cluster.outputs.public_endpoint
-      }
-    ))
-  ).deployment_list.main
+  templatefile("../config.yaml", merge(
+    local.arg_masks,
+    {
+      region                    = local.region
+      platform                  = local.platform
+      k8s_cluster_name          = dependency.k8s_cluster.outputs.name
+      hcp_vault_public_endpoint = dependency.hcp_vault_cluster.outputs.public_endpoint
+    }
+  ))
+).deployment_list.main
 
 

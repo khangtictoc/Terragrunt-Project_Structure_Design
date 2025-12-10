@@ -22,7 +22,7 @@ terraform {
 }
 
 locals {
-  env      = include.root.locals.env
+  env = include.root.locals.env
 }
 
 inputs = {
@@ -31,19 +31,19 @@ inputs = {
     azure = {
       aks_cluster = {
         target_name = "general"
-        index = 0
+        index       = 0
       }
       appgw = {
         target_name = "general"
-        index = 0
+        index       = 0
       }
       resource_group = {
         target_name = "general"
-        index = 0
+        index       = 0
       }
       vnet = {
         target_name = "general"
-        index = 0
+        index       = 0
       }
     }
   }

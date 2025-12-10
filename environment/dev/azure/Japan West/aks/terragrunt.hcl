@@ -24,7 +24,7 @@ terraform {
 dependency "naming" {
   config_path = "../naming"
   mock_outputs = {
-    aks_cluster_name = "DEV-TESTPROJECT-GENERAL-00"
+    aks_cluster_name    = "DEV-TESTPROJECT-GENERAL-00"
     resource_group_name = "DEV-TESTPROJECT-GENERAL-00"
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
@@ -36,7 +36,7 @@ dependency "vnet" {
     vnet_id = "/subscriptions/ca86aa0e-30d0-4a23-b1ac-3435fd053c42/resourceGroups/DEV-TESTPROJECT-GENERAL-00/providers/Microsoft.Network/virtualNetworks/DEV-TESTPROJECT-GENERAL-00"
     subnet_ids = {
       "network_appliances" = "/subscriptions/12345678-1234-9876-4563-123456789012/resourceGroups/example-resource-group/providers/Microsoft.Network/virtualNetworks/virtualNetworksValue/subnets/subnetValue",
-      "workloads" = "/subscriptions/12345678-1234-9876-4563-123456789012/resourceGroups/example-resource-group/providers/Microsoft.Network/virtualNetworks/virtualNetworksValue/subnets/subnetValue"
+      "workloads"          = "/subscriptions/12345678-1234-9876-4563-123456789012/resourceGroups/example-resource-group/providers/Microsoft.Network/virtualNetworks/virtualNetworksValue/subnets/subnetValue"
     }
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
@@ -57,13 +57,13 @@ dependency "aks_appgw" {
 locals {
   kubeconfig_output_path = "${local.root_folder_path}/output/${local.env}/${local.platform}/${local.region}/kubeconfig"
 
-  env      = include.root.locals.env
-  region   = include.root.locals.region
-  platform = include.root.locals.platform
-  tags     = include.root.locals.tags
+  env              = include.root.locals.env
+  region           = include.root.locals.region
+  platform         = include.root.locals.platform
+  tags             = include.root.locals.tags
   root_folder_path = include.root.locals.root_folder_path
 
-  arg_masks     = include.root.locals.arg_masks
+  arg_masks = include.root.locals.arg_masks
 }
 
 inputs = merge(
@@ -71,13 +71,13 @@ inputs = merge(
     templatefile("../config.yaml", merge(
       local.arg_masks,
       {
-        region = local.region
-        aks_name = dependency.naming.outputs.aks_cluster_name
-        aks_rg_name = dependency.naming.outputs.resource_group_name
-        aks_kubeconfig_output_path   = local.kubeconfig_output_path
-        aks_vnet_subnet_id = dependency.vnet.outputs.subnet_ids.workloads
-        aks_ingress_appgw_id = dependency.aks_appgw.outputs.id
-        aks_vnet_id = dependency.vnet.outputs.vnet_id
+        region                     = local.region
+        aks_name                   = dependency.naming.outputs.aks_cluster_name
+        aks_rg_name                = dependency.naming.outputs.resource_group_name
+        aks_kubeconfig_output_path = local.kubeconfig_output_path
+        aks_vnet_subnet_id         = dependency.vnet.outputs.subnet_ids.workloads
+        aks_ingress_appgw_id       = dependency.aks_appgw.outputs.id
+        aks_vnet_id                = dependency.vnet.outputs.vnet_id
       }
     ))
   ).aks_clusters.main,
