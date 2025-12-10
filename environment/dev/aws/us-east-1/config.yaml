@@ -40,6 +40,7 @@ eks:
     alb_ingress_controller_enabled: true
     cluster_version: "1.33"
     auto_mode: false
+    extend_max_pods_with_prefix_delegates: true
 
     add_ons:
       prerequisites:
@@ -71,7 +72,7 @@ eks:
         min_capacity: 1
         disk_size: 50
         instance_types:
-          - "m5.large"
+          - "t3.medium"
 
       backend:
         desired_capacity: 1
@@ -79,4 +80,4 @@ eks:
         min_capacity: 1
         disk_size: 50
         instance_types:
-          - "m5.large"
+          - "t3.medium"
