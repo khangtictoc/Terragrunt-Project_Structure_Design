@@ -18,7 +18,7 @@ include "root" {
 
 # Use self-developed modules
 terraform {
-  source = "git::https://gitlab.com/terraform-modules7893436/aws/eks.git"
+  source = "git::https://gitlab.com/terraform-modules7893436/aws/eks.git?ref=feat/add-cleanup-eks-script"
 }
 
 # ---- DEPENDENCIES ----
