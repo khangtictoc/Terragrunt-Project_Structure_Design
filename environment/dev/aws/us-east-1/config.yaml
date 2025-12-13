@@ -55,15 +55,10 @@ eks:
     vpc_config:
       enable_nat_gateway: true
       endpoint_public_access: true
-      vpc_name: "${vpc_name}"
 
-      control_plane_subnet_names:
-        - "network-appliance-a"
-        - "network-appliance-b"
-
-      node_groups_subnet_names:
-        - "application-a"
-        - "application-b"
+      # Override by config from 'terragrunt.hcl' in parent folder
+      control_plane_subnet_ids: []
+      node_groups_subnet_ids: []
 
     nodegroups:
       frontend:

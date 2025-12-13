@@ -18,7 +18,7 @@ include "root" {
 
 # Use self-developed modules
 terraform {
-  source = "git::https://gitlab.com/terraform-modules7893436/aws/eks.git?ref=feat/add-cleanup-eks-script"
+  source = "git::https://gitlab.com/terraform-modules7893436/aws/eks.git?ref=master"
 }
 
 # ---- DEPENDENCIES ----
@@ -37,7 +37,13 @@ dependency "naming" {
 dependency "vpc" {
   config_path = "../vpc"
   mock_outputs = {
-    public_subnets_ids = ["subnet-12345678", "subnet-87654321"]
+    subnet_names_to_ids_mapping = {
+      application-a       = "subnet-00a8a9ced4a593f88"
+      application-b       = "subnet-00a8a9ced4a593f87"
+      network-appliance-a = "subnet-00a8a9ced4a593f86"
+      network-appliance-b = "subnet-00a8a9ced4a593f85"
+    }
+    vpc_id = "vpc-0a1b2c3d4e5f6g7h8"
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
@@ -55,11 +61,24 @@ inputs = merge(
       {
         region   = local.region
         eks_name = dependency.naming.outputs.aws.eks_cluster_name
-        vpc_name = dependency.naming.outputs.aws.vpc_name
       }
     ))
   ).eks.main,
   {
+    vpc_config = {
+      control_plane_subnet_ids = [
+        dependency.vpc.outputs.subnet_names_to_ids_mapping["network-appliance-a"],
+        dependency.vpc.outputs.subnet_names_to_ids_mapping["network-appliance-b"]
+      ]
+      node_groups_subnet_ids   = [
+        dependency.vpc.outputs.subnet_names_to_ids_mapping["application-a"],
+        dependency.vpc.outputs.subnet_names_to_ids_mapping["application-b"]
+      ]
+      vpc_id                   = dependency.vpc.outputs.vpc_id
+      enable_nat_gateway       = true
+      endpoint_public_access   = true
+    }
+    
     tags = local.tags
   }
 )

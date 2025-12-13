@@ -18,7 +18,7 @@ include "root" {
 
 # Use self-developed modules
 terraform {
-  source = "git::https://gitlab.com/terraform-modules7893436/aws/vpc.git"
+  source = "git::https://gitlab.com/terraform-modules7893436/aws/vpc.git?ref=master"
 }
 
 # ---- DEPENDENCIES ----
@@ -45,7 +45,7 @@ inputs = merge(
       local.arg_masks,
       {
         region   = local.region
-        vpc_name = dependency.naming.outputs.aws.vpc_name
+        vpc_name = dependency.naming.outputs.aws["vpc_name"]
       }
     ))
   ).vpcs.main,

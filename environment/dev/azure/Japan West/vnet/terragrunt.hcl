@@ -18,7 +18,7 @@ include "root" {
 
 # Use self-developed modules
 terraform {
-  source = "git::https://gitlab.com/terraform-modules7893436/azure/vnet.git"
+  source = "git::https://gitlab.com/terraform-modules7893436/azure/vnet.git?ref=master"
 }
 
 # ---- DEPENDENCIES ----
