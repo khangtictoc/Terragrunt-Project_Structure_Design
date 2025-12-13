@@ -18,7 +18,7 @@ include "root" {
 
 # Use self-developed modules
 terraform {
-  source = "git::https://gitlab.com/terraform-modules7893436/azure/naming.git?ref=master"
+  source = "git::https://gitlab.com/terraform-modules7893436/azure/naming.git?ref=main"
 }
 
 locals {

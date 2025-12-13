@@ -18,7 +18,7 @@ include "root" {
 
 # Use self-developed modules
 terraform {
-  source = "git::https://gitlab.com/terraform-modules7893436/azure/appgw.git?ref=master"
+  source = "git::https://gitlab.com/terraform-modules7893436/azure/appgw.git?ref=main"
 }
 
 dependency "naming" {

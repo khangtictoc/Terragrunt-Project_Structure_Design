@@ -15,7 +15,7 @@ include "root" {
 # └──────────────────────────────────────┘
 
 terraform {
-  source = "git::https://gitlab.com/terraform-modules7893436/hcp/vault-dedicated-cluster.git?ref=master"
+  source = "git::https://gitlab.com/terraform-modules7893436/hcp/vault-dedicated-cluster.git?ref=main"
 }
 
 locals {

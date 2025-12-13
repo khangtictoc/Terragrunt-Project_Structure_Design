@@ -20,7 +20,7 @@ include "mapping_conventions" {
 # └──────────────────────────────────────┘
 
 terraform {
-  source = "git::https://gitlab.com/terraform-modules7893436/hcp/vault-components.git?ref=master"
+  source = "git::https://gitlab.com/terraform-modules7893436/hcp/vault-components.git?ref=main"
 }
 
 dependency "k8s_cluster" {
