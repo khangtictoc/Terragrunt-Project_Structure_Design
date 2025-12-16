@@ -42,6 +42,10 @@ deployment_list:
           enabled: true
           use_vault: true
           manifest_path: "argocd_apps/mongodb-sharded"
+        velero:
+          enabled: true
+          use_vault: false
+          manifest_path: "argocd_apps/velero"
 
       prerequisites_manifests:
         cluster_ns: "https://raw.githubusercontent.com/khangtictoc/ArgoCD-Apps/refs/heads/main/manifest/namespace/cluster-aio.yaml"
