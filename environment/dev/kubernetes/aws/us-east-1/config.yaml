@@ -53,6 +53,7 @@ deployment_list:
 
       post_install_manifests:
         alb_to_nginx: "https://raw.githubusercontent.com/khangtictoc/ArgoCD-Apps/refs/heads/main/argocd_apps/nginx/ingress-alb-to-nginx.yaml"
+        # velero_schedule_backup: "https://raw.githubusercontent.com/khangtictoc/ArgoCD-Apps/refs/heads/main/manifest/kubernetes/velero/schedule.yaml"
 
       value_file_path:
         - override: true
