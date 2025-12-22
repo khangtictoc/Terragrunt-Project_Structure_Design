@@ -32,7 +32,7 @@ deployment_list:
           manifest_path: "argocd_apps/hcp-vault"
         jenkins:
           enabled: true
-          use_vault: false
+          use_vault: true
           manifest_path: "argocd_apps/jenkins"
         postgresql:
           enabled: true
