@@ -48,3 +48,12 @@ vault_component_list:
                 }
           service_account: mongodb-sharded
           namespace: mongodb-sharded
+        - name: jenkins
+          policies:
+            - name: jenkins
+              content: |
+                path "*" {
+                  capabilities = ["read"]
+                }
+          service_account: jenkins
+          namespace: jenkins
