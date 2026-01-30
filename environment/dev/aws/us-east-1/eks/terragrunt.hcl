@@ -67,12 +67,12 @@ inputs = merge(
   {
     vpc_config = {
       control_plane_subnet_ids = [
-        dependency.vpc.outputs.subnet_names_to_ids_mapping["network-appliance-a"],
-        dependency.vpc.outputs.subnet_names_to_ids_mapping["network-appliance-b"]
+        dependency.vpc.outputs.public_subnet_names_to_attributes["network-appliance-a"],
+        dependency.vpc.outputs.public_subnet_names_to_attributes["network-appliance-b"]
       ]
       node_groups_subnet_ids   = [
-        dependency.vpc.outputs.subnet_names_to_ids_mapping["application-a"],
-        dependency.vpc.outputs.subnet_names_to_ids_mapping["application-b"]
+        dependency.vpc.outputs.private_subnet_names_to_attributes["application-a"],
+        dependency.vpc.outputs.private_subnet_names_to_attributes["application-b"]
       ]
       vpc_id                   = dependency.vpc.outputs.vpc_id
       enable_nat_gateway       = true
