@@ -36,11 +36,12 @@ eks:
   main:
     name: "${eks_name}"
     region: ${region}
-
-    alb_ingress_controller_enabled: true
     cluster_version: "1.33"
     auto_mode: false
     extend_max_pods_with_prefix_delegates: true
+
+    alb_ingress_controller:
+      enabled: true
 
     add_ons:
       prerequisites:
