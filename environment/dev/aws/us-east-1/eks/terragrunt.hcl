@@ -37,7 +37,7 @@ dependency "naming" {
 dependency "vpc" {
   config_path = "../vpc"
   mock_outputs = {
-    
+
     public_subnet_names_to_attributes = {
       application-a = {
         id = "subnet-0e635f742797c139d",
@@ -78,7 +78,6 @@ inputs = merge(
       {
         region   = local.region
         eks_name = dependency.naming.outputs.aws.eks_cluster_name
-        nat_gateway_subnet_id = dependency.vpc.outputs.public_subnet_names_to_attributes["network-appliance-a"].id
       }
     ))
   ).eks.main,
@@ -87,6 +86,11 @@ inputs = merge(
       control_plane_subnets = dependency.vpc.outputs.public_subnet_names_to_attributes
 
       node_groups_subnets = dependency.vpc.outputs.private_subnet_names_to_attributes
+
+      nat_gateway = {
+        enabled   = true
+        subnet_id = dependency.vpc.outputs.public_subnet_names_to_attributes["network-appliance-a"].id
+      }
 
       vpc_id                   = dependency.vpc.outputs.vpc_id
       endpoint_public_access   = true

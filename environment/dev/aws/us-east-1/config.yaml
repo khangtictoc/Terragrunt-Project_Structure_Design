@@ -42,6 +42,7 @@ eks:
 
     alb_ingress_controller:
       enabled: true
+      iam_policy: "https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.13.3/docs/install/iam_policy.json"
 
     add_ons:
       prerequisites:
@@ -56,13 +57,14 @@ eks:
     vpc_config:
       endpoint_public_access: true
 
-      # Override by config from 'terragrunt.hcl' in parent folder
+      # OVERRIDED by 'terragrunt.hcl' in parent folder
       control_plane_subnet_: []
       node_groups_subnet_ids: []
 
+      # OVERRIDED by 'terragrunt.hcl' in parent folder
       nat_gateway:
         enabled: true
-        subnet_id: ${nat_gateway_subnet_id}
+        subnet_id: ""
 
     nodegroups:
       frontend:
