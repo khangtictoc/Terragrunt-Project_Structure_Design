@@ -37,12 +37,29 @@ dependency "naming" {
 dependency "vpc" {
   config_path = "../vpc"
   mock_outputs = {
-    subnet_names_to_ids_mapping = {
-      application-a       = "subnet-00a8a9ced4a593f88"
-      application-b       = "subnet-00a8a9ced4a593f87"
-      network-appliance-a = "subnet-00a8a9ced4a593f86"
-      network-appliance-b = "subnet-00a8a9ced4a593f85"
+    
+    public_subnet_names_to_attributes = {
+      application-a = {
+        id = "subnet-0e635f742797c139d",
+        route_table_id = "rtb-00b27ff5786bb4895"
+      },
+      application-b = {
+        id = "subnet-075909145785d0e2a",
+        route_table_id = "rtb-00b27ff5786bb4895"
+      }
     }
+
+    private_subnet_names_to_attributes = {
+      application-a = {
+        id = "subnet-0a1b2c3d4e5f6g7h8",
+        route_table_id = "rtb-0a1b2c3d4e5f6g7h8"
+      },
+      application-b = {
+        id = "subnet-1a2b3c4d5e6f7g8h9",
+        route_table_id = "rtb-1a2b3c4d5e6f7g8h9"
+      }
+    }
+
     vpc_id = "vpc-0a1b2c3d4e5f6g7h8"
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
