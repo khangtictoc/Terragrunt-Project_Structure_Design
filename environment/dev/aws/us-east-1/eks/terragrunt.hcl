@@ -66,7 +66,7 @@ inputs = merge(
     ))
   ).eks.main,
   {
-    vpc_config = 
+    vpc_config = {
       control_plane_subnets = {
         dependency.vpc.outputs.public_subnet_names_to_attributes["network-appliance-a"],
         dependency.vpc.outputs.public_subnet_names_to_attributes["network-appliance-b"]
@@ -79,7 +79,7 @@ inputs = merge(
 
       vpc_id                   = dependency.vpc.outputs.vpc_id
       endpoint_public_access   = true
-    
+    }
     
     tags = local.tags
   }
