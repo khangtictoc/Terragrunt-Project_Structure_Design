@@ -54,12 +54,15 @@ eks:
         - aws-ebs-csi-driver
 
     vpc_config:
-      enable_nat_gateway: true
       endpoint_public_access: true
 
       # Override by config from 'terragrunt.hcl' in parent folder
-      control_plane_subnet_ids: []
+      control_plane_subnet_: []
       node_groups_subnet_ids: []
+
+      nat_gateway:
+        enabled: true
+        subnet_id: ${nat_gateway_subnet_id}
 
     nodegroups:
       frontend:

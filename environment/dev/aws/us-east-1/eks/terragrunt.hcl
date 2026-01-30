@@ -61,23 +61,25 @@ inputs = merge(
       {
         region   = local.region
         eks_name = dependency.naming.outputs.aws.eks_cluster_name
+        nat_gateway_subnet_id = dependency.vpc.outputs.public_subnet_names_to_attributes["network-appliance-a"].id
       }
     ))
   ).eks.main,
   {
-    vpc_config = {
-      control_plane_subnet_ids = [
+    vpc_config = 
+      control_plane_subnets = {
         dependency.vpc.outputs.public_subnet_names_to_attributes["network-appliance-a"],
         dependency.vpc.outputs.public_subnet_names_to_attributes["network-appliance-b"]
-      ]
-      node_groups_subnet_ids   = [
+      }
+
+      node_groups_subnets = {
         dependency.vpc.outputs.private_subnet_names_to_attributes["application-a"],
         dependency.vpc.outputs.private_subnet_names_to_attributes["application-b"]
-      ]
+      }
+
       vpc_id                   = dependency.vpc.outputs.vpc_id
-      enable_nat_gateway       = true
       endpoint_public_access   = true
-    }
+    
     
     tags = local.tags
   }
