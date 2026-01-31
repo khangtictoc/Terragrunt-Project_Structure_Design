@@ -4,7 +4,7 @@
 *.tfstate.*
 *.log
 **/.terraform.lock.hcl
-environment\dev\aws\us-east-1\vpc\.terraform.lock.hcl
+
 # Terraform files
 *.tfplan
 *.tfvars
