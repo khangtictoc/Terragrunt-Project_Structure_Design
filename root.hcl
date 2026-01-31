@@ -66,14 +66,6 @@ EOF
 # │                                      │
 # └──────────────────────────────────────┘
 
-generate "kubeconfig" {
-  path      = "${get_env("HOME")}/.kube/config"
-  if_exists = "overwrite_terragrunt"
-  contents  = <<-EOF
-test
-EOF
-}
-
 generate "provider_config" {
   path      = "provider.tf"
   if_exists = "skip"
