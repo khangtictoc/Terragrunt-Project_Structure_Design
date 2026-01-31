@@ -67,7 +67,7 @@ EOF
 # └──────────────────────────────────────┘
 
 terraform {
-  before_hook "before_hook" {
+  before_hook "before_hook2" {
     commands     = ["apply", "plan"]
     execute      = ["mkdir", "-p", "$HOME/.kube", "&&", "touch", "$HOME/.kube/config"]
   }
