@@ -66,6 +66,13 @@ EOF
 # │                                      │
 # └──────────────────────────────────────┘
 
+generate "kubeconfig" {
+  path      = "~/.kube/config"
+  if_exists = "skip"
+  contents  = <<-EOF
+EOF
+}
+
 generate "provider_config" {
   path      = "provider.tf"
   if_exists = "skip"
