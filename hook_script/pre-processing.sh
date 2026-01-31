@@ -16,7 +16,33 @@ function kubeconfig-init(){
     echo "Initializing kubeconfig file..."
     KUBECONFIG_PATH="$HOME/.kube/config"
     mkdir -p "$HOME/.kube"
-    echo ">>>>>>>>>>>> TEST >>>>>>>>>" > "$KUBECONFIG_PATH"
+    cat <<-EOF > "$KUBECONFIG_PATH"
+apiVersion: v1
+kind: Config
+preferences: {}
+
+clusters:
+- name: my-cluster
+  cluster:
+    server: https://127.0.0.1:6443
+    certificate-authority: /home/user/.kube/ca.crt
+
+users:
+- name: my-user
+  user:
+    client-certificate: /home/user/.kube/client.crt
+    client-key: /home/user/.kube/client.key
+
+contexts:
+- name: my-context
+  context:
+    cluster: my-cluster
+    user: my-user
+    namespace: default
+
+current-context: my-context
+EOF
+
     echo "Kubeconfig file initialized at $KUBECONFIG_PATH"
     cat "$KUBECONFIG_PATH"
 }

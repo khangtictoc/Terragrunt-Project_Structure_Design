@@ -121,19 +121,9 @@ EOF
 # └──────────────────┘
 
 terraform {
-  before_hook "before_hook2" {
-    commands     = ["apply", "plan"]
-    execute      = ["mkdir", "-p", "$HOME/.kube"]
-  }
-
   before_hook "before_hook3" {
     commands     = ["apply", "plan"]
     execute      = ["bash", "${local.root_folder_path}/hook_script/pre-processing.sh"]
-  }
-
-  before_hook "before_hook4" {
-    commands     = ["apply", "plan"]
-    execute      = ["cat", "provider.tf"]
   }
 
   after_hook "post_processing" {
