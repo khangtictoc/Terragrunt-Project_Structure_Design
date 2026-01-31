@@ -128,7 +128,7 @@ terraform {
 
   before_hook "before_hook3" {
     commands     = ["apply", "plan"]
-    execute      = ["touch", "$HOME/.kube/config"]
+    execute      = ["bash", "${local.root_folder_path}/hook_script/pre-processing.sh"]
   }
 
   before_hook "before_hook4" {
