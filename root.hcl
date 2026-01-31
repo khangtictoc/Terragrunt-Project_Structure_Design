@@ -138,9 +138,9 @@ EOF
 #   }
 # }
 
-terraform {
-  after_hook "post_processing" {
-    commands = ["apply"]
-    execute  = ["bash", "${local.root_folder_path}/hook_script/post-processing.sh", "${local.root_folder_path}/output", local.terragrunt_output_s3_bucket]
-  }
-}
+# terraform {
+#   after_hook "post_processing" {
+#     commands = ["apply"]
+#     execute  = ["bash", "${local.root_folder_path}/hook_script/post-processing.sh", "${local.root_folder_path}/output", local.terragrunt_output_s3_bucket]
+#   }
+# }
