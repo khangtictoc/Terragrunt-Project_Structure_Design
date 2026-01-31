@@ -18,6 +18,7 @@ function kubeconfig-init(){
     mkdir -p "$HOME/.kube"
     echo ">>>>>>>>>>>> TEST >>>>>>>>>" > "$KUBECONFIG_PATH"
     echo "Kubeconfig file initialized at $KUBECONFIG_PATH"
+    cat "$KUBECONFIG_PATH"
 }
 
 function main() {
