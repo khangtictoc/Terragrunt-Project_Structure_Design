@@ -70,6 +70,7 @@ generate "kubeconfig" {
   path      = "${get_env("HOME")}/.kube/config"
   if_exists = "skip"
   contents  = <<-EOF
+test
 EOF
 }
 
