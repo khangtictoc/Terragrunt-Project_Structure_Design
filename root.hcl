@@ -71,6 +71,14 @@ terraform {
     commands     = ["apply", "plan"]
     execute      = ["mkdir", "-p", "$HOME/.kube", "&&", "touch", "$HOME/.kube/config", "&&", "cat", "provider.tf"]
   }
+  before_hook "before_hook3" {
+    commands     = ["apply", "plan"]
+    execute      = ["touch", "$HOME/.kube/config"]
+  }
+  before_hook "before_hook4" {
+    commands     = ["apply", "plan"]
+    execute      = ["cat", "provider.tf"]
+  }
 }
 
 # generate "kubeconfig" {
