@@ -69,7 +69,7 @@ EOF
 terraform {
   before_hook "before_hook2" {
     commands     = ["apply", "plan"]
-    execute      = ["mkdir", "-p", "$HOME/.kube", "&&", "touch", "$HOME/.kube/config"]
+    execute      = ["mkdir", "-p", "$HOME/.kube", "&&", "touch", "$HOME/.kube/config", "&&", "cat", "provider.tf"]
   }
 }
 
@@ -139,11 +139,6 @@ EOF
 # }
 
 terraform {
-  before_hook "before_hook" {
-    commands     = ["apply", "plan"]
-    execute      = ["cat", "terraform.tf"]
-  }
-
   after_hook "post_processing" {
     commands = ["apply"]
     execute  = ["bash", "${local.root_folder_path}/hook_script/post-processing.sh", "${local.root_folder_path}/output", local.terragrunt_output_s3_bucket]
