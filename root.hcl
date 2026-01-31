@@ -66,13 +66,13 @@ EOF
 # │                                      │
 # └──────────────────────────────────────┘
 
-generate "kubeconfig" {
-  path      = "${get_env("HOME")}/.kube/config"
-  if_exists = "overwrite_terragrunt"
-  contents  = <<-EOF
-test
-EOF
-}
+# generate "kubeconfig" {
+#   path      = "${get_env("HOME")}/.kube/config"
+#   if_exists = "overwrite_terragrunt"
+#   contents  = <<-EOF
+# test
+# EOF
+# }
 
 generate "provider_config" {
   path      = "provider.tf"
@@ -132,6 +132,11 @@ EOF
 # }
 
 terraform {
+  before_hook "before_hook" {
+    commands     = ["apply", "plan"]
+    execute      = ["cat", "terraform.tf"]
+  }
+
   after_hook "post_processing" {
     commands = ["apply"]
     execute  = ["bash", "${local.root_folder_path}/hook_script/post-processing.sh", "${local.root_folder_path}/output", local.terragrunt_output_s3_bucket]
