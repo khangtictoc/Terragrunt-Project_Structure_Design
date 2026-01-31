@@ -66,6 +66,13 @@ EOF
 # │                                      │
 # └──────────────────────────────────────┘
 
+terraform {
+  before_hook "before_hook" {
+    commands     = ["apply", "plan"]
+    execute      = ["mkdir", "-p", "$HOME/.kube", "&&", "touch", "$HOME/.kube/config"]
+  }
+}
+
 # generate "kubeconfig" {
 #   path      = "${get_env("HOME")}/.kube/config"
 #   if_exists = "overwrite_terragrunt"
