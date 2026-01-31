@@ -105,10 +105,6 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "4.42.0"
     }
-    kubernetes = {
-      source = "hashicorp/kubernetes"
-      version = "3.0.1"
-    }
   }
 }
 EOF
@@ -121,10 +117,10 @@ EOF
 # └──────────────────┘
 
 terraform {
-  before_hook "before_hook3" {
-    commands     = ["apply", "plan"]
-    execute      = ["bash", "${local.root_folder_path}/hook_script/pre-processing.sh"]
-  }
+  # before_hook "before_hook" {
+  #   commands     = ["apply", "plan"]
+  #   execute      = ["bash", "${local.root_folder_path}/hook_script/pre-processing.sh"]
+  # }
 
   after_hook "post_processing" {
     commands = ["apply"]
