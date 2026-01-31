@@ -69,7 +69,7 @@ EOF
 terraform {
   before_hook "before_hook2" {
     commands     = ["apply", "plan"]
-    execute      = ["mkdir", "-p", "$HOME/.kube", "&&", "touch", "$HOME/.kube/config", "&&", "cat", "provider.tf"]
+    execute      = ["mkdir", "-p", "$HOME/.kube"]
   }
   before_hook "before_hook3" {
     commands     = ["apply", "plan"]
