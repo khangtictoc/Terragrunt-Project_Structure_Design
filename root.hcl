@@ -67,7 +67,7 @@ EOF
 # └──────────────────────────────────────┘
 
 generate "kubeconfig" {
-  path      = "$HOME/.kube/config"
+  path      = "${get_env("HOME")}/.kube/config"
   if_exists = "skip"
   contents  = <<-EOF
 EOF
