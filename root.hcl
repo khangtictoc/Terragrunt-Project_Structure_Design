@@ -66,21 +66,6 @@ EOF
 # │                                      │
 # └──────────────────────────────────────┘
 
-terraform {
-  before_hook "before_hook2" {
-    commands     = ["apply", "plan"]
-    execute      = ["mkdir", "-p", "$HOME/.kube"]
-  }
-  before_hook "before_hook3" {
-    commands     = ["apply", "plan"]
-    execute      = ["touch", "$HOME/.kube/config"]
-  }
-  before_hook "before_hook4" {
-    commands     = ["apply", "plan"]
-    execute      = ["cat", "provider.tf"]
-  }
-}
-
 generate "kubeconfig" {
   path      = "${get_env("HOME")}/.kube/config"
   if_exists = "overwrite_terragrunt"
@@ -128,6 +113,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "4.42.0"
     }
+    kubernetes = {
+      source = "hashicorp/kubernetes"
+      version = "3.0.1"
+    }
   }
 }
 EOF
@@ -139,16 +128,24 @@ EOF
 # │                  │
 # └──────────────────┘
 
-# terraform {
-#   after_hook "clean_up_cache_folder" {
-#     commands = ["init", "plan", "apply"]
-#     execute  = ["bash", "${local.root_folder_path}/hook_script/clean-cache.sh"]
-#   }
-# }
+terraform {
+  before_hook "before_hook2" {
+    commands     = ["apply", "plan"]
+    execute      = ["mkdir", "-p", "$HOME/.kube"]
+  }
 
-# terraform {
-#   after_hook "post_processing" {
-#     commands = ["apply"]
-#     execute  = ["bash", "${local.root_folder_path}/hook_script/post-processing.sh", "${local.root_folder_path}/output", local.terragrunt_output_s3_bucket]
-#   }
-# }
+  before_hook "before_hook3" {
+    commands     = ["apply", "plan"]
+    execute      = ["touch", "$HOME/.kube/config"]
+  }
+
+  before_hook "before_hook4" {
+    commands     = ["apply", "plan"]
+    execute      = ["cat", "provider.tf"]
+  }
+
+  after_hook "post_processing" {
+    commands = ["apply"]
+    execute  = ["bash", "${local.root_folder_path}/hook_script/post-processing.sh", "${local.root_folder_path}/output", local.terragrunt_output_s3_bucket]
+  }
+}
