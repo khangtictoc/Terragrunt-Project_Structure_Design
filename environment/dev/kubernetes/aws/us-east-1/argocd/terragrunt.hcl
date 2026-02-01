@@ -27,6 +27,8 @@ dependency "k8s_cluster" {
   config_path = "../../../../${local.platform}/${local.region}/${local.cluster_type}"
   mock_outputs = {
     name = "test"
+    service_account_role_arn = "arn:aws:iam::123456789012:role/YourALBControllerRole"
+    vpc_id = "vpc-0abcd1234efgh5678"
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
@@ -60,6 +62,8 @@ inputs = yamldecode(
       platform                  = local.platform
       k8s_cluster_name          = dependency.k8s_cluster.outputs.name
       hcp_vault_public_endpoint = dependency.hcp_vault_cluster.outputs.public_endpoint
+      service_account_role_arn  = dependency.k8s_cluster.outputs.service_account_role_arn
+      vpc_id                    = dependency.k8s_cluster.outputs.vpc_id
     }
   ))
 ).deployment_list.main
