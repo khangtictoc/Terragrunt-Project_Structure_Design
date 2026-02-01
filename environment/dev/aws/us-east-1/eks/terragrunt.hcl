@@ -39,11 +39,11 @@ dependency "vpc" {
   mock_outputs = {
 
     public_subnet_names_to_attributes = {
-      application-a = {
+      network-appliance-a = {
         id = "subnet-0e635f742797c139d",
         route_table_id = "rtb-00b27ff5786bb4895"
       },
-      application-b = {
+      network-appliance-b = {
         id = "subnet-075909145785d0e2a",
         route_table_id = "rtb-00b27ff5786bb4895"
       }
