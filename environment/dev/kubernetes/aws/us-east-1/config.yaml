@@ -13,7 +13,7 @@ deployment_list:
       install_vso: true
       alb_ingress_controller:
         enabled: true
-        service_account_role_arn: "${alb_ingress_controller_iam_role_arn}"
+        service_account_role_arn: "${service_account_role_arn}"
         vpc_id: "${vpc_id}"
 
       git_repo:
