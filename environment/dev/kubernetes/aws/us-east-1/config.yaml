@@ -4,14 +4,14 @@ deployment_list:
       k8s_cluster_info:
         name: ${k8s_cluster_name}
         region: ${region}
-        platform: "aws"
+        platform: "{platform}"
         resource_group: ""
 
       install_kubectl: true
       install_argocd_cli: true
       install_argocd: true
       install_vso: true
-      alb_ingress_controller:
+      alb_controller:
         enabled: true
         service_account_role_arn: "${service_account_role_arn}"
         vpc_id: "${vpc_id}"
