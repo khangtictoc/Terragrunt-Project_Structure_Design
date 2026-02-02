@@ -7,10 +7,14 @@ deployment_list:
         platform: ${platform}
         resource_group: ""
 
-      install_kubectl: true
-      install_argocd_cli: true
-      install_argocd: true
-      install_vso: true
+      argocd:
+        enabled: true
+        default_app_project_url: https://raw.githubusercontent.com/khangtictoc/ArgoCD-Apps/refs/heads/main/helm/argocd/manifest/default.appproject.yaml
+
+      vso:
+        enabled: true
+        argocd_app_url: https://raw.githubusercontent.com/khangtictoc/ArgoCD-Apps/refs/heads/main/argocd_apps/vault-secrets-operator/applications.yaml
+
       alb_controller:
         enabled: true
         service_account_role_arn: "${service_account_role_arn}"
