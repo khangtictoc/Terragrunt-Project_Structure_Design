@@ -43,17 +43,20 @@ dependency "vault_dedicated_cluster" {
 
 locals {
   arg_masks = include.root.locals.arg_masks
-  region    = include.root.locals.region
+  env          = include.root.locals.env
+  region       = include.root.locals.region
+  platform     = include.root.locals.platform
 }
 
 inputs = yamldecode(
   templatefile("../config.yaml", merge(
     local.arg_masks,
     {
-      region                     = local.region
+      region                    = local.region
+      platform                  = local.platform
+      k8s_cluster_name          = dependency.k8s_cluster.outputs.name
       vault_cluster__address     = dependency.vault_dedicated_cluster.outputs.public_endpoint
       vault_cluster__admin_token = dependency.vault_dedicated_cluster.outputs.admin_token
-      k8s_cluster__name          = dependency.k8s_cluster.outputs.name
     }
   ))
 ).vault_component_list.main

@@ -4,7 +4,7 @@ deployment_list:
       k8s_cluster_info:
         name: ${k8s_cluster_name}
         region: ${region}
-        platform: "{platform}"
+        platform: ${platform}
         resource_group: ""
 
       install_kubectl: true

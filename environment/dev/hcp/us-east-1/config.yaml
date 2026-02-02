@@ -21,11 +21,11 @@ vault_component_list:
       endpoint: ${vault_cluster__address}
       admin_token: ${vault_cluster__admin_token}
 
-    kubernetes_cluster_list:
-      aws:
-        "${k8s_cluster__name}":
-          name: ${k8s_cluster__name}
-          region: ${region}
+    k8s_cluster_info:
+      name: ${k8s_cluster_name}
+      region: ${region}
+      platform: ${platform}
+      resource_group: ""
 
     component:
       secret_yaml_path: https://terragrunt-input.s3.us-east-1.amazonaws.com/secrets.yaml
