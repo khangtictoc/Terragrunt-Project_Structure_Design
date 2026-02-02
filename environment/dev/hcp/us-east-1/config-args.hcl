@@ -1,6 +1,8 @@
 locals {
   parameters = {
-    region = ""
+    region                    = ""
+    platform                  = ""
+    k8s_cluster_name          = ""
 
     hvn_id                     = ""
     route_id                   = ""
