@@ -57,3 +57,12 @@ vault_component_list:
                 }
           service_account: jenkins
           namespace: jenkins
+        - name: jenkins-inbound-agent
+          policies:
+            - name: jenkins-inbound-agent
+              content: |
+                path "*" {
+                  capabilities = ["read"]
+                }
+          service_account: jenkins-inbound-agent
+          namespace: jenkins-inbound-agent
