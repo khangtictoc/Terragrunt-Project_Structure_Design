@@ -62,11 +62,11 @@ deployment_list:
         grafana-mimir:
           enabled: true
           use_vault: false
-          manifest_path: "argocd_apps/mimir"
+          manifest_path: "argocd_apps/grafana-mimir"
         grafana-loki:
           enabled: true
           use_vault: false
-          manifest_path: "argocd_apps/loki"
+          manifest_path: "argocd_apps/grafana-loki"
         grafana-tempo:
           enabled: true
           use_vault: false
