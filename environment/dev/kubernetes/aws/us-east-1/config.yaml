@@ -59,6 +59,26 @@ deployment_list:
           enabled: true
           use_vault: true
           manifest_path: "argocd_apps/jenkins-inbound-agent"
+        grafana-mimir:
+          enabled: true
+          use_vault: false
+          manifest_path: "argocd_apps/mimir"
+        grafana-loki:
+          enabled: true
+          use_vault: false
+          manifest_path: "argocd_apps/loki"
+        grafana-tempo:
+          enabled: true
+          use_vault: false
+          manifest_path: "argocd_apps/grafana-tempo"
+        grafana-alloy:
+          enabled: true
+          use_vault: false
+          manifest_path: "argocd_apps/grafana-alloy"
+        grafana-dashboard:
+          enabled: true
+          use_vault: false
+          manifest_path: "argocd_apps/grafana-dashboard"
 
       prerequisites_manifests:
         cluster_ns: "https://raw.githubusercontent.com/khangtictoc/ArgoCD-Apps/refs/heads/main/manifest/namespace/cluster-aio.yaml"
