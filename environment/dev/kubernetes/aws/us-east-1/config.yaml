@@ -98,5 +98,5 @@ deployment_list:
         - override: true
           path: "argocd_values/grafana-loki/values.yaml"
           parameter_sets:
-            - key: ".serviceAccount.annotations.eks.amazonaws.com/role-arn"
+            - key: '.serviceAccount.annotations."eks.amazonaws.com/role-arn"'
               value: ${loki_role_arn}
