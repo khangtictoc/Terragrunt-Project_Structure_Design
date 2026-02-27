@@ -77,7 +77,7 @@ deployment_list:
           manifest_path: "argocd_apps/grafana-alloy"
         grafana-dashboard:
           enabled: true
-          use_vault: false
+          use_vault: true
           manifest_path: "argocd_apps/grafana-dashboard"
 
       prerequisites_manifests:
