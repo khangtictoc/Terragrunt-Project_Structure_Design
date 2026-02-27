@@ -29,6 +29,7 @@ dependency "k8s_cluster" {
     name = "test"
     service_account_role_arn = "arn:aws:iam::123456789012:role/YourALBControllerRole"
     vpc_id = "vpc-0abcd1234efgh5678"
+    loki_role_arn = "arn:aws:iam::706396440212:role/LokiS3Role"
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
@@ -63,6 +64,7 @@ inputs = yamldecode(
       k8s_cluster_name          = dependency.k8s_cluster.outputs.name
       hcp_vault_public_endpoint = dependency.hcp_vault_cluster.outputs.public_endpoint
       service_account_role_arn  = dependency.k8s_cluster.outputs.service_account_role_arn
+      loki_role_arn             = dependency.k8s_cluster.outputs.loki_role_arn
       vpc_id                    = dependency.k8s_cluster.outputs.vpc_id
     }
   ))

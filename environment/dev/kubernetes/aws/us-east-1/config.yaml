@@ -94,3 +94,9 @@ deployment_list:
           parameter_sets:
             - key: ".defaultVaultConnection.address"
               value: ${hcp_vault_public_endpoint}
+
+        - override: true
+          path: "argocd_values/grafana-loki/values.yaml"
+          parameter_sets:
+            - key: ".serviceAccount.annotations.eks.amazonaws.com/role-arn"
+              value: ${loki_role_arn}

@@ -83,8 +83,20 @@ eks:
         instance_types:
           - "t3.medium"
 
+      oss:
+        desired_capacity: 1
+        max_capacity: 1
+        min_capacity: 1
+        disk_size: 50
+        instance_types:
+          - "t3.medium"
+
     pod_identity_oss:
       velero:
         enabled: true
         service_account: velero-pod-identity
         namespace: velero
+      grafana-loki:
+        enabled: true
+        service_account: loki
+        namespace: grafana-loki
