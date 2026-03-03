@@ -84,7 +84,6 @@ inputs = merge(
   {
     vpc_config = {
       control_plane_subnets = dependency.vpc.outputs.public_subnet_names_to_attributes
-
       node_groups_subnets = dependency.vpc.outputs.private_subnet_names_to_attributes
 
       nat_gateway = {
