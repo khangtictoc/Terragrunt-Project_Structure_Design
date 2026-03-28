@@ -1,0 +1,123 @@
+main:
+  k8s_cluster:
+    name: ${k8s_cluster_name}
+    region: ${region}
+    platform: ${platform}
+    resource_group: ""
+
+  alb_controller:
+    enabled: true
+    service_account_role_arn: "${service_account_role_arn}"
+    vpc_id: "${vpc_id}"
+
+  vso:
+    enabled: true
+
+  prerequisites:
+    creat_ns: true
+    create_default_storageclass: true
+
+  post_install:
+    appgw_to_nginx: true
+
+  git_repo:
+    name: "ArgoCD-Apps"
+    author: "khangtictoc"
+    branch: "main"
+
+  apps:
+    nginx:
+      enabled: true
+      use_vault: false
+      repository: "https://ghcr.io/nginx/charts"
+      chart: "nginx-ingress"
+      namespace: "nginx-ingress"
+      version: "2.3.0"
+
+    cert-manager:
+      enabled: true
+      use_vault: false
+      repository: "https://quay.io/jetstack/charts"
+      chart: "cert-manager"
+      namespace: "cert-manager"
+      version: "v1.18.2"
+
+    hcp-vault:
+      enabled: true
+      use_vault: false
+      repository: "https://helm.releases.hashicorp.com"
+      chart: "vault"
+      namespace: "vault-secrets-operator"
+      version: "0.31.0"
+
+    jenkins:
+      enabled: true
+      use_vault: false
+      repository: "https://ghcr.io/jenkinsci/helm-charts"
+      chart: "jenkins"
+      namespace: "jenkins"
+      version: "5.8.124"
+
+    postgresql:
+      enabled: true
+      use_vault: true
+      repository: "https://registry-1.docker.io/bitnamicharts"
+      chart: "postgresql"
+      namespace: "postgresql"
+      version: "18.0.17"
+
+    mongodb-sharded:
+      enabled: true
+      use_vault: true
+      repository: "https://registry-1.docker.io/bitnamicharts"
+      chart: "mongodb-sharded"
+      namespace: "mongodb-sharded"
+      version: "9.3.6"
+
+    grafana-loki:
+      enabled: true
+      use_vault: false
+      repository: "https://grafana.github.io/helm-charts"
+      chart: "loki"
+      namespace: "loki"
+      version: "6.46.0"
+
+    grafana-mimir:
+      enabled: true
+      use_vault: false
+      repository: "https://grafana.github.io/helm-charts"
+      chart: "mimir-distributed"
+      namespace: "grafana-mimir"
+      version: "5.8.0"
+
+    grafana-tempo:
+      enabled: true
+      use_vault: false
+      repository: "https://grafana.github.io/helm-charts"
+      chart: "tempo-distributed"
+      namespace: "grafana-tempo"
+      version: "2.3.2"
+
+    grafana-alloy:
+      enabled: true
+      use_vault: false
+      repository: "https://grafana.github.io/helm-charts"
+      chart: "alloy"
+      namespace: "grafana-alloy"
+      version: "1.5.3"
+
+    grafana-dashboards:
+      enabled: true
+      use_vault: true
+      repository: "https://grafana.github.io/helm-charts"
+      chart: "grafana"
+      namespace: "grafana-dashboard"
+      version: "11.1.8"
+
+  app_values:
+    hcp-vault:
+      - name: "defaultVaultConnection.address"
+        value: ${hcp_vault_public_endpoint}
+    grafana-loki:
+      - name: "serviceAccount.annotations.eks.amazonaws.com/role-arn"
+        value: "${loki_role_arn}"
