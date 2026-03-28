@@ -68,6 +68,6 @@ inputs = yamldecode(
       vpc_id                    = dependency.k8s_cluster.outputs.vpc_id
     }
   ))
-).deployment_list.main
+).main
 
 
