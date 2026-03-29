@@ -54,7 +54,6 @@ inputs = yamldecode(
     {
       region                    = local.region
       platform                  = local.platform
-      hcp_vault_public_endpoint = dependency.hcp_vault_cluster.outputs.public_endpoint
       k8s_cluster_name          = dependency.k8s_cluster.outputs.name
       service_account_role_arn  = dependency.k8s_cluster.outputs.service_account_role_arn
       loki_role_arn             = dependency.k8s_cluster.outputs.loki_role_arn
