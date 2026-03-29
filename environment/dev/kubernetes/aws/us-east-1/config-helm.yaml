@@ -14,7 +14,7 @@ main:
     enabled: true
 
   prerequisites:
-    creat_ns: true
+    create_ns: true
     create_default_storageclass: true
 
   post_install:
