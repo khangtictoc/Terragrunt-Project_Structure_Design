@@ -53,6 +53,7 @@ locals {
   platform     = include.root.locals.platform
   cluster_type = lookup(include.mapping_conventions.locals.cluster_type, local.platform, "")
   arg_masks    = include.root.locals.arg_masks
+  _debug = run_cmd("bash", "-c", "echo DEBUG='${jsonencode(local.region)}'")
 }
 
 inputs = yamldecode(
@@ -61,8 +62,8 @@ inputs = yamldecode(
     {
       region                    = local.region
       platform                  = local.platform
-      k8s_cluster_name          = dependency.k8s_cluster.outputs.name
       hcp_vault_public_endpoint = dependency.hcp_vault_cluster.outputs.public_endpoint
+      k8s_cluster_name          = dependency.k8s_cluster.outputs.name
       service_account_role_arn  = dependency.k8s_cluster.outputs.service_account_role_arn
       loki_role_arn             = dependency.k8s_cluster.outputs.loki_role_arn
       vpc_id                    = dependency.k8s_cluster.outputs.vpc_id
