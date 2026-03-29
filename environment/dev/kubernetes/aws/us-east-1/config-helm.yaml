@@ -95,7 +95,7 @@ main:
       namespace: "grafana-alloy"
       version: "1.5.3"
 
-    grafana-dashboards:
+    grafana-dashboard:
       enabled: true
       use_vault: true
       repository: "https://grafana-community.github.io/helm-charts/"
