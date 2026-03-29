@@ -24,7 +24,7 @@ terraform {
 }
 
 dependency "k8s_cluster" {
-  config_path = "../../../${local.platform}/${local.region}/${local.cluster_type}"
+  config_path = "../../../${local.cloud_type}/${local.region}/${local.cluster_type}"
   mock_outputs = {
     name = "test"
   }
@@ -46,7 +46,8 @@ locals {
   env          = include.root.locals.env
   region       = include.root.locals.region
   platform     = include.root.locals.platform
-  cluster_type = lookup(include.mapping_conventions.locals.cluster_type, local.platform, "")
+  cloud_type   = "aws"
+  cluster_type = lookup(include.mapping_conventions.locals.cluster_type, local.cloud_type, "")
 }
 
 inputs = yamldecode(
