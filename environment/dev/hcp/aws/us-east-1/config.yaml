@@ -27,6 +27,13 @@ vault_component_list:
       platform: ${platform}
       resource_group: "" # Keep empty for EKS (AWS)
 
+    vso:
+      enabled: true
+      repository: "https://helm.releases.hashicorp.com"
+      chart: "vault"
+      namespace: "vault-secrets-operator"
+      version: "0.31.0"
+
     component:
       secret_yaml_path: https://terragrunt-input.s3.us-east-1.amazonaws.com/secrets.yaml
       roles:

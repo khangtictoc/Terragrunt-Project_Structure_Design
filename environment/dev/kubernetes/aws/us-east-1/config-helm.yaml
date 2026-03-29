@@ -10,9 +10,6 @@ main:
     service_account_role_arn: "${service_account_role_arn}"
     vpc_id: "${vpc_id}"
 
-  vso:
-    enabled: true
-
   prerequisites:
     create_ns: true
     create_default_storageclass: true
@@ -41,14 +38,6 @@ main:
       chart: "cert-manager"
       namespace: "cert-manager"
       version: "v1.18.2"
-
-    hcp-vault:
-      enabled: true
-      use_vault: false
-      repository: "https://helm.releases.hashicorp.com"
-      chart: "vault"
-      namespace: "vault-secrets-operator"
-      version: "0.31.0"
 
     jenkins:
       enabled: true
@@ -115,9 +104,6 @@ main:
       version: "11.1.8"
 
   app_values:
-    hcp-vault:
-      - name: "defaultVaultConnection.address"
-        value: ${hcp_vault_public_endpoint}
     grafana-loki:
       - name: "serviceAccount.annotations.eks.amazonaws.com/role-arn"
         value: "${loki_role_arn}"
