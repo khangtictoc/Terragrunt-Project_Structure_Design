@@ -24,7 +24,7 @@ terraform {
 }
 
 dependency "k8s_cluster" {
-  config_path = "../../../${local.cloud_type}/${local.region}/${local.cluster_type}"
+  config_path = "../../../../${local.cloud_type}/${local.region}/${local.cluster_type}"
   mock_outputs = {
     name = "test"
   }

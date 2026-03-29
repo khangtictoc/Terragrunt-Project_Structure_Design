@@ -24,7 +24,7 @@ terraform {
 }
 
 dependency "k8s_cluster" {
-  config_path = "../../../../aws/us-east-1/eks"
+  config_path = "../../../../${local.platform}/${local.region}/${local.cluster_type}"
   mock_outputs = {
     name = "test"
     service_account_role_arn = "arn:aws:iam::123456789012:role/YourALBControllerRole"
