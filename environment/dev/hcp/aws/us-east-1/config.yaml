@@ -30,9 +30,9 @@ vault_component_list:
     vso:
       enabled: true
       repository: "https://helm.releases.hashicorp.com"
-      chart: "vault"
+      chart: "vault-secrets-operator"
       namespace: "vault-secrets-operator"
-      version: "0.31.0"
+      version: "1.0.1"
 
     component:
       secret_yaml_path: https://terragrunt-input.s3.us-east-1.amazonaws.com/secrets.yaml
