@@ -35,7 +35,7 @@ dependency "k8s_cluster" {
 }
 
 dependency "hcp_vault_cluster" {
-  config_path = "../../../../hcp/${local.region}/vault-dedicated-cluster"
+  config_path = "../../../../hcp/${local.platform}/${local.region}/vault-dedicated-cluster"
   mock_outputs = {
     public_endpoint = "https://testproject-dev-public-vault-6ca71e7f.86ddef82.z1.hashicorp.cloud:8200"
   }
@@ -43,7 +43,7 @@ dependency "hcp_vault_cluster" {
 }
 
 dependency "hcp_vault_components" {
-  config_path  = "../../../../hcp/${local.region}/vault-components"
+  config_path  = "../../../../hcp/${local.platform}/${local.region}/vault-components"
   skip_outputs = true
 }
 
