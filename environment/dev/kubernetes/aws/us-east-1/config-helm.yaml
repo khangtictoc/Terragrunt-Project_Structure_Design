@@ -29,7 +29,7 @@ main:
     nginx:
       enabled: true
       use_vault: false
-      repository: "https://ghcr.io/nginx/charts"
+      repository: "oci://ghcr.io/nginx/charts"
       chart: "nginx-ingress"
       namespace: "nginx-ingress"
       version: "2.3.0"
@@ -37,7 +37,7 @@ main:
     cert-manager:
       enabled: true
       use_vault: false
-      repository: "https://quay.io/jetstack/charts"
+      repository: "oci://quay.io/jetstack/charts"
       chart: "cert-manager"
       namespace: "cert-manager"
       version: "v1.18.2"
@@ -53,7 +53,7 @@ main:
     jenkins:
       enabled: true
       use_vault: false
-      repository: "https://ghcr.io/jenkinsci/helm-charts"
+      repository: "oci://ghcr.io/jenkinsci/helm-charts"
       chart: "jenkins"
       namespace: "jenkins"
       version: "5.8.124"
@@ -61,7 +61,7 @@ main:
     postgresql:
       enabled: true
       use_vault: true
-      repository: "https://registry-1.docker.io/bitnamicharts"
+      repository: "oci://registry-1.docker.io/bitnamicharts"
       chart: "postgresql"
       namespace: "postgresql"
       version: "18.0.17"
@@ -69,7 +69,7 @@ main:
     mongodb-sharded:
       enabled: true
       use_vault: true
-      repository: "https://registry-1.docker.io/bitnamicharts"
+      repository: "oci://registry-1.docker.io/bitnamicharts"
       chart: "mongodb-sharded"
       namespace: "mongodb-sharded"
       version: "9.3.6"
@@ -93,7 +93,7 @@ main:
     grafana-tempo:
       enabled: true
       use_vault: false
-      repository: "https://grafana.github.io/helm-charts"
+      repository: "https://grafana-community.github.io/helm-charts"
       chart: "tempo-distributed"
       namespace: "grafana-tempo"
       version: "2.3.2"
@@ -109,7 +109,7 @@ main:
     grafana-dashboards:
       enabled: true
       use_vault: true
-      repository: "https://grafana.github.io/helm-charts"
+      repository: "https://grafana-community.github.io/helm-charts/"
       chart: "grafana"
       namespace: "grafana-dashboard"
       version: "11.1.8"
