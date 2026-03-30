@@ -106,4 +106,4 @@ main:
   app_values:
     grafana-loki:
       - name: "serviceAccount.annotations.eks\\\\.amazonaws\\\\.com/role-arn"
-        value: "${loki_role_arn}"
+        value: "123"
