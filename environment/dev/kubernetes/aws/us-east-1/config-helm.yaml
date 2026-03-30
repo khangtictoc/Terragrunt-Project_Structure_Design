@@ -68,7 +68,7 @@ main:
       use_vault: false
       repository: "https://grafana.github.io/helm-charts"
       chart: "loki"
-      namespace: "loki"
+      namespace: "grafana-loki"
       version: "6.46.0"
 
     grafana-mimir:
