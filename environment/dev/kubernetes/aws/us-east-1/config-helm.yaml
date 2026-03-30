@@ -41,7 +41,7 @@ main:
 
     jenkins:
       enabled: true
-      use_vault: false
+      use_vault: true
       repository: "oci://ghcr.io/jenkinsci/helm-charts"
       chart: "jenkins"
       namespace: "jenkins"

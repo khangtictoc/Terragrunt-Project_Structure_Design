@@ -82,3 +82,12 @@ vault_component_list:
                 }
           service_account: jenkins-inbound-agent
           namespace: jenkins-inbound-agent
+        - name: grafana-dashboard
+          policies:
+            - name: grafana-dashboard
+              content: |
+                path "*" {
+                  capabilities = ["read"]
+                }
+          service_account: grafana-dashboard
+          namespace: grafana-dashboard
