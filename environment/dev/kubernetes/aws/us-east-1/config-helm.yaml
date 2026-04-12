@@ -111,6 +111,14 @@ main:
       namespace: "grafana-dashboard"
       version: "11.1.8"
 
+    velero:
+      enabled: true
+      use_vault: false
+      repository: "https://vmware-tanzu.github.io/helm-charts"
+      chart: "velero"
+      namespace: "velero"
+      version: "11.1.1"
+
   app_values:
     grafana-loki:
       - name: 'serviceAccount.annotations.eks\.amazonaws\.com/role-arn'
