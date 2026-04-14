@@ -53,7 +53,7 @@ main:
       repository: "https://khangtictoc.github.io/jenkins-inbound-agent-helm-chart"
       chart: "jenkins-inbound-agent"
       namespace: "jenkins-inbound-agent"
-      version: "0.15.0"
+      version: "0.16.0"
 
     postgresql:
       enabled: true
