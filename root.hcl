@@ -24,7 +24,7 @@ locals {
     "ManagedBy2"  = "terragrunt"
   }
 
-  cloud_provider = regex(".*/(aws|azure|hcp)/.*", path_relative_to_include())[0]
+  # cloud_provider = regex(".*/(aws|azure|hcp)/.*", path_relative_to_include())[0]
 
   # Profile Settings
   profile = (
@@ -53,7 +53,7 @@ terraform {
     key            = "${path_relative_to_include()}/terragrunt.tfstate"
     region         = "us-east-1"
     encrypt        = true
-    dynamodb_table = "terragrunt-state-lock"
+    use_lockfile   = true
   }
 }
 EOF
