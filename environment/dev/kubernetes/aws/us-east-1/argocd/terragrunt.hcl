@@ -26,10 +26,10 @@ terraform {
 dependency "k8s_cluster" {
   config_path = "../../../../${local.platform}/${local.region}/${local.cluster_type}"
   mock_outputs = {
-    name = "test"
+    name                     = "test"
     service_account_role_arn = "arn:aws:iam::123456789012:role/YourALBControllerRole"
-    vpc_id = "vpc-0abcd1234efgh5678"
-    loki_role_arn = "arn:aws:iam::706396440212:role/LokiS3Role"
+    vpc_id                   = "vpc-0abcd1234efgh5678"
+    loki_role_arn            = "arn:aws:iam::706396440212:role/LokiS3Role"
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }

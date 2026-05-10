@@ -26,10 +26,10 @@ terraform {
 dependency "k8s_cluster" {
   config_path = "../../../../${local.platform}/${local.region}/${local.cluster_type}"
   mock_outputs = {
-    name = "test"
+    name                     = "test"
     service_account_role_arn = "arn:aws:iam::123456789012:role/YourALBControllerRole"
-    vpc_id = "vpc-0abcd1234efgh5678"
-    loki_role_arn = "arn:aws:iam::706396440212:role/LokiS3Role"
+    vpc_id                   = "vpc-0abcd1234efgh5678"
+    loki_role_arn            = "arn:aws:iam::706396440212:role/LokiS3Role"
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
@@ -45,19 +45,19 @@ locals {
   platform     = include.root.locals.platform
   cluster_type = lookup(include.mapping_conventions.locals.cluster_type, local.platform, "")
   arg_masks    = include.root.locals.arg_masks
-  _debug = run_cmd("bash", "-c", "echo DEBUG='${jsonencode(local.region)}'")
+  _debug       = run_cmd("bash", "-c", "echo DEBUG='${jsonencode(local.region)}'")
 }
 
 inputs = yamldecode(
   templatefile("../config-helm.yaml", merge(
     local.arg_masks,
     {
-      region                    = local.region
-      platform                  = local.platform
-      k8s_cluster_name          = dependency.k8s_cluster.outputs.name
-      service_account_role_arn  = dependency.k8s_cluster.outputs.service_account_role_arn
-      loki_role_arn             = dependency.k8s_cluster.outputs.loki_role_arn
-      vpc_id                    = dependency.k8s_cluster.outputs.vpc_id
+      region                   = local.region
+      platform                 = local.platform
+      k8s_cluster_name         = dependency.k8s_cluster.outputs.name
+      service_account_role_arn = dependency.k8s_cluster.outputs.service_account_role_arn
+      loki_role_arn            = dependency.k8s_cluster.outputs.loki_role_arn
+      vpc_id                   = dependency.k8s_cluster.outputs.vpc_id
     }
   ))
 ).main
