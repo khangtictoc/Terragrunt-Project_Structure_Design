@@ -34,8 +34,8 @@ locals {
     "default"
   )
 
-  backend_s3_bucket           = "terragrunt-state-backend-708617"
-  terragrunt_output_s3_bucket = "terragrunt-output-708617"
+  backend_s3_bucket           = get_env("BACKEND_S3_BUCKET", "terragrunt-state-backend")
+  terragrunt_output_s3_bucket = get_env("TERRAGRUNT_OUTPUT_S3_BUCKET", "terragrunt-output")
 }
 
 # ┌──────────────────────────────────────┐
