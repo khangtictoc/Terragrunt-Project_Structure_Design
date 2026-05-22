@@ -67,6 +67,7 @@ dependency "vpc" {
 
 locals {
   velero_bucket_name = include.root.locals.velero_bucket_name
+  _debug = run_cmd("bash", "-c", "echo DEBUG='${jsonencode(local.velero_bucket_name)}'")
   region             = include.root.locals.region
   tags               = include.root.locals.tags
   arg_masks          = include.root.locals.arg_masks
