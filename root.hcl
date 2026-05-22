@@ -11,6 +11,7 @@ locals {
   backend_s3_bucket           = get_env("BACKEND_S3_BUCKET", "terragrunt-state-backend")
   terragrunt_output_s3_bucket = get_env("TERRAGRUNT_OUTPUT_S3_BUCKET", "terragrunt-output")
   velero_bucket_name          = get_env("VELERO_BUCKET_NAME", "velero-backup-kubernetes-aws")
+  _debug = run_cmd("bash", "-c", "echo DEBUG='${jsonencode(local.velero_bucket_name)}'")
 
   # ┌──────────────────────────────────────┐
   # │                                      │
