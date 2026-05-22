@@ -17,6 +17,7 @@ main:
   post_install:
     appgw_to_nginx: true
 
+  # Default domain: https://github.com
   git_repo:
     name: "ArgoCD-Apps"
     author: "khangtictoc"
