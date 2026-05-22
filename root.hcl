@@ -1,7 +1,23 @@
 # https://www.infyways.com/tools/text-box-generator/
 
 locals {
-  # Terragrunt Settings
+
+  # ┌──────────────────────────────────────┐
+  # │                                      │
+  # │        GLOBAL CONFIGURATION          │
+  # │                                      │
+  # └──────────────────────────────────────┘
+
+  backend_s3_bucket           = get_env("BACKEND_S3_BUCKET", "terragrunt-state-backend")
+  terragrunt_output_s3_bucket = get_env("TERRAGRUNT_OUTPUT_S3_BUCKET", "terragrunt-output")
+  velero_bucket_name          = get_env("VELERO_BUCKET_NAME", "velero-backup-kubernetes-aws")
+
+  # ┌──────────────────────────────────────┐
+  # │                                      │
+  # │        TERRAGRUNT SETTINGS           │
+  # │                                      │
+  # └──────────────────────────────────────┘
+
   root_module_path = find_in_parent_folders("root.hcl")
   root_folder_path = "${substr(local.root_module_path, 0, length(local.root_module_path) - 9)}" # Length of "root.hcl" (9)
   environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
@@ -9,7 +25,12 @@ locals {
   platform_vars    = read_terragrunt_config(find_in_parent_folders("platform.hcl"))
   arg_masks        = read_terragrunt_config(find_in_parent_folders("config-args.hcl")).locals.parameters
 
-  # Project Settings
+  # ┌──────────────────────────────────────┐
+  # │                                      │
+  # │        ---PROJECT SETTINGS           │
+  # │                                      │
+  # └──────────────────────────────────────┘
+
   account_name        = "personal"
   global_project_name = get_env("GLOBAL_PROJECT_NAME", "testproject")
   env                 = local.environment_vars.locals.env
@@ -33,10 +54,6 @@ locals {
     local.env == "prod" ? "${local.account_name}-prod" :
     "default"
   )
-
-  backend_s3_bucket           = get_env("BACKEND_S3_BUCKET", "terragrunt-state-backend")
-  terragrunt_output_s3_bucket = get_env("TERRAGRUNT_OUTPUT_S3_BUCKET", "terragrunt-output")
-  velero_bucket_name          = get_env("VELERO_BUCKET_NAME", "velero-backup-kubernetes-aws")
 }
 
 # ┌──────────────────────────────────────┐
