@@ -30,6 +30,7 @@ dependency "k8s_cluster" {
     service_account_role_arn = "arn:aws:iam::123456789012:role/YourALBControllerRole"
     vpc_id                   = "vpc-0abcd1234efgh5678"
     loki_role_arn            = "arn:aws:iam::706396440212:role/LokiS3Role"
+    velero_bucket_name       = "your-velero-bucket-name"
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
@@ -58,6 +59,7 @@ inputs = yamldecode(
       service_account_role_arn = dependency.k8s_cluster.outputs.service_account_role_arn
       loki_role_arn            = dependency.k8s_cluster.outputs.loki_role_arn
       vpc_id                   = dependency.k8s_cluster.outputs.vpc_id
+      velero_bucket_name       = dependency.k8s_cluster.outputs.velero_bucket_name
     }
   ))
 ).main

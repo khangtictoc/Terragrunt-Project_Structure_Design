@@ -7,5 +7,6 @@ locals {
     hcp_vault_public_endpoint = ""
     service_account_role_arn  = ""
     loki_role_arn             = ""
+    velero_bucket_name        = ""
   }
 }
