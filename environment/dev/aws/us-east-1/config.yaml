@@ -75,7 +75,7 @@ eks:
         min_capacity: 1
         disk_size: 50
         instance_types:
-          - "t3.medium"
+          - "c7i-flex.large"
 
       backend:
         desired_capacity: 1
@@ -83,7 +83,7 @@ eks:
         min_capacity: 1
         disk_size: 50
         instance_types:
-          - "t3.medium"
+          - "c7i-flex.large"
 
       oss:
         desired_capacity: 1
@@ -91,7 +91,7 @@ eks:
         min_capacity: 1
         disk_size: 50
         instance_types:
-          - "t3.medium"
+          - "c7i-flex.large"
 
     pod_identity_oss:
       velero:
