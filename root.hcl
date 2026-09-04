@@ -10,7 +10,8 @@ locals {
 
   backend_s3_bucket           = get_env("TERRAGRUNT_BACKEND_S3_BUCKET", "terragrunt-state-backend")
   terragrunt_output_s3_bucket = get_env("TERRAGRUNT_OUTPUT_S3_BUCKET", "terragrunt-output")
-  velero_bucket_name          = get_env("TERRAGRUNT_VELERO_BUCKET_NAME", "velero-backup-kubernetes-aws")
+  velero_s3_bucket            = get_env("TERRAGRUNT_VELERO_S3_BUCKET", "velero-backup-kubernetes-aws")
+  tf_input_s3_bucket          = get_env("TERRAGRUNT_INPUT_S3_BUCKET", "terragrunt-input")
 
   # ┌──────────────────────────────────────┐
   # │                                      │

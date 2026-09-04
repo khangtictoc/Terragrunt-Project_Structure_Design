@@ -66,10 +66,11 @@ dependency "vpc" {
 }
 
 locals {
-  velero_bucket_name = include.root.locals.velero_bucket_name
-  region             = include.root.locals.region
-  tags               = include.root.locals.tags
-  arg_masks          = include.root.locals.arg_masks
+  velero_bucket_name   = include.root.locals.velero_s3_bucket
+  tf_input_bucket_name = include.root.locals.tf_input_s3_bucket
+  region               = include.root.locals.region
+  tags                 = include.root.locals.tags
+  arg_masks            = include.root.locals.arg_masks
 }
 
 inputs = merge(
@@ -77,8 +78,8 @@ inputs = merge(
     templatefile("../config.yaml", merge(
       local.arg_masks,
       {
-        region   = local.region
-        eks_name = dependency.naming.outputs.aws.eks_cluster_name
+        region             = local.region
+        eks_name           = dependency.naming.outputs.aws.eks_cluster_name
         velero_bucket_name = local.velero_bucket_name
       }
     ))

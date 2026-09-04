@@ -23,7 +23,10 @@ main:
     author: "khangtictoc"
     branch: "main"
 
+  # --- List of Components ---------------------------
+
   apps:
+    # Nginx Ingress
     nginx:
       enabled: true
       use_vault: false
@@ -32,6 +35,7 @@ main:
       namespace: "nginx-ingress"
       version: "2.3.0"
 
+    # Cert Manager
     cert-manager:
       enabled: true
       use_vault: false
@@ -40,6 +44,25 @@ main:
       namespace: "cert-manager"
       version: "v1.18.2"
 
+    # Github - Action Runner Controller
+    arc:
+      enabled: true
+      use_vault: false
+      repository: "oci://ghcr.io/actions/actions-runner-controller-charts"
+      chart: "gha-runner-scale-set-controller"
+      namespace: "arc-systems"
+      version: "5.41.0"
+
+    # Github - Runner Scale Set
+    arc-runners:
+      enabled: true
+      use_vault: false
+      repository: "oci://ghcr.io/actions/actions-runner-controller-charts"
+      chart: "gha-runner-scale-set"
+      namespace: "arc-runners"
+      version: "5.41.0"
+
+    # Jenkins
     jenkins:
       enabled: true
       use_vault: true
@@ -48,6 +71,7 @@ main:
       namespace: "jenkins"
       version: "5.8.124"
 
+    # Jenkins Agent
     jenkins-inbound-agent:
       enabled: true
       use_vault: true
@@ -56,6 +80,7 @@ main:
       namespace: "jenkins-inbound-agent"
       version: "0.17.0"
 
+    # PostgreSQL
     postgresql:
       enabled: true
       use_vault: true
@@ -64,6 +89,7 @@ main:
       namespace: "postgresql"
       version: "18.0.17"
 
+    # MongoDB (Sharded Architecture)
     mongodb-sharded:
       enabled: true
       use_vault: true
@@ -72,6 +98,7 @@ main:
       namespace: "mongodb-sharded"
       version: "9.3.6"
 
+    # Grafana Loki
     grafana-loki:
       enabled: true
       use_vault: false
@@ -80,6 +107,7 @@ main:
       namespace: "grafana-loki"
       version: "6.46.0"
 
+    # Grafana Mimir
     grafana-mimir:
       enabled: true
       use_vault: false
@@ -88,6 +116,7 @@ main:
       namespace: "grafana-mimir"
       version: "5.8.0"
 
+    # Grafana Tempo
     grafana-tempo:
       enabled: true
       use_vault: false
@@ -96,6 +125,7 @@ main:
       namespace: "grafana-tempo"
       version: "2.3.2"
 
+    # Grafana Alloy
     grafana-alloy:
       enabled: true
       use_vault: false
@@ -104,6 +134,7 @@ main:
       namespace: "grafana-alloy"
       version: "1.5.3"
 
+    # Grafana Dashboard
     grafana-dashboard:
       enabled: true
       use_vault: true
@@ -112,6 +143,7 @@ main:
       namespace: "grafana-dashboard"
       version: "11.1.8"
 
+    # Velero
     velero:
       enabled: true
       use_vault: false
@@ -125,5 +157,5 @@ main:
       - name: 'serviceAccount.annotations.eks\.amazonaws\.com/role-arn'
         value: "${loki_role_arn}"
     velero:
-      - name: 'configuration.backupStorageLocation[0].bucket'
+      - name: "configuration.backupStorageLocation[0].bucket"
         value: "${velero_bucket_name}"

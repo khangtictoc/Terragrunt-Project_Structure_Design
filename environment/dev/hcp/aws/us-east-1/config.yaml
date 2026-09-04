@@ -35,7 +35,9 @@ vault_component_list:
       version: "1.0.1"
 
     component:
-      secret_yaml_path: https://terragrunt-input.s3.us-east-1.amazonaws.com/secrets.yaml
+      # secret_yaml_url: https://terragrunt-input.s3.us-east-1.amazonaws.com/secrets.yaml
+      secrets_from_s3:
+        key: secrets.yaml
       roles:
         - name: postgresql
           policies:
