@@ -56,7 +56,7 @@ main:
     # Github - Runner Scale Set
     arc-runners:
       enabled: true
-      use_vault: false
+      use_vault: true
       repository: "oci://ghcr.io/actions/actions-runner-controller-charts"
       chart: "gha-runner-scale-set"
       namespace: "arc-runners"

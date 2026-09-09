@@ -95,3 +95,12 @@ vault_component_list:
                 }
           service_account: grafana-dashboard
           namespace: grafana-dashboard
+        - name: arc-runners
+          policies:
+            - name: arc-runners
+              content: |
+                path "*" {
+                  capabilities = ["read"]
+                }
+          service_account: arc-runners
+          namespace: arc-runners
