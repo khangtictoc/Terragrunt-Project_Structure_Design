@@ -42,23 +42,27 @@ dependency "vault_dedicated_cluster" {
 }
 
 locals {
-  arg_masks    = include.root.locals.arg_masks
-  env          = include.root.locals.env
-  region       = include.root.locals.region
-  platform     = include.root.locals.platform
-  cloud_type   = "aws"
-  cluster_type = lookup(include.mapping_conventions.locals.cluster_type, local.cloud_type, "")
+  arg_masks            = include.root.locals.arg_masks
+  env                  = include.root.locals.env
+  region               = include.root.locals.region
+  platform             = include.root.locals.platform
+  tf_input_bucket_name = include.root.locals.tf_input_s3_bucket
+  cloud_type           = "aws"
+  cluster_type         = lookup(include.mapping_conventions.locals.cluster_type, local.cloud_type, "")
 }
 
 inputs = yamldecode(
-  templatefile("../config.yaml", merge(
-    local.arg_masks,
-    {
-      region                     = local.region
-      platform                   = local.platform
-      k8s_cluster_name           = dependency.k8s_cluster.outputs.name
-      vault_cluster__address     = dependency.vault_dedicated_cluster.outputs.public_endpoint
-      vault_cluster__admin_token = dependency.vault_dedicated_cluster.outputs.admin_token
-    }
-  ))
+  templatefile("../config.yaml",
+    merge(
+      local.arg_masks,
+      {
+        region                     = local.region
+        platform                   = local.platform
+        k8s_cluster_name           = dependency.k8s_cluster.outputs.name
+        vault_cluster__address     = dependency.vault_dedicated_cluster.outputs.public_endpoint
+        vault_cluster__admin_token = dependency.vault_dedicated_cluster.outputs.admin_token
+        tf_input_bucket_name       = local.tf_input_bucket_name
+      }
+    )
+  )
 ).vault_component_list.main

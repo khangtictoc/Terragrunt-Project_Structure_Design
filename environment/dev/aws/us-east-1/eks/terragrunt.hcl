@@ -66,11 +66,10 @@ dependency "vpc" {
 }
 
 locals {
-  velero_bucket_name   = include.root.locals.velero_s3_bucket
-  tf_input_bucket_name = include.root.locals.tf_input_s3_bucket
-  region               = include.root.locals.region
-  tags                 = include.root.locals.tags
-  arg_masks            = include.root.locals.arg_masks
+  velero_bucket_name = include.root.locals.velero_s3_bucket
+  region             = include.root.locals.region
+  tags               = include.root.locals.tags
+  arg_masks          = include.root.locals.arg_masks
 }
 
 inputs = merge(

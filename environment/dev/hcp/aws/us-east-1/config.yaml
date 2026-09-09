@@ -37,6 +37,7 @@ vault_component_list:
     component:
       # secret_yaml_url: https://terragrunt-input.s3.us-east-1.amazonaws.com/secrets.yaml
       secrets_from_s3:
+        bucket: ${tf_input_bucket_name}
         key: secrets.yaml
       roles:
         - name: postgresql

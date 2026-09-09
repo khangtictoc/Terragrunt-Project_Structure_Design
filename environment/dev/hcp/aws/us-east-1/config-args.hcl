@@ -10,5 +10,6 @@ locals {
     vault_cluster__address     = ""
     vault_cluster__admin_token = ""
     k8s_cluster__name          = ""
+    tf_input_bucket_name       = ""
   }
 }
