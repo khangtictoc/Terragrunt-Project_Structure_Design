@@ -51,7 +51,7 @@ main:
       repository: "oci://ghcr.io/actions/actions-runner-controller-charts"
       chart: "gha-runner-scale-set-controller"
       namespace: "arc-systems"
-      version: "5.41.0"
+      version: "0.14.2"
 
     # Github - Runner Scale Set
     arc-runners:
@@ -60,7 +60,7 @@ main:
       repository: "oci://ghcr.io/actions/actions-runner-controller-charts"
       chart: "gha-runner-scale-set"
       namespace: "arc-runners"
-      version: "5.41.0"
+      version: "0.14.2"
 
     # Jenkins
     jenkins:
