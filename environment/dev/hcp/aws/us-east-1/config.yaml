@@ -34,11 +34,12 @@ vault_component_list:
       namespace: "vault-secrets-operator"
       version: "1.0.1"
 
+    # secret_from_url: https://terragrunt-input.s3.us-east-1.amazonaws.com/secrets.yaml
+    secrets_from_s3:
+      bucket: ${tf_input_bucket_name}
+      key: secrets.yaml
+
     component:
-      # secret_yaml_url: https://terragrunt-input.s3.us-east-1.amazonaws.com/secrets.yaml
-      secrets_from_s3:
-        bucket: ${tf_input_bucket_name}
-        key: secrets.yaml
       roles:
         - name: postgresql
           policies:
