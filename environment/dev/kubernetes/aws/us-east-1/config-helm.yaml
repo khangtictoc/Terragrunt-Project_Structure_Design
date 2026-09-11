@@ -10,18 +10,30 @@ main:
     service_account_role_arn: "${service_account_role_arn}"
     vpc_id: "${vpc_id}"
 
-  manifests:
+  k8s_resources:
     git_repo:
       name: "ArgoCD-Apps"
       author: "khangtictoc"
       branch: "main"
 
-    prerequisites_path_list:
-      - "manifest/kubernetes/namespace.yaml"
-      - "manifest/${platform}/default-storageclass.yaml"
+    prerequisites:
+      manifests:
+        path_list:
+          - "manifest/kubernetes/namespace.yaml"
+          - "manifest/${platform}/default-storageclass.yaml"
 
-    post_install_path_list:
-      - "manifest/oss/nginx/ingress-alb-to-nginx.yaml"
+      helm:
+        bootstrap:
+          enabled: true
+          use_vault: false
+          repository: "https://bootstrap-71b994.gitlab.io"
+          chart: "bootstrap"
+          namespace: ""
+          version: "0.1.0"
+
+    post_install:
+      path_list:
+        - "manifest/oss/nginx/ingress-alb-to-nginx.yaml"
 
   # --- List of Components ---------------------------
 
