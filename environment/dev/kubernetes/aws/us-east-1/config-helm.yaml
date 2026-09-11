@@ -28,7 +28,7 @@ main:
           use_vault: false
           repository: "https://bootstrap-71b994.gitlab.io"
           chart: "bootstrap"
-          namespace: ""
+          namespace: "default"
           version: "0.1.0"
 
     post_install:
