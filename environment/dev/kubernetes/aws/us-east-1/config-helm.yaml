@@ -25,7 +25,6 @@ main:
       helm:
         bootstrap:
           enabled: true
-          use_vault: false
           repository: "https://bootstrap-71b994.gitlab.io"
           chart: "bootstrap"
           namespace: "default"
@@ -35,139 +34,126 @@ main:
       path_list:
         - "manifest/oss/nginx/ingress-alb-to-nginx.yaml"
 
-  # --- List of Components ---------------------------
+  # --- List of Platform Services ---------------------------
 
   apps:
-    # Nginx Ingress
+
     nginx:
       enabled: true
-      use_vault: false
       repository: "oci://ghcr.io/nginx/charts"
       chart: "nginx-ingress"
       namespace: "nginx-ingress"
       version: "2.3.0"
 
-    # Cert Manager
     cert-manager:
       enabled: true
-      use_vault: false
       repository: "oci://quay.io/jetstack/charts"
       chart: "cert-manager"
       namespace: "cert-manager"
       version: "v1.18.2"
 
-    # Github - Action Runner Controller
     arc:
       enabled: true
-      use_vault: false
       repository: "oci://ghcr.io/actions/actions-runner-controller-charts"
       chart: "gha-runner-scale-set-controller"
       namespace: "arc-systems"
       version: "0.14.2"
 
-    # Github - Runner Scale Set
     arc-runners:
       enabled: true
-      use_vault: true
       repository: "oci://ghcr.io/actions/actions-runner-controller-charts"
       chart: "gha-runner-scale-set"
       namespace: "arc-runners"
       version: "0.14.2"
 
-    # Jenkins
     jenkins:
       enabled: true
-      use_vault: true
       repository: "oci://ghcr.io/jenkinsci/helm-charts"
       chart: "jenkins"
       namespace: "jenkins"
       version: "5.8.124"
 
-    # Jenkins Agent
     jenkins-inbound-agent:
       enabled: true
-      use_vault: true
       repository: "https://khangtictoc.github.io/jenkins-inbound-agent-helm-chart"
       chart: "jenkins-inbound-agent"
       namespace: "jenkins-inbound-agent"
       version: "0.17.0"
 
-    # PostgreSQL
     postgresql:
       enabled: true
-      use_vault: true
       repository: "oci://registry-1.docker.io/bitnamicharts"
       chart: "postgresql"
       namespace: "postgresql"
       version: "18.0.17"
 
-    # MongoDB (Sharded Architecture)
     mongodb-sharded:
       enabled: true
-      use_vault: true
       repository: "oci://registry-1.docker.io/bitnamicharts"
       chart: "mongodb-sharded"
       namespace: "mongodb-sharded"
       version: "9.3.6"
 
-    # Grafana Loki
     grafana-loki:
       enabled: true
-      use_vault: false
       repository: "https://grafana.github.io/helm-charts"
       chart: "loki"
       namespace: "grafana-loki"
       version: "6.46.0"
 
-    # Grafana Mimir
     grafana-mimir:
       enabled: true
-      use_vault: false
       repository: "https://grafana.github.io/helm-charts"
       chart: "mimir-distributed"
       namespace: "grafana-mimir"
       version: "5.8.0"
 
-    # Grafana Tempo
     grafana-tempo:
       enabled: true
-      use_vault: false
       repository: "https://grafana-community.github.io/helm-charts"
       chart: "tempo-distributed"
       namespace: "grafana-tempo"
       version: "2.3.2"
 
-    # Grafana Alloy
     grafana-alloy:
       enabled: true
-      use_vault: false
       repository: "https://grafana.github.io/helm-charts"
       chart: "alloy"
       namespace: "grafana-alloy"
       version: "1.5.3"
 
-    # Grafana Dashboard
     grafana-dashboard:
       enabled: true
-      use_vault: true
       repository: "https://grafana-community.github.io/helm-charts/"
       chart: "grafana"
       namespace: "grafana-dashboard"
       version: "11.1.8"
 
-    # Velero
     velero:
       enabled: true
-      use_vault: false
       repository: "https://vmware-tanzu.github.io/helm-charts"
       chart: "velero"
       namespace: "velero"
       version: "11.1.1"
 
   app_values:
+
     grafana-loki:
       - name: 'serviceAccount.annotations.eks\.amazonaws\.com/role-arn'
         value: "${loki_role_arn}"
+
     velero:
       - name: "configuration.backupStorageLocation[0].bucket"
         value: "${velero_bucket_name}"
+
+    aws-load-balancer-controller:
+      - name: 'clusterName'
+        value: ${k8s_cluster_name}
+      - name: serviceAccount.create
+        value: "false"
+      - name: serviceAccount.name
+        value: "aws-load-balancer-controller"
+      - name: region
+        value: ${region}
+      - name: vpcId
+        value: ${vpc_id}
