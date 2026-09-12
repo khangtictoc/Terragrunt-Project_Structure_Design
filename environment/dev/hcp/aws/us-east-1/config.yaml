@@ -48,7 +48,7 @@ vault_component_list:
                 path "*" {
                   capabilities = ["read"]
                 }
-          service_account: postgresql
+          service_account: vault-postgresql
           namespace: postgresql
         - name: mongodb-sharded
           policies:
@@ -57,7 +57,7 @@ vault_component_list:
                 path "*" {
                   capabilities = ["read"]
                 }
-          service_account: mongodb-sharded
+          service_account: vault-mongodb-sharded
           namespace: mongodb-sharded
         - name: jenkins
           policies:
@@ -66,7 +66,7 @@ vault_component_list:
                 path "*" {
                   capabilities = ["read"]
                 }
-          service_account: jenkins
+          service_account: vault-jenkins
           namespace: jenkins
         - name: jenkins-inbound-agent-dockerhub-connector
           policies:
@@ -75,7 +75,7 @@ vault_component_list:
                 path "*" {
                   capabilities = ["read"]
                 }
-          service_account: jenkins-inbound-agent
+          service_account: vault-jenkins-inbound-agent
           namespace: jenkins-inbound-agent
         - name: jenkins-inbound-agent
           policies:
@@ -84,7 +84,7 @@ vault_component_list:
                 path "*" {
                   capabilities = ["read"]
                 }
-          service_account: jenkins-inbound-agent
+          service_account: vault-jenkins-inbound-agent
           namespace: jenkins-inbound-agent
         - name: grafana-dashboard
           policies:
@@ -93,7 +93,7 @@ vault_component_list:
                 path "*" {
                   capabilities = ["read"]
                 }
-          service_account: grafana-dashboard
+          service_account: vault-grafana-dashboard
           namespace: grafana-dashboard
         - name: arc-runners
           policies:
@@ -102,5 +102,5 @@ vault_component_list:
                 path "*" {
                   capabilities = ["read"]
                 }
-          service_account: arc-runners
+          service_account: vault-arc-runners
           namespace: arc-runners
