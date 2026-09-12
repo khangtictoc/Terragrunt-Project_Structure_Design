@@ -50,6 +50,7 @@ vault_component_list:
                 }
           service_account: vault-postgresql
           namespace: postgresql
+
         - name: mongodb-sharded
           policies:
             - name: mongodb-sharded
@@ -59,6 +60,7 @@ vault_component_list:
                 }
           service_account: vault-mongodb-sharded
           namespace: mongodb-sharded
+
         - name: jenkins
           policies:
             - name: jenkins
@@ -68,15 +70,7 @@ vault_component_list:
                 }
           service_account: vault-jenkins
           namespace: jenkins
-        - name: jenkins-inbound-agent-dockerhub-connector
-          policies:
-            - name: jenkins-inbound-agent-dockerhub-connector
-              content: |
-                path "*" {
-                  capabilities = ["read"]
-                }
-          service_account: vault-jenkins-inbound-agent
-          namespace: jenkins-inbound-agent
+
         - name: jenkins-inbound-agent
           policies:
             - name: jenkins-inbound-agent
@@ -86,6 +80,7 @@ vault_component_list:
                 }
           service_account: vault-jenkins-inbound-agent
           namespace: jenkins-inbound-agent
+
         - name: grafana-dashboard
           policies:
             - name: grafana-dashboard
@@ -95,6 +90,7 @@ vault_component_list:
                 }
           service_account: vault-grafana-dashboard
           namespace: grafana-dashboard
+          
         - name: arc-runners
           policies:
             - name: arc-runners
