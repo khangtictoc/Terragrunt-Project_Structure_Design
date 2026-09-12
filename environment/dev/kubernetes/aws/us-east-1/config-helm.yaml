@@ -19,7 +19,6 @@ main:
     prerequisites:
       manifests:
         path_list:
-          - "manifest/kubernetes/namespace.yaml"
           - "manifest/${platform}/default-storageclass.yaml"
 
       helm:
@@ -33,11 +32,11 @@ main:
     post_install:
       path_list:
         - "manifest/oss/nginx/ingress-alb-to-nginx.yaml"
+        - "manifest/oss/velero/schedule.yaml"
 
   # --- List of Platform Services ---------------------------
 
   apps:
-
     nginx:
       enabled: true
       repository: "oci://ghcr.io/nginx/charts"
@@ -137,7 +136,6 @@ main:
       version: "11.1.1"
 
   app_values:
-
     grafana-loki:
       - name: 'serviceAccount.annotations.eks\.amazonaws\.com/role-arn'
         value: "${loki_role_arn}"
@@ -147,7 +145,7 @@ main:
         value: "${velero_bucket_name}"
 
     aws-load-balancer-controller:
-      - name: 'clusterName'
+      - name: "clusterName"
         value: ${k8s_cluster_name}
       - name: serviceAccount.create
         value: "false"
