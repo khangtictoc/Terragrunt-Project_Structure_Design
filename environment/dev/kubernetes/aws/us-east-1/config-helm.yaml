@@ -29,7 +29,7 @@ main:
           repository: "https://bootstrap-71b994.gitlab.io"
           chart: "bootstrap"
           namespace: "default"
-          version: "0.1.0"
+          version: "0.2.0"
 
     post_install:
       path_list:
