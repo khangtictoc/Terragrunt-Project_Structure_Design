@@ -28,6 +28,13 @@ main:
           chart: "bootstrap"
           namespace: "default"
           version: "0.3.0"
+        arc:
+          enabled: true
+          repository: "oci://ghcr.io/actions/actions-runner-controller-charts"
+          chart: "gha-runner-scale-set-controller"
+          namespace: "arc-systems"
+          version: "0.14.2"
+        
 
     post_install:
       path_list:
@@ -50,13 +57,6 @@ main:
       chart: "cert-manager"
       namespace: "cert-manager"
       version: "v1.18.2"
-
-    arc:
-      enabled: true
-      repository: "oci://ghcr.io/actions/actions-runner-controller-charts"
-      chart: "gha-runner-scale-set-controller"
-      namespace: "arc-systems"
-      version: "0.14.2"
 
     arc-runners:
       enabled: true
