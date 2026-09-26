@@ -48,7 +48,7 @@ inputs = merge(
         vpc_name = dependency.naming.outputs.aws["vpc_name"]
       }
     ))
-  ).vpcs.main,
+  ).vpc.main,
   {
     tags = local.tags
   }
