@@ -1,3 +1,5 @@
+# --- HEADERS --------------------
+
 include "root" {
   path   = find_in_parent_folders("root.hcl")
   expose = true
@@ -8,20 +10,21 @@ include "mapping_conventions" {
   expose = true
 }
 
-# Use self-developed modules
+# --- IMPORT MODULES --------------------
+
+## [1] -> Use self-developed modules
+
 # terraform {
 #     source = "../../../../../modules/aws/vpc"
 # }
 
-# ┌──────────────────────────────────────┐
-# │                                      │
-# │    Use Official  Community Module    │
-# │                                      │
-# └──────────────────────────────────────┘
+## [2] -> Use remote modules (Community, Gitlab, Github, etc.)
 
 terraform {
   source = "git::https://gitlab.com/terraform-modules7893436/kubernetes-deploy/helm.git?ref=main"
 }
+
+# --- DEPENDENCIES --------------------
 
 dependency "k8s_cluster" {
   config_path = "../../../../${local.platform}/${local.region}/${local.cluster_type}"
@@ -39,6 +42,8 @@ dependency "hcp_vault_components" {
   config_path  = "../../../../hcp/${local.platform}/${local.region}/vault-components"
   skip_outputs = true
 }
+
+# --- INPUT VALUES --------------------
 
 locals {
   env          = include.root.locals.env

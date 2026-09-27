@@ -1,25 +1,25 @@
+# --- HEADERS --------------------
+
 include "root" {
   path   = find_in_parent_folders("root.hcl")
   expose = true
 }
 
+# --- IMPORT MODULES --------------------
 
+## [1] -> Use self-developed modules
 
-# Use self-developed modules
 # terraform {
-#     source = "../../../../../modules/azure/naming"
+#     source = "../../../../../modules/aws/vpc"
 # }
 
-# ┌──────────────────────────────────────────────────────────────────┐ 
-# │                                                                  │
-# │    Self-developed  Module - Terraform HashiCorp Registry         │ 
-# │                                                                  │
-# └──────────────────────────────────────────────────────────────────┘
+## [2] -> Use remote modules (Community, Gitlab, Github, etc.)
 
-# Use self-developed modules
 terraform {
   source = "git::https://gitlab.com/terraform-modules7893436/general/naming.git?ref=main"
 }
+
+# --- INPUT VALUES --------------------
 
 locals {
   env     = include.root.locals.env

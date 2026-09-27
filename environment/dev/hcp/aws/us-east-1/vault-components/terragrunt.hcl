@@ -1,3 +1,5 @@
+# --- HEADERS --------------------
+
 include "root" {
   path   = find_in_parent_folders("root.hcl")
   expose = true
@@ -8,20 +10,21 @@ include "mapping_conventions" {
   expose = true
 }
 
-# Use self-developed modules
+# --- IMPORT MODULES --------------------
+
+## [1] -> Use self-developed modules
+
 # terraform {
 #     source = "../../../../../modules/aws/vpc"
 # }
 
-# ┌──────────────────────────────────────┐
-# │                                      │
-# │    Use Official  Community Module    │
-# │                                      │
-# └──────────────────────────────────────┘
+## [2] -> Use remote modules (Community, Gitlab, Github, etc.)
 
 terraform {
   source = "git::https://gitlab.com/terraform-modules7893436/hcp/vault-components.git?ref=main"
 }
+
+# --- DEPENDENCIES --------------------
 
 dependency "k8s_cluster" {
   config_path = "../../../../${local.cloud_type}/${local.region}/${local.cluster_type}"
@@ -41,12 +44,16 @@ dependency "vault_dedicated_cluster" {
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
 
+# --- INPUT VALUES --------------------
+
 locals {
+  cloud_type           = "aws"
+
   env                  = include.root.locals.env
   region               = include.root.locals.region
   platform             = include.root.locals.platform
   tf_input_bucket_name = include.root.locals.tf_input_s3_bucket
-  cluster_type         = lookup(include.mapping_conventions.locals.cluster_type, local.platform, "")
+  cluster_type         = lookup(include.mapping_conventions.locals.cluster_type, local.cloud_type, "")
 
   arg_masks            = include.root.locals.arg_masks
 }

@@ -1,3 +1,5 @@
+# --- HEADERS --------------------
+
 include "root" {
   path   = find_in_parent_folders("root.hcl")
   expose = true
@@ -5,23 +7,21 @@ include "root" {
 
 
 
-# Use self-developed modules
+# --- IMPORT MODULES --------------------
+
+## [1] -> Use self-developed modules
+
 # terraform {
-#     source = "../../../../../modules/azure/vnet"
+#     source = "../../../../../modules/aws/vpc"
 # }
 
-# ┌──────────────────────────────────────────────────────────────────┐ 
-# │                                                                  │
-# │    Self-developed  Module - Terraform HashiCorp Registry         │ 
-# │                                                                  │
-# └──────────────────────────────────────────────────────────────────┘
+## [2] -> Use remote modules (Community, Gitlab, Github, etc.)
 
-# Use self-developed modules
 terraform {
   source = "git::https://gitlab.com/terraform-modules7893436/aws/eks.git?ref=main"
 }
 
-# ---- DEPENDENCIES ----
+# --- DEPENDENCIES --------------------
 
 dependency "naming" {
   config_path = "../naming"
@@ -65,6 +65,8 @@ dependency "vpc" {
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
 }
+
+# --- INPUT VALUES --------------------
 
 locals {
   velero_bucket_name = include.root.locals.velero_s3_bucket

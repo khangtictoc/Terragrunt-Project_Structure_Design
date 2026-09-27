@@ -1,22 +1,26 @@
+# --- HEADERS --------------------
+
 include "root" {
   path   = find_in_parent_folders("root.hcl")
   expose = true
 }
 
-# Use self-developed modules
+# --- IMPORT MODULES --------------------
+
+
+## [1] -> Use self-developed modules
+
 # terraform {
 #     source = "../../../../../modules/aws/vpc"
 # }
 
-# ┌──────────────────────────────────────┐
-# │                                      │
-# │    Use Official  Community Module    │
-# │                                      │
-# └──────────────────────────────────────┘
+## [2] -> Use remote modules (Community, Gitlab, Github, etc.)
 
 terraform {
   source = "git::https://gitlab.com/terraform-modules7893436/hcp/vault-dedicated-cluster.git?ref=main"
 }
+
+# --- INPUT VALUES --------------------
 
 locals {
   name   = "testproject-${local.env}"
