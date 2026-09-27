@@ -18,27 +18,17 @@ include "root" {
 
 # Use self-developed modules
 terraform {
-  source = "git::https://gitlab.com/terraform-modules7893436/azure/naming.git?ref=main"
+  source = "git::https://gitlab.com/terraform-modules7893436/general/naming.git?ref=main"
 }
 
 locals {
-  env = include.root.locals.env
+  env     = include.root.locals.env
+  config  = yamldecode(file("../config.yaml"))
+  project = local.config.project
 }
 
 inputs = {
-  project = {
-    name = "testproject"
-    aws = {
-      eks_cluster = {
-        target_name = "general"
-        index       = 0
-      }
-      vpc = {
-        target_name = "general"
-        index       = 0
-      }
-    }
-  }
-  env = local.env
+  project = local.project
+  env     = local.env
 }
 

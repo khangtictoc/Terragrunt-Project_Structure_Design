@@ -1,8 +1,18 @@
+project:
+  name: "testproject"
+  aws:
+    eks_cluster:
+      - name: "general"
+        index: 0
+    vpc:
+      - name: "general"
+        index: 0
+
 vpc:
   main:
-    name: ${vpc_name}
+    name: "${vpc_name}"
     cidr: "10.0.0.0/16"
-    region: ${region}
+    region: "us-east-1"
 
     subnets:
       application-a:
@@ -35,12 +45,10 @@ vpc:
 eks:
   main:
     name: "${eks_name}"
-    region: ${region}
+    region: "us-east-1"
     cluster_version: "1.33"
     auto_mode: false
     extend_max_pods_with_prefix_delegates: true
-
-    velero_bucket_name: ${velero_bucket_name}
 
     alb_ingress_controller:
       enabled: true
@@ -58,12 +66,8 @@ eks:
 
     vpc_config:
       endpoint_public_access: true
-
-      # OVERRIDED by 'terragrunt.hcl' in parent folder
       control_plane_subnet_: []
       node_groups_subnet_ids: []
-
-      # OVERRIDED by 'terragrunt.hcl' in parent folder
       nat_gateway:
         enabled: true
         subnet_id: ""
