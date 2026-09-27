@@ -27,8 +27,9 @@ dependency "naming" {
   config_path = "../naming"
   mock_outputs = {
     aws = {
-      eks_cluster_name = "test"
-      vpc_name         = "test"
+      eks_cluster_names = {
+        general = "sample-eks-cluster-name"
+      }
     }
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
@@ -78,7 +79,7 @@ inputs = merge(
       local.arg_masks,
       {
         region             = local.region
-        eks_name           = dependency.naming.outputs.aws.eks_cluster_name
+        eks_name           = dependency.naming.outputs.aws.eks_cluster_names["general"]
         velero_bucket_name = local.velero_bucket_name
       }
     ))

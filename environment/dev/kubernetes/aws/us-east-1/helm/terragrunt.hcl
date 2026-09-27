@@ -50,7 +50,7 @@ locals {
 }
 
 inputs = yamldecode(
-  templatefile("../config-helm.yaml", merge(
+  templatefile("../config.yaml", merge(
     local.arg_masks,
     {
       region                   = local.region

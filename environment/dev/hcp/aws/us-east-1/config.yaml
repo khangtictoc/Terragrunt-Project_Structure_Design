@@ -2,6 +2,7 @@
 vault_dedicated_cluster_list:
   main:
     created: true
+
     hvn:
       enable_peering: false
       id: ${hvn_id}
@@ -9,6 +10,7 @@ vault_dedicated_cluster_list:
       route_id: ${route_id}
       region: ${region}
       cloud_provider: aws
+      
     cluster:
       id: ${cluster_id}
       peering_id: testproject-dev
