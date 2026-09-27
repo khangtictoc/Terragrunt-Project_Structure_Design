@@ -42,13 +42,13 @@ dependency "vault_dedicated_cluster" {
 }
 
 locals {
-  arg_masks            = include.root.locals.arg_masks
   env                  = include.root.locals.env
   region               = include.root.locals.region
   platform             = include.root.locals.platform
   tf_input_bucket_name = include.root.locals.tf_input_s3_bucket
-  cloud_type           = "aws"
-  cluster_type         = lookup(include.mapping_conventions.locals.cluster_type, local.cloud_type, "")
+  cluster_type         = lookup(include.mapping_conventions.locals.cluster_type, local.platform, "")
+
+  arg_masks            = include.root.locals.arg_masks
 }
 
 inputs = yamldecode(
