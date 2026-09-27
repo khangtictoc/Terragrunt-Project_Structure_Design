@@ -34,7 +34,6 @@ main:
           chart: "gha-runner-scale-set-controller"
           namespace: "arc-systems"
           version: "0.14.2"
-        
 
     post_install:
       path_list:
@@ -105,7 +104,7 @@ main:
       repository: "https://grafana.github.io/helm-charts"
       chart: "mimir-distributed"
       namespace: "grafana-mimir"
-      version: "5.8.0"
+      version: "6.1.0"
 
     grafana-tempo:
       enabled: true
