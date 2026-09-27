@@ -27,7 +27,9 @@ dependency "naming" {
   config_path = "../naming"
   mock_outputs = {
     aws = {
-      vpc_name = "test"
+      vpc_names = {
+        general = "sample-vpc-name"
+      }
     }
   }
   mock_outputs_allowed_terraform_commands = ["apply", "plan", "destroy", "output"]
@@ -45,7 +47,8 @@ inputs = merge(
       local.arg_masks,
       {
         region   = local.region
-        vpc_name = dependency.naming.outputs.aws["vpc_name"]
+        vpc_name = dependency.naming.outputs.aws.vpc_names["general"]
+        tags     = local.tags
       }
     ))
   ).vpc.main,
